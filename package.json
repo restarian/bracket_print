@@ -8,6 +8,9 @@
     "colors": "^1.0.0"
   },
   "devDependencies": {},
+  "dependencies": {
+    "colors": ""
+  },
   "repository": {
     "type": "git",
     "url": ""
