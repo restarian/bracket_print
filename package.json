@@ -1,0 +1,43 @@
+{
+  "name": "wizkit_print",
+  "version": "0.0.5",
+  "description": "A terminal and browser logging tool.",
+  "main": "lib/print.js",
+  "homepage": "https://restarian.com",
+  "dependencies": {
+    "colors": "^1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+  },
+  "keywords": [
+    "restarian",
+    "log",
+    "logger",
+    "logging",
+    "console",
+    "print"
+  ],
+  "author": {
+    "name": "Robert Edward Steckroth II",
+    "email": "RobertSteckroth@gmail.com",
+    "url": "https://restarian.com"
+  },
+  "licenses": [
+    {
+      "type": "GPLv3",
+      "url": "https://www.gnu.org/licenses/gpl.html"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "nickali",
+      "email": "robertsteckroth@gmail.com"
+    }
+  ],
+  "directories": {}
+}
