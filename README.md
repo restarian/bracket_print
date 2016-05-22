@@ -1,4 +1,4 @@
-![Wizkit](https://github.com/restarian/wizkit_print/blob/master/doc/image/Wizkit_logo_2_240x317.png)
+![Wizkit](https://raw.githubusercontent.com/restarian/wizkit_print/master/doc/image/Wizkit_logo_240x317.png)
 
 # Print
 
