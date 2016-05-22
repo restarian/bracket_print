@@ -5,7 +5,7 @@
   "main": "lib/print.js",
   "homepage": "https://restarian.com",
   "dependencies": {
-    "colors": ""
+    "colors": ">=1.0.0"
   },
   "devDependencies": {},
   "repository": {
