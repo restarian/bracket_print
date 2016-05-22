@@ -1,6 +1,19 @@
 var Print = require("../")
 
-var up = new Print("Example 1").set_option({"debug": "verbose"})
+var up = new Print("Example 1").set_option({"debug": "verbose", use_title: false})
+var complex_object = {a: {b: 34, cc: 3213}, wa: 32}
+up.compress_level = 4
+up.quoting = "single"
+up.indentation_string = ">"
+up.log(complex_object)
+up.compress_level = 2
+
+up.line(" "," ").sp("..and compress the object").log("to level", up.compress_level, complex_object)
+up.line().line().sp("..and compress the object").set_option({compress_level: 3}).log("to level", 3, complex_object)
+up.quoting = "double"
+up.line(" "," ").sp("..and compress the object").set_option({compress_level: 2}).log("to level", 2, complex_object)
+up.quoting = "none"
+up.line(" "," ").sp("..and compress the object").set_option({compress_level: 1}).log("to level", 1, complex_object)
 
 up.sp("The first instance of Print will store the default settings for the others.")
   .line("Here are the configurable settings:", up.mutable_options()).log()
@@ -10,7 +23,6 @@ up.log("Calling log with multiple arguments", "will use the", "last known",
 
 var cont = up.line("Adding lines is easy now").log("These use the last known", "separator (a line now)")
 cont.log("We can continue form any point including..", "..log() call.")
-
 
 // A new copy of the logger is created every time a logging command is called form the base class.
 var log_1 = up.sp("Instance one of the logger.")
