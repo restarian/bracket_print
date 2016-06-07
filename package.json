@@ -1,6 +1,6 @@
 {
   "name": "wizkit_print",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A terminal and browser logging tool.",
   "main": "lib/wizkit_print.js",
   "homepage": "https://restarian.com",
@@ -20,7 +20,7 @@
     "logging",
     "console",
     "print",
-"html"
+    "html"
   ],
   "author": {
     "name": "Robert Edward Steckroth II",
