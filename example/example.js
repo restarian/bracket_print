@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var Print = require("../wizkit_print")
+=======
+var Print = require("../")
+>>>>>>> 79c666f3739f6e3c947f02667821448ede49bd58
 
 var up = new Print("Example 1").set_option({"debug": "verbose", use_title: false})
 var complex_object = {a: {b: 34, cc: 3213}, wa: 32}
