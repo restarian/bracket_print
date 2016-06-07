@@ -1,0 +1,47 @@
+{
+  "name": "wizkit_print",
+  "version": "0.1.0",
+  "description": "A terminal and browser logging tool.",
+  "main": "lib/wizkit_print.js",
+  "homepage": "https://restarian.com",
+  "dependencies": {
+    "colors": ">=1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/restarian/wizkit_print.git"
+  },
+  "scripts": {},
+  "keywords": [
+    "restarian",
+    "log",
+    "logger",
+    "logging",
+    "console",
+    "print"
+  ],
+  "author": {
+    "name": "Robert Edward Steckroth II",
+    "email": "RobertSteckroth@gmail.com",
+    "url": "https://restarian.com"
+  },
+  "license": "GPL-3.0",
+  "maintainers": [
+    {
+      "name": "nickali",
+      "email": "robertsteckroth@gmail.com"
+    }
+  ],
+  "directories": {},
+  "readme": "![Wizkit](https://raw.githubusercontent.com/restarian/wizkit_print/master/doc/image/Wizkit_logo_240x317.png)\n\n# Print\n\n### A print aid with colorful output to the terminal and browser console.\n..part of the Wizkit suite\n_____\n\n\n docs pending..\n",
+  "readmeFilename": "README.md",
+  "gitHead": "99fbcbcf2ca17af3ad1fdadb7534b42efb8035e2",
+  "bugs": {
+    "url": "https://github.com/restarian/wizkit_print/issues"
+  },
+  "_id": "wizkit_print@0.0.10",
+  "_shasum": "b071548157c0099a6a4d4a38080dd22d351f70d6",
+  "_from": "node_modules/wizkit_suite/node_modules/wizkit_print",
+  "_resolved": "file:node_modules/wizkit_suite/node_modules/wizkit_print"
+}
