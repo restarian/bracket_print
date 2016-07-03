@@ -40,8 +40,9 @@
   "bugs": {
     "url": "https://github.com/restarian/wizkit_print/issues"
   },
-  "_id": "wizkit_print@0.0.10",
-  "_shasum": "b071548157c0099a6a4d4a38080dd22d351f70d6",
-  "_from": "node_modules/wizkit_suite/node_modules/wizkit_print",
-  "_resolved": "file:node_modules/wizkit_suite/node_modules/wizkit_print"
+  "_id": "wizkit_print@0.1.1",
+  "_shasum": "77396e05bc972ae358605a522e75ef29c06b057e",
+  "_from": "wizkit_print@>=0.1.1 <0.2.0",
+  "_resolved": "file:node_modules/wizkit_suite/node_modules/wizkit_print",
+  "gitHead": "fbef8a032b21190b4410804fcd771b70b33aa89f"
 }
