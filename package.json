@@ -1,6 +1,6 @@
 {
   "name": "wizkit_print",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A terminal and browser logging tool.",
   "main": "lib/wizkit_print.js",
   "homepage": "https://restarian.com",
