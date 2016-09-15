@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-var Print = require("../wizkit_print")
-=======
 var Print = require("../")
->>>>>>> 79c666f3739f6e3c947f02667821448ede49bd58
 
 var up = new Print("Example 1").set_option({"debug": "verbose", use_title: false})
 var complex_object = {a: {b: 34, cc: 3213}, wa: 32}
@@ -34,17 +30,14 @@ var log_2 = up.sp("Instance two of the logger.")
 log_1.log()
 log_2.log()
 
-log_1.log("This is called again after the first time sense the original text is strored in the logger instance created by the parent class.")
+log_1.log("This is called again after the frst time sense the original text is strored in the logger instance created by the parent class.")
 log_1.clear().log("The logger can have its text cleared with the clear() command.")
 
 var logger = up.sp("Some text for example sake.")
 
 up.log("Print also accepts itself as a logging potion other than text", logger)
 
-up.log("The text() method will return a plain string instead of pretty logging ->", logger.text())
-
-up.log("The contains_text property will tell us if the logger is holding anything (which can be cleared)",
-  up.sp("Some text").contains_text, up.sp("Some text").clear().contains_text)
+up.log("The text() method will return a plain string instead of pretty logging ->", logger.toString())
 
 up.line("We can also specify objects").line(complex_object).log()
 
