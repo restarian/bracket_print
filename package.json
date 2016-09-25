@@ -10,7 +10,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/surgemcgee/wizkit_print.git"
+    "url": "git+https://github.com/restarian/wizkit_print.git"
   },
   "scripts": {},
   "keywords": [
@@ -35,10 +35,13 @@
     }
   ],
   "directories": {},
-  "_id": "wizkit_print@0.1.4",
-  "_shasum": "85c4db42066bad39960eedfe0d55aab26617cbda",
-  "_from": "wizkit_print@>=0.1.3 <0.2.0",
-  "_resolved": "https://registry.npmjs.org/wizkit_print/-/wizkit_print-0.1.4.tgz",
+  "bugs": {
+    "url": "https://github.com/restarian/wizkit_print/issues"
+  },
+  "_id": "wizkit_print@0.1.5",
+  "_shasum": "568bb3e64d6417b9d562540d8c8b9e7f6d389785",
+  "_from": "wizkit_print@>=0.1.4 <0.2.0",
+  "_resolved": "https://registry.npmjs.org/wizkit_print/-/wizkit_print-0.1.5.tgz",
   "gitHead": "fbef8a032b21190b4410804fcd771b70b33aa89f",
   "_npmVersion": "2.15.1",
   "_nodeVersion": "4.4.3",
@@ -47,20 +50,11 @@
     "email": "robertsteckroth@gmail.com"
   },
   "dist": {
-    "shasum": "85c4db42066bad39960eedfe0d55aab26617cbda",
-    "tarball": "https://registry.npmjs.org/wizkit_print/-/wizkit_print-0.1.4.tgz"
+    "shasum": "568bb3e64d6417b9d562540d8c8b9e7f6d389785",
+    "tarball": "https://registry.npmjs.org/wizkit_print/-/wizkit_print-0.1.5.tgz"
   },
   "_npmOperationalInternal": {
     "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/wizkit_print-0.1.4.tgz_1467761345780_0.9462324935011566"
-  },
-  "readme": "![Wizkit](https://raw.githubusercontent.com/restarian/wizkit_print/master/doc/image/Wizkit_logo_240x317.png)\n\n# Print\n\n### A print aid with colorful output to the terminal and browser console.\n..part of the Wizkit suite\n_____\n\n\n docs pending..\n",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/restarian/wizkit_print/issues"
-  },
-  "_id": "wizkit_print@0.1.1",
-  "_shasum": "77396e05bc972ae358605a522e75ef29c06b057e",
-  "_from": "wizkit_print@>=0.1.1 <0.2.0",
-  "_resolved": "file:node_modules/wizkit_suite/node_modules/wizkit_print"
+    "tmp": "tmp/wizkit_print-0.1.5.tgz_1473896448319_0.64625408151187"
+  }
 }

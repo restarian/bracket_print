@@ -1,12 +1,13 @@
-![Wizkit](https://raw.githubusercontent.com/restarian/wizkit_suite/master/Open_source/doc/image/Wizkit_logo_250px.png)
-# Print
+![Wizkit](https://raw.githubusercontent.com/restarian/wizkit/master/Open_source/doc/image/Wizkit_logo_240x317.png)
 
+# Print
 ### A print aid with colorful output to the terminal and browser console.
-..a part of: wizkit suite open source
+**Author: Robert Steckroth**  
+..a part of the wizkit open-source suite
 _____
 
-*License*: GPL-3.0
 
-Copyright (C) Restarian Technolagy 2016 - Robert Steckroth <RobertSteckroth@gmail.com>
+*License*: LGPLv3
+![Wizkit](https://raw.githubusercontent.com/restarian/wizkit/master/Open_source/doc/image/lgplv3-147x51.png)
 
  docs pending..
