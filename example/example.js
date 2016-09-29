@@ -1,3 +1,25 @@
+/*
+  Brackit Print is a network managager with an asynchronous and structured design.
+
+ Copyright (C) 2016  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+
+ This file is a part of Brackit Print
+
+ Brackit Print is free software: you can redistribute it and/or modify
+ it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ Brackit DMZ is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+*/// Author: Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+
 var Print = require("../")
 
 var up = new Print("Example 1").set_option({"debug": "verbose", use_title: false})

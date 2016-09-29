@@ -1,18 +1,16 @@
 {
-  "name": "wizkit_print",
+  "name": "brackit_print",
   "version": "0.1.5",
-  "description": "A terminal and browser logging tool.",
-  "main": "lib/wizkit_print.js",
-  "homepage": "https://restarian.com",
+  "description": "A terminal and browser logging and printing aid.",
+  "main": "lib/print.js",
   "dependencies": {
     "colors": ">=1.0.0"
   },
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/restarian/wizkit_print.git"
+    "url": "git+https://surgemcgee@bitbucket.org/surgemcgee/brackit_print.git"
   },
-  "scripts": {},
   "keywords": [
     "restarian",
     "log",
@@ -20,41 +18,20 @@
     "logging",
     "console",
     "print",
+    "parse",
     "html"
   ],
   "author": {
-    "name": "Robert Edward Steckroth II",
+    "name": "Robert Edward Steckroth",
     "email": "RobertSteckroth@gmail.com",
     "url": "https://restarian.com"
   },
-  "license": "GPL-3.0",
+  "license": "LGPL-3.0",
   "maintainers": [
     {
       "name": "nickali",
       "email": "robertsteckroth@gmail.com"
     }
   ],
-  "directories": {},
-  "bugs": {
-    "url": "https://github.com/restarian/wizkit_print/issues"
-  },
-  "_id": "wizkit_print@0.1.5",
-  "_shasum": "568bb3e64d6417b9d562540d8c8b9e7f6d389785",
-  "_from": "wizkit_print@>=0.1.4 <0.2.0",
-  "_resolved": "https://registry.npmjs.org/wizkit_print/-/wizkit_print-0.1.5.tgz",
-  "gitHead": "fbef8a032b21190b4410804fcd771b70b33aa89f",
-  "_npmVersion": "2.15.1",
-  "_nodeVersion": "4.4.3",
-  "_npmUser": {
-    "name": "nickali",
-    "email": "robertsteckroth@gmail.com"
-  },
-  "dist": {
-    "shasum": "568bb3e64d6417b9d562540d8c8b9e7f6d389785",
-    "tarball": "https://registry.npmjs.org/wizkit_print/-/wizkit_print-0.1.5.tgz"
-  },
-  "_npmOperationalInternal": {
-    "host": "packages-16-east.internal.npmjs.com",
-    "tmp": "tmp/wizkit_print-0.1.5.tgz_1473896448319_0.64625408151187"
-  }
+  "directories": {}
 }
