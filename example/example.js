@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*
   Brackit Print is a network managager with an asynchronous and structured design.
 
@@ -23,7 +24,10 @@
 var Print = require("../")
 
 var up = new Print("Example 1").set_option({"debug": "verbose", use_title: false})
-var complex_object = {a: {b: 34, cc: 3213}, wa: 32}
+var complex_object = {a: {b: 34, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) { 
+	this.var = "joes man"
+}
+], level: 1, nested: {level: 2, nested: {level: 3, nested: {level: 4}}}}}
 up.compress_level = 4
 up.quoting = "single"
 up.indentation_string = ">"
@@ -65,8 +69,6 @@ up.line("We can also specify objects").line(complex_object).log()
 
 up.tab("the initial separator is ignored", "like the tab at the", "beginning of this line").log()
 
-var complex_object = {"Test Object": [1,2,3,4,"Test String", {"obj in array": {test_array: ["deep", false, 234]}}]}
-
 up.line("We can also specify objects").line(complex_object).log()
 up.indentation_string = ">>"
 up.log("..and change the the indentation_string option").log(complex_object)
@@ -81,10 +83,31 @@ up.line().line().sp("..and compress the object").set_option({compress_level: 3})
 up.line(" "," ").sp("..and compress the object").set_option({compress_level: 2}).log("to level", 2, complex_object)
 up.line(" "," ").sp("..and compress the object").set_option({compress_level: 1}).log("to level", 1, complex_object)
 
+up.line("Brackit Print can also throttle the nesting level of object parsing using the max_depth setting")
+.set_option({compress_level: 1, max_depth: 3, indentation_string: "  "}).log(complex_object).line(" ").log()
+
+// Get the default settings into this copy.
+up = up.new_copy(Print().sp())
+
 var example_2 = up.new_copy("Example 2")
 example_2.log("Example two was created with new copy and has the exact same options as example 1 but is uniquely threaded.",
   example_2.mutable_options())
 
-var example_3 = new Print(example_2, "Example 3")
+var example_3 = Print(example_2, "Example 3")
 example_2.log("Example three was created with the Print constructor and passed a title as a string.",
   "It has the exact same options as example 2 but is uniquely threaded as well.", example_2.mutable_options())
+
+var circular_obj = { First: 1, Second: 2}
+circular_obj.Third = circular_obj
+
+up.log("Brackit print can also capture circular dependantcies with Objects", circular_obj)
+
+circular_obj.Fourth = "more text"
+circular_obj.Fith = 5
+circular_obj.Fith = 5
+circular_obj.Sixth = 6
+circular_obj.Seventh = 7
+circular_obj.Eight = 8
+circular_obj.Ninth = 9
+circular_obj.Third = circular_obj
+up.log(circular_obj)
