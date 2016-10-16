@@ -23,14 +23,14 @@
 
 var Print = require("../")
 
-var up = new Print("Example 1").set_option({"debug": "verbose", use_title: false})
-var complex_object = {a: {b: 34, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) { 
+var up = Print("Example 1").set_option({use_title: false})
+var complex_object = {a: {b: 34, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) {
 	this.var = "joes man"
 }
-], level: 1, nested: {level: 2, nested: {level: 3, nested: {level: 4}}}}}
+], depth: 1, nested: {depth: 2, nested: {depth: 3, nested: {depth: 4}}}}}
 up.compress_level = 4
 up.quoting = "single"
-up.indentation_string = ">"
+up.indentation_string = ""
 up.log(complex_object)
 up.compress_level = 2
 
@@ -111,3 +111,12 @@ circular_obj.Eight = 8
 circular_obj.Ninth = 9
 circular_obj.Third = circular_obj
 up.log(circular_obj)
+
+var a = function(){}
+a.prototype = Object.create({cool: function(){}, tmy: "good"})
+a.prototype.cool.prototype = {bobo: "this"}
+var v = new String("STR_OBJECT")
+v.n = 22
+a.ss = true
+up.log(new a())
+up.log(v)
