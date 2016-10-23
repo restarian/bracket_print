@@ -4,7 +4,6 @@
   "description": "A terminal and browser logging and printing aid.",
   "main": "lib/print.js",
   "dependencies": {
-    "colors": ">=1.0.0"
   },
   "devDependencies": {},
   "repository": {
