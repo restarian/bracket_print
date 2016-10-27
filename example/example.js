@@ -118,5 +118,5 @@ a.prototype.cool.prototype = {bobo: "this"}
 var v = new String("STR_OBJECT")
 v.n = 22
 a.ss = true
-up.log(new a())
+up.set_option({use_title: false}).log(new a())
 up.log(v)
