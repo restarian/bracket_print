@@ -42,7 +42,7 @@ up.quoting = "none"
 up.line(" "," ").sp("..and compress the object").set_option({compress_level: 1}).log("to level", 1, complex_object)
 
 up.sp("The first instance of Print will store the default settings for the others.")
-  .line("Here are the configurable settings:", up.mutable_options()).log()
+  .line("Here are the configurable settings:", up._mutable_options()).log()
 
 up.log("Calling log with multiple arguments", "will use the", "last known",
   "separator (a space is the default).")
@@ -91,11 +91,11 @@ up = up.new_copy(Print().sp())
 
 var example_2 = up.new_copy("Example 2")
 example_2.log("Example two was created with new copy and has the exact same options as example 1 but is uniquely threaded.",
-  example_2.mutable_options())
+  example_2._mutable_options())
 
 var example_3 = Print(example_2, "Example 3")
 example_2.log("Example three was created with the Print constructor and passed a title as a string.",
-  "It has the exact same options as example 2 but is uniquely threaded as well.", example_2.mutable_options())
+  "It has the exact same options as example 2 but is uniquely threaded as well.", example_2._mutable_options())
 
 var circular_obj = { First: 1, Second: 2}
 circular_obj.Third = circular_obj
