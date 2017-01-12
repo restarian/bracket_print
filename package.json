@@ -4,7 +4,9 @@
   "description": "A terminal and browser logging and printing aid.",
   "main": "lib/print.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "jasmine": "^2.5.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://surgemcgee@bitbucket.org/surgemcgee/brackit_print.git"
