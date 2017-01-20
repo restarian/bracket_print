@@ -8,14 +8,16 @@ describe("Internal storage", function() {
 	var s
 	beforeEach(function() {
 
-		s = Print()
-		s.sp({cool: "joe"})
+		s = Print({compress_level: 4}).sp({cool: "joes"})
 	})
 
 
 		it("serializes objects", function() {
 
-			expect(s.toString()).to.equal('{"cool": "joe"}')
+			expect(s.set_option({}).toString()).to.equal('{"cool":"joes"}')
+			// Todo: add comma before an Object if the last print command was to serialize.
+			expect(s.sp({undefined: undefined, null: null, a: "f"*2}).toString())
+				.to.equal('{"cool":"joes"}{"undefined":undefined,"null":null,"a":NaN}')
 		})
 	})
 })

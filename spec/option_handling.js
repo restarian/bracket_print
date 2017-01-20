@@ -5,13 +5,14 @@ var Print = require("../lib/print")
 describe("Options", function() {
 	var s
 
+	beforeEach(function() {
+		s = Print("Heading one")
+	})
 	describe("transfer the logging title", function() {
-		beforeEach(function() {
-			s = Print("Heading one").set_option({approximate_max_characters: 110})
-		})
 
 		it("store the log_title correctly in many ways", function() {
 
+			expect(s.set_option({}).log_title).to.equal("Heading one")
 			expect(s.log_title).to.equal("Heading one")
 			expect(s.new_copy().log_title).to.equal("Heading one")
 			expect(s.log_title).to.equal("Heading one")
