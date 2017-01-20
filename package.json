@@ -1,6 +1,6 @@
 {
   "name": "brackit_print",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "A terminal and browser logging and printing aid.",
   "main": "lib/print.js",
   "dependencies": {},
