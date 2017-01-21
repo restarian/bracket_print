@@ -30,6 +30,27 @@ var complex_object = {a: {b: 34, is_null: null, is_not: undefined, b1: true, b2n
 up.compress_level = 1
 up.denote_quoting = "'"
 
+
+up.set_option({debug_level: 1}).log("The debug level is used to prioritise logging. It must be lower than the set_level of the instance. The global set_level")
+	.sp("can be set with the prototype of any Print instance")
+
+var log_them = function() {
+
+	up.set_option({debug_level: 1}).log("This is at debug level 1")
+	up.set_option({debug_level: 2}).log("This is at debug level 2")
+	up.set_option({debug_level: 3}).log("This is at debug level 3")
+}
+
+Print.prototype.set_level = 1
+log_them()
+Print.prototype.set_level = 2
+log_them()
+Print.prototype.set_level = 3
+log_them()
+
+//Print.prototype.set_level = Infinity
+
+up.set_option({compress_level: 4}).log("Compress the object to level", 4, complex_object)
 up.set_option({compress_level: 4}).log("Compress the object to level", 4, complex_object)
 up.set_option({compress_level: 3}).log("Compress the object to level", 3, complex_object)
 up.denote_quoting = "\'"

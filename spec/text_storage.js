@@ -31,6 +31,7 @@ describe("Internal storage", function() {
 			expect(up.sp(b).toString()).to.equal('{"aa":"str","bb":"joes"}')
 			expect(up.sp(c).toString()).to.equal('{__proto__:{"here":22,"there":55}}')
 			expect(up.sp(d).toString()).to.equal('{__proto__:{"here":22,"there":55,__proto__:{"cool":"joes","yep":6}}}')
+			expect(up.sp({}).toString()).to.equal('{}')
 
 		})
 

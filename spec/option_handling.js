@@ -36,6 +36,17 @@ describe("Options", function() {
 		expect(s.set_option({denote_quoting: "~"}).sp({here: "there"}).toString()) .to.equal("{~here~:~there~}")
 	})
 
+	it("debug and set level control printing", function() {
+		Print.prototype.set_level = 3
+		var str = s.sp()
+		expect(str.set_option({debug_level: 4}).sp("Some text").toString()) .to.equal("")
+		expect(str.set_option({debug_level: 3}).sp("Some text").toString()) .to.equal("Some text")
+		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some textSome text")
+		expect(str.set_option({debug_level: 1}).sp("Some text").toString()) .to.equal("Some textSome textSome text")
+		Print.prototype.set_level = 1
+		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some textSome textSome text")
+	})
+
 	it("max_character setting is adhered to", function() {
 		var b = []
 		for ( var a = 0; a < 100; a++ ) {
