@@ -36,6 +36,21 @@ describe("Options", function() {
 		expect(s.set_option({denote_quoting: "~"}).sp({here: "there"}).toString()) .to.equal("{~here~:~there~}")
 	})
 
+	it("max_character setting is adhered to", function() {
+		var b = []
+		for ( var a = 0; a < 100; a++ ) {
+			b[Math.random()] = Math.random()
+		}
+		expect(s.new_copy().set_option({compress_level: 1, max_characters: 123}).sp(b).toString().length).to.equal(123)
+		expect(s.new_copy().set_option({compress_level: 2, max_characters: 101}).sp(b).toString().length).to.equal(101)
+		expect(s.new_copy().set_option({compress_level: 3, max_characters: 189}).sp(b).toString().length).to.equal(189)
+		expect(s.new_copy().set_option({compress_level: 4, max_characters: 8}).sp(b).toString().length).to.equal(8)
+		expect(s.new_copy().set_option({compress_level: 1, max_characters: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 2, max_characters: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 3, max_characters: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 4, max_characters: 1}).sp(b).toString().length).to.equal(1)
+	})
+
 	it("utilize the max_depth", function() {
 
 		var a
