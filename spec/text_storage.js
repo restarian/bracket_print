@@ -16,7 +16,7 @@ describe("Internal storage", function() {
 			expect(s.set_option({}).toString()).to.equal('{"cool":"joes"}')
 			// TODO: add comma before an Object if the last print command was to serialize.
 			expect(s.sp({undefined: undefined, null: null, a: "f"*2}).toString())
-				.to.equal('{"cool":"joes"}{"undefined":undefined,"null":null,"a":NaN}')
+				.to.equal('{"cool":"joes"} {"undefined":undefined,"null":null,"a":NaN}')
 		})
 
 		it("serializes objects with __proto__ chains", function() {

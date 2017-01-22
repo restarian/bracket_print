@@ -41,10 +41,10 @@ describe("Options", function() {
 		var str = s.sp()
 		expect(str.set_option({debug_level: 4}).sp("Some text").toString()) .to.equal("")
 		expect(str.set_option({debug_level: 3}).sp("Some text").toString()) .to.equal("Some text")
-		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some textSome text")
-		expect(str.set_option({debug_level: 1}).sp("Some text").toString()) .to.equal("Some textSome textSome text")
+		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some text Some text")
+		expect(str.set_option({debug_level: 1}).sp("Some text").toString()) .to.equal("Some text Some text Some text")
 		Print.prototype.set_level = 1
-		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some textSome textSome text")
+		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some text Some text Some text")
 	})
 
 	it("max_character setting is adhered to", function() {
