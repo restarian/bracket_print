@@ -10,6 +10,64 @@ describe("Options", function() {
 		s.compress_level = Infinity // Compression to the max! :)
 	})
 
+	it("parses the set_level property and sets it correctly", function() {
+
+		Print.prototype.set_level = 4
+		expect(s.set_level).to.deep.equal([4, 4])
+		Print.prototype.set_level = "0-5"
+		expect(s.set_level).to.deep.equal([0, 5])
+		Print.prototype.set_level = "5 -5"
+		expect(s.set_level).to.deep.equal([5, 5])
+		Print.prototype.set_level = "2 -  3"
+		expect(s.set_level).to.deep.equal([2, 3])
+		Print.prototype.set_level = "0 -  37,"
+		expect(s.set_level).to.deep.equal([0, 37])
+		Print.prototype.set_level = "0 -  37,40"
+		expect(s.set_level).to.deep.equal([0, 37, 40, 40])
+		Print.prototype.set_level = "2, 0 -  37,40,"
+		expect(s.set_level).to.deep.equal([2, 2, 0, 37, 40, 40])
+		Print.prototype.set_level = "2, 0 -  37,40,70-71"
+		expect(s.set_level).to.deep.equal([2, 2, 0, 37, 40, 40, 70, 71])
+	})
+
+	it("Set level control to disable print commands", function() {
+		Print.prototype.set_level = 3
+		var str = s.sp()
+
+		expect(str.set_option({level: 5}).sp("Some text").toString()) .to.equal("")
+		expect(str.set_option({level: 4}).sp("Some text").toString()) .to.equal("")
+		expect(str.set_option({level: 3}).sp("Some text").toString()) .to.equal("Some text")
+		expect(str.set_option({level: 2}).sp("Some text").toString()) .to.equal("Some text")
+		expect(str.set_option({level: 3}).sp("Some text").toString()) .to.equal("Some text Some text")
+
+		str.clear()
+		Print.prototype.set_level = "0-3, 6, 99"
+
+		expect(str.set_option({level: 1}).sp("Some text").toString()) .to.equal("Some text")
+		expect(str.set_option({level: 2}).sp("Some text").toString()) .to.equal("Some text Some text")
+		expect(str.set_option({level: 3}).sp("Some text").toString()) .to.equal("Some text Some text Some text")
+		expect(str.set_option({level: 4}).sp("Some text").toString()) .to.equal("Some text Some text Some text")
+		expect(str.set_option({level: 6}).sp("Some text").toString()) .to.equal("Some text Some text Some text Some text")
+		expect(str.set_option({level: 7}).sp("Some text").toString()) .to.equal("Some text Some text Some text Some text")
+		expect(str.set_option({level: 99}).sp("Some text").toString()) .to.equal("Some text Some text Some text Some text Some text")
+
+		Print.prototype.set_level = ""
+		expect(str.set_option({level: -199}).sp("Some text").toString()) .to.equal("Some text Some text Some text Some text Some text Some text")
+		expect(str.set_option({level: 420}).sp("Some text").toString()) .to.equal("Some text Some text Some text Some text Some text Some text Some text")
+
+		var str = s.sp()
+		Print.prototype.set_level = 3
+		Print.prototype.set_level = ",0-2, 0-2, 1-3,,6,"
+
+		expect(str.set_option({level: 1}).sp("*").toString()) .to.equal("*")
+		expect(str.set_option({level: 2}).sp("*").toString()) .to.equal("* *")
+		expect(str.set_option({level: 3}).sp("*").toString()) .to.equal("* * *")
+		expect(str.set_option({level: 4}).sp("*").toString()) .to.equal("* * *")
+		expect(str.set_option({level: 5}).sp("*").toString()) .to.equal("* * *")
+		expect(str.set_option({level: 6}).sp("*").toString()) .to.equal("* * * *")
+		expect(str.set_option({level: 7}).sp("*").toString()) .to.equal("* * * *")
+
+	})
 	it("store the log_title correctly in many ways", function() {
 
 		expect(s.set_option({}).log_title).to.equal("Heading one")
@@ -19,6 +77,7 @@ describe("Options", function() {
 		expect(s.set_option({log_title: "Heading two"}).log_title).to.equal("Heading two")
 		expect(s.log_title).to.equal("Heading one")
 	})
+
 	it("copy to new instances", function() {
 
 		expect(s._mutable_options).to.deep.equal(s.new_copy()._mutable_options)
@@ -34,17 +93,6 @@ describe("Options", function() {
 		expect(s.set_option({denote_quoting: "\""}).sp({here: "there"}).toString()) .to.equal("{\"here\":\"there\"}")
 		expect(s.set_option({denote_quoting: ""}).sp({here: "there"}).toString()) .to.equal("{here:there}")
 		expect(s.set_option({denote_quoting: "~"}).sp({here: "there"}).toString()) .to.equal("{~here~:~there~}")
-	})
-
-	it("debug and set level control printing", function() {
-		Print.prototype.set_level = 3
-		var str = s.sp()
-		expect(str.set_option({debug_level: 4}).sp("Some text").toString()) .to.equal("")
-		expect(str.set_option({debug_level: 3}).sp("Some text").toString()) .to.equal("Some text")
-		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some text Some text")
-		expect(str.set_option({debug_level: 1}).sp("Some text").toString()) .to.equal("Some text Some text Some text")
-		Print.prototype.set_level = 1
-		expect(str.set_option({debug_level: 2}).sp("Some text").toString()) .to.equal("Some text Some text Some text")
 	})
 
 	it("max_character setting is adhered to", function() {
@@ -73,7 +121,7 @@ describe("Options", function() {
 		}(a = {}, 6)
 
 		expect(s.set_option({compress_level: 4, max_depth: 3}).sp(a).toString())
-			.to.equal('{"level":{"num":5,"level":{"num":4,"level":[Object with 2 properties]}}}')
+			.to.equal('{"level":{"num":5,"level":{"num":[Object with 2 properties],"level":[Object with 2 properties]}}}')
 		//expect(s.set_option({compress_level: 4, max_depth: 3}).sp(a).toString())
 		//	.to.equal('{"level":{"num":5,"level":{"num":4,"level":[Object with 2 properties]}}}')
 	})

@@ -4,8 +4,8 @@ var Print = require("../")
 
 describe("Internal storage", function() {
 
-	describe("Keeps plain text data correctly", function() {
 	var s
+	Print.prototype.set_level = ""
 	beforeEach(function() {
 
 		s = Print({compress_level: 4}).sp({cool: "joes"})
@@ -35,5 +35,15 @@ describe("Internal storage", function() {
 
 		})
 
-	})
+		it("Clears stored text data with the clear() command", function() {
+
+			var str = s.sp()
+			str.clear()
+			expect(str.sp("Brackit Print").toString()).to.equal("Brackit Print")
+			str.clear()
+			expect(str.sp("Brackit Print").toString()).to.equal("Brackit Print")
+			expect(str.sp("Go!").toString()).to.equal("Brackit Print Go!")
+			expect(str.clear().sp("Fub").toString()).to.equal("Fub")
+			expect(str.clear().toString()).to.equal("")
+		})
 })
