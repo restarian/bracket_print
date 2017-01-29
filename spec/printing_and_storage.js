@@ -11,7 +11,23 @@ describe("Internal storage", function() {
 		s = Print({compress_level: 4}).sp({cool: "joes"})
 	})
 
-		it("serializes objects", function() {
+		it("serializes native ECMA Objects", function() {
+
+			expect(s.clear().set_option({compress_level: 4}).sp(Function).toString()).to.equal('function Function(){ [native code] }')
+			expect(s.clear().set_option({compress_level: 3}).sp(Function).toString()).to.equal('function Function() { \n [native code]  }')
+			expect(s.clear().set_option({compress_level: 2}).sp(Function).toString()).to.equal('function Function() { \n    [native code] \n}')
+			expect(s.clear().set_option({compress_level: 1}).sp(Function).toString()).to.equal('function Function() { \n    [native code] \n}')
+
+			expect(s.clear().set_option({compress_level: 4}).sp(Object).toString()).to.equal('function Object(){ [native code] }')
+			expect(s.clear().set_option({compress_level: 3}).sp(Object).toString()).to.equal('function Object() { \n [native code]  }')
+			expect(s.clear().set_option({compress_level: 2}).sp(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
+			expect(s.clear().set_option({compress_level: 1}).sp(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
+
+			expect(s.clear().sp(Buffer("Brackit")).toString()).to.equal('Brackit')
+			expect(s.clear().set_option({compress_function: true}).sp(Buffer("Brackit")).toString()).to.equal('Brackit')
+
+		})
+		it("serializes objects with odd property qualifiers", function() {
 
 			expect(s.set_option({}).toString()).to.equal('{"cool":"joes"}')
 			// TODO: add comma before an Object if the last print command was to serialize.

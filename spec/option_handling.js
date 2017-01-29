@@ -100,6 +100,8 @@ describe("Options", function() {
 		for ( var a = 0; a < 100; a++ ) {
 			b[Math.random()] = Math.random()
 		}
+
+		expect(s.new_copy().set_option({compress_level: 1, max_characters: 1742}).sp(Buffer).toString().length).to.equal(1742)
 		expect(s.new_copy().set_option({compress_level: 1, max_characters: 123}).sp(b).toString().length).to.equal(123)
 		expect(s.new_copy().set_option({compress_level: 2, max_characters: 101}).sp(b).toString().length).to.equal(101)
 		expect(s.new_copy().set_option({compress_level: 3, max_characters: 189}).sp(b).toString().length).to.equal(189)

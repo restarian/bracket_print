@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
-  Brackit Print is a printing and logging tool for javascript engines which suppies litteral ECMA Object serialization.
+  Brackit Print is a printing and logging tool for javascript engines which suppies literal ECMA Object serialization.
 
  Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
@@ -22,23 +22,23 @@
 var Print = require("../")
 
 var up = Print({log_title: "Example 1", level: 2})//.et_option({use_title: false})
-var complex_object = {a: {b: 34, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) {
+var complex_object = {a: {b: 34, __proto__: {cool: "joes", make: false}, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) {
 	this.var = "joes man"
 }
 ], depth: 1, nested: {depth: 2, nested: {depth: 3, nested: {depth: 4}}}}}
 
-up.compress_level = 1
+up.compress_level = 4
 up.denote_quoting = "'"
 
 
-up.set_option({level: 1}).log("The debug level is used to prioritise logging. It must be lower than the set_level of the instance. The global set_level")
-	.sp("can be set with the prototype of any Print instance")
+up.set_option({level: 1}).log("The level option is used to prioritize loging and serializations. It must be lower than the set_level of the instance. The global set_level")
+	.sp("can be set with the prototype of any Print instance").log()
 
 var log_them = function() {
 
-	up.set_option({level: 1}).log("This is at level 1")
-	up.set_option({level: 2}).log("This is at level 2")
-	up.set_option({level: 3}).log("This is at level 3")
+	up.set_option({level: 1}).log("This is at level 1")//, complex_object)
+	//up.set_option({level: 2}).log("This is at level 2", complex_object)
+	//up.set_option({level: 3}).log("This is at level 3", complex_object)
 }
 
 Print.prototype.set_level = 1
@@ -50,6 +50,7 @@ log_them()
 
 Print.prototype.set_level = "0-3"
 log_them()
+up.compress_level = 1
 //Print.prototype.set_level = Infinity
 
 up.set_option({compress_level: 4}).log("Compress the object to level", 4, complex_object)
@@ -66,7 +67,7 @@ up.sp("The first instance of Print will store the default settings for the other
 var circular_obj = { First: 1, Second: 2}
 circular_obj.Third = circular_obj
 
-up.log("Brackit print can also capture circular dependantcies with Objects", circular_obj)
+up.log("Brackit print can also capture circular dependencies with Objects", circular_obj)
 
 circular_obj.Fourth = "more text"
 circular_obj.Fith = 5
@@ -114,6 +115,8 @@ void function(obj, cnt) {
 up.line("Brackit Print can also throttle the nesting level of object parsing using the max_depth setting")
 .set_option({compress_level: 4, max_depth: 3, indentation_string: "  "}).log(a)
 
+up.new_copy({compress_level: 1, compress_function: true}).line("Check me out serializing the Object structure of the nodejs Buffer bult-in module!", Buffer)
+.log().set_option({compress_function: false, max_characters: 2000}).line("Or the entire Buffer module trucncated to 2000 characters.", Buffer).log()
 /*
 up.log("Calling log with multiple arguments", "will use the", "last known",
   "separator (a space is the default).")
