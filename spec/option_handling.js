@@ -88,11 +88,11 @@ describe("Options", function() {
 	})
 
 
-	it("quotes are used properly", function() {
-		expect(s.set_option({denote_quoting: "\'"}).sp({here: "there"}).toString()) .to.equal("{'here':'there'}")
-		expect(s.set_option({denote_quoting: "\""}).sp({here: "there"}).toString()) .to.equal("{\"here\":\"there\"}")
-		expect(s.set_option({denote_quoting: ""}).sp({here: "there"}).toString()) .to.equal("{here:there}")
-		expect(s.set_option({denote_quoting: "~"}).sp({here: "there"}).toString()) .to.equal("{~here~:~there~}")
+	it("quoting can be changed and is used properly", function() {
+		expect(s.set_option({denote_quoting: "\'"}).sp({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
+		expect(s.set_option({denote_quoting: "\""}).sp({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
+		expect(s.set_option({denote_quoting: ""}).sp({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
+		expect(s.set_option({denote_quoting: "~"}).sp({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
 	})
 
 	it("max_character setting is adhered to", function() {
