@@ -21,11 +21,16 @@
 
 var Print = require("../")
 
-var up = Print({log_title: "Example 1", level: 2})//.et_option({use_title: false})
+var up = Print({log_title: "Example 1", level: 2, compress_level: 1})//.et_option({use_title: false})
+
+up.sp("The first instance of Print will store the default settings for the others.")
+  .line("Here are the configurable settings:", up._mutable_options).log()
+
 var complex_object = {a: {b: 34, __proto__: {cool: "joes", make: false}, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) {
 	this.var = "joes man"
 }
 ], depth: 1, nested: {depth: 2, nested: {depth: 3, nested: {depth: 4}}}}}
+
 
 up.compress_level = 4
 up.denote_quoting = "'"
@@ -61,8 +66,6 @@ up.set_option({compress_level: 2}).log("Start using double quotes and compress t
 up.denote_quoting = ""
 up.set_option({compress_level: 1}).log("Compress the object to level", 1, complex_object)
 
-up.sp("The first instance of Print will store the default settings for the others.")
-  .line("Here are the configurable settings:", up._mutable_options).log()
 
 var circular_obj = { First: 1, Second: 2}
 circular_obj.Third = circular_obj
@@ -112,11 +115,11 @@ void function(obj, cnt) {
   }
 }(a = {}, 6)
 
-up.line("Brackit Print can also throttle the nesting level of object parsing using the max_depth setting")
-.set_option({compress_level: 4, max_depth: 3, indentation_string: "  "}).log(a)
+up.line("Brackit Print can also throttle the nesting level of object parsing using the depth_limit setting")
+.set_option({compress_level: 4, depth_limit: 3, indentation_string: "  "}).log(a)
 
-up.new_copy({compress_level: 1, compress_function: true}).line("Check me out serializing the Object structure of the nodejs Buffer bult-in module!", Buffer)
-.log().set_option({compress_function: false, max_characters: 2000}).line("Or the entire Buffer module trucncated to 2000 characters.", Buffer).log()
+up.new_copy({compress_level: 2, compress_function: true}).line("Check me out serializing the Object structure of the nodejs Buffer bult-in module!", Buffer)
+.log().set_option({compress_function: false, character_limit: 2000}).line("Or the entire Buffer module trucncated to 2000 characters.", Buffer).log()
 /*
 up.log("Calling log with multiple arguments", "will use the", "last known",
   "separator (a space is the default).")

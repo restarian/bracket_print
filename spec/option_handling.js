@@ -76,6 +76,7 @@ describe("Options", function() {
 		expect(s.log_title).to.equal("Heading one")
 		expect(s.set_option({log_title: "Heading two"}).log_title).to.equal("Heading two")
 		expect(s.log_title).to.equal("Heading one")
+		expect(s.new_copy({use_title_stamp: false}).log_title).to.equal("Heading one")
 	})
 
 	it("copy to new instances", function() {
@@ -85,6 +86,7 @@ describe("Options", function() {
 		expect(s._mutable_options).to.deep.equal(Print(s.new_copy())._mutable_options)
 		expect(s.set_option()._mutable_options).to.deep.equal(Print(s.new_copy())._mutable_options)
 		expect(s.set_option({})._mutable_options).to.deep.equal(Print(s.new_copy())._mutable_options)
+		expect(s.set_option({})._mutable_options).to.deep.equal(Print(s.new_copy({}))._mutable_options)
 	})
 
 
@@ -97,22 +99,21 @@ describe("Options", function() {
 
 	it("max_character setting is adhered to", function() {
 		var b = []
-		for ( var a = 0; a < 100; a++ ) {
+		for ( var a = 0; a < 100; a++ )
 			b[Math.random()] = Math.random()
-		}
 
-		expect(s.new_copy().set_option({compress_level: 1, max_characters: 1742}).sp(Buffer).toString().length).to.equal(1742)
-		expect(s.new_copy().set_option({compress_level: 1, max_characters: 123}).sp(b).toString().length).to.equal(123)
-		expect(s.new_copy().set_option({compress_level: 2, max_characters: 101}).sp(b).toString().length).to.equal(101)
-		expect(s.new_copy().set_option({compress_level: 3, max_characters: 189}).sp(b).toString().length).to.equal(189)
-		expect(s.new_copy().set_option({compress_level: 4, max_characters: 8}).sp(b).toString().length).to.equal(8)
-		expect(s.new_copy().set_option({compress_level: 1, max_characters: 1}).sp(b).toString().length).to.equal(1)
-		expect(s.new_copy().set_option({compress_level: 2, max_characters: 1}).sp(b).toString().length).to.equal(1)
-		expect(s.new_copy().set_option({compress_level: 3, max_characters: 1}).sp(b).toString().length).to.equal(1)
-		expect(s.new_copy().set_option({compress_level: 4, max_characters: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 1, character_limit: 1742}).sp(Buffer).toString().length).to.equal(1742)
+		expect(s.new_copy().set_option({compress_level: 1, character_limit: 123}).sp(b).toString().length).to.equal(123)
+		expect(s.new_copy().set_option({compress_level: 2, character_limit: 101}).sp(b).toString().length).to.equal(101)
+		expect(s.new_copy().set_option({compress_level: 3, character_limit: 189}).sp(b).toString().length).to.equal(189)
+		expect(s.new_copy().set_option({compress_level: 4, character_limit: 8}).sp(b).toString().length).to.equal(8)
+		expect(s.new_copy().set_option({compress_level: 1, character_limit: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 2, character_limit: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 3, character_limit: 1}).sp(b).toString().length).to.equal(1)
+		expect(s.new_copy().set_option({compress_level: 4, character_limit: 1}).sp(b).toString().length).to.equal(1)
 	})
 
-	it("utilize the max_depth", function() {
+	it("utilize the depth_limit", function() {
 
 		var a
 		void function(obj, cnt) {
@@ -122,9 +123,9 @@ describe("Options", function() {
 		  }
 		}(a = {}, 6)
 
-		expect(s.set_option({compress_level: 4, max_depth: 3}).sp(a).toString())
-			.to.equal('{"level":{"num":5,"level":{"num":[Object with 2 properties],"level":[Object with 2 properties]}}}')
-		//expect(s.set_option({compress_level: 4, max_depth: 3}).sp(a).toString())
+		expect(s.set_option({compress_level: 4, depth_limit: 3}).sp(a).toString())
+			.to.equal('{"level":{"num":5,"level":{"num":[[Object with 2 properties]],"level":[[Object with 2 properties]]}}}')
+		//expect(s.set_option({compress_level: 4, depth_limit: 3}).sp(a).toString())
 		//	.to.equal('{"level":{"num":5,"level":{"num":4,"level":[Object with 2 properties]}}}')
 	})
 })
