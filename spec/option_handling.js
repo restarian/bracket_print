@@ -1,3 +1,4 @@
+#!/usr/bin/env npm test
 var chai = require("chai"),
 expect = chai.expect
 var Print = require("../lib/print")
@@ -10,7 +11,7 @@ describe("Options", function() {
 		s.compress_level = Infinity // Compression to the max! :)
 	})
 
-	it("parses the set_level property and sets it correctly", function() {
+	it.only("parses the set_level property and sets it correctly", function() {
 
 		Print.prototype.set_level = 4
 		expect(s.set_level).to.deep.equal([4, 4])
@@ -28,9 +29,19 @@ describe("Options", function() {
 		expect(s.set_level).to.deep.equal([2, 2, 0, 37, 40, 40])
 		Print.prototype.set_level = "2, 0 -  37,40,70-71"
 		expect(s.set_level).to.deep.equal([2, 2, 0, 37, 40, 40, 70, 71])
+		s.set_level = "0 -  37,40"
+		expect(s.set_level).to.deep.equal([0, 37, 40, 40])
+		expect(s.__proto__.set_level).to.deep.equal([2, 2, 0, 37, 40, 40, 70, 71])
+
+		Print.prototype.set_level = "7"
+		var a = Print({level: 7})
+		expect(a.sp(false).toString()).to.equal("false")
+		var b = Print({level: 8})
+		expect(b.sp(false).toString()).to.equal("")
+
 	})
 
-	it("Set level control to disable print commands", function() {
+	it.only("Set level control to disable print commands", function() {
 		Print.prototype.set_level = 3
 		var str = s.sp()
 
