@@ -57,6 +57,27 @@ describe("Internal storage", function() {
 		expect(s.sp({undefined: undefined, null: null, a: "f"*2}).toString())
 			.to.equal('{"cool":"joes"} {"undefined":undefined,"null":null,"a":NaN}')
 	})
+	it("serializes objects with odd property qualifiers", function() {
+
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B",length:1}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Boolean("BOB"))).to.equal('{[[PrimitiveValue]]:true}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Boolean(0))).to.equal('{[[PrimitiveValue]]:false}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Number("33"))).to.equal('{[[PrimitiveValue]]:33}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Number())).to.equal('{[[PrimitiveValue]]:0}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object("dd"))).to.equal('{[[PrimitiveValue]]:"dd","0":"d","1":"d",length:2}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object({"aa": 4}))).to.equal('{"aa":4}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object())).to.equal('{}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object(undefined))).to.equal('{}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object(null))).to.equal('{}')
+
+		var obj = new Number()
+		obj.one = 1
+		var obj_a = new Object("aa")
+		obj_a.prop_a = true
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(obj)).to.equal('{[[PrimitiveValue]]:0,"one":1}')
+		expect(Print().set_option({compress_level: 4, use_title: false}).toString(obj_a)).to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,length:2}')
+	})
 	it("serializes objects with __proto__ chains", function() {
 
 		var a = {aa: "str", bb: "joes", __proto__: {here: 22, there: 55}}
