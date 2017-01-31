@@ -16,13 +16,16 @@ describe("Options", function() {
 		expect(s.set_option({}).log_title).to.equal("Heading one")
 		expect(s.log_title).to.equal("Heading one")
 		expect(s.new_copy().log_title).to.equal("Heading one")
-		expect(s.log_title).to.equal("Heading one")
+		expect(s.new_copy({}, {}).log_title).to.equal("Heading one")
+		expect(s.new_copy({}, {}, "COOL TITLE").log_title).to.equal("COOL TITLE")
 		expect(s.set_option({log_title: "Heading two"}).log_title).to.equal("Heading two")
-		expect(s.log_title).to.equal("Heading one")
-		expect(s.new_copy({use_title_stamp: false}).log_title).to.equal("Heading one")
-	})
+		expect(s.new_copy({use_title_stamp: false}).log_title).to.equal("Heading two")
 
-	it("copy to new instances", function() {
+		expect(Print("TITLE A")._mutable_options.log_title).to.equal("TITLE A")
+		expect(Print("TITLE B").new_copy().new_copy({}).set_option({}).set_option()._mutable_options.log_title).to.equal("TITLE B")
+
+	})
+	it("copies settings to new instances of itself", function() {
 
 		expect(s._mutable_options).to.deep.equal(s.new_copy()._mutable_options)
 		expect(s._mutable_options).to.deep.equal(Print(s)._mutable_options)
@@ -30,14 +33,17 @@ describe("Options", function() {
 		expect(s.set_option()._mutable_options).to.deep.equal(Print(s.new_copy())._mutable_options)
 		expect(s.set_option({})._mutable_options).to.deep.equal(Print(s.new_copy())._mutable_options)
 		expect(s.set_option({})._mutable_options).to.deep.equal(Print(s.new_copy({}))._mutable_options)
+		expect(s.new_copy({})._mutable_options).to.deep.equal(Print(s.new_copy({}))._mutable_options)
+
+		expect(s.new_copy({}, {}, s.log_title)._mutable_options).to.deep.equal(Print(s.new_copy({}))._mutable_options)
 	})
 
 
 	it("quoting can be changed and is used properly", function() {
 		expect(s.set_option({denote_quoting: "\'"}).sp({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
-		expect(s.set_option({denote_quoting: "\""}).sp({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
-		expect(s.set_option({denote_quoting: ""}).sp({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
-		expect(s.set_option({denote_quoting: "~"}).sp({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
+		expect(s.clear().set_option({denote_quoting: "\""}).sp({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
+		expect(s.clear().set_option({denote_quoting: ""}).sp({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
+		expect(s.clear().set_option({denote_quoting: "~"}).sp({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
 	})
 
 	it("max_character setting is adhered to", function() {
