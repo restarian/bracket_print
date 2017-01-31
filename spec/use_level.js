@@ -4,7 +4,7 @@ expect = chai.expect
 var Print = require("../lib/print")
 
 describe("Use_level option", function() {
-	var s
+	var s, s1
 
 	beforeEach(function() {
 		s = Print()

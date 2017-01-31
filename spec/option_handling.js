@@ -60,6 +60,8 @@ describe("Options", function() {
 		expect(s.new_copy().set_option({compress_level: 2, character_limit: 1}).sp(b).toString().length).to.equal(1)
 		expect(s.new_copy().set_option({compress_level: 3, character_limit: 1}).sp(b).toString().length).to.equal(1)
 		expect(s.new_copy().set_option({compress_level: 4, character_limit: 1}).sp(b).toString().length).to.equal(1)
+
+		expect(s.new_copy({use_color: false, compress_level: 3, character_limit: 101001}).sp(global).toString().length).to.equal(101001)
 	})
 
 	it("utilize the depth_limit", function() {

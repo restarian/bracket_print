@@ -118,8 +118,8 @@ void function(obj, cnt) {
 up.line("Brackit Print can also throttle the nesting level of object parsing using the depth_limit setting")
 .set_option({compress_level: 4, depth_limit: 3, indentation_string: "  "}).log(a)
 
-up.new_copy({compress_level: 2, compress_function: true}).line("Check me out serializing the Object structure of the nodejs Buffer bult-in module!", Buffer)
-.log().set_option({compress_function: false, character_limit: 2000}).line("Or the entire Buffer module trucncated to 2000 characters.", Buffer).log()
+up.new_copy({compress_level: 1, compress_function: true}).line("Check me out serializing the Object structure of the nodejs Buffer bult-in module!", Buffer)
+.log().set_option({compress_function: false, character_limit: 2000}).clear().line("Or the entire Buffer module trucncated to 2000 characters.", Buffer).log()
 /*
 up.log("Calling log with multiple arguments", "will use the", "last known",
   "separator (a space is the default).")
