@@ -41,8 +41,8 @@
     "url": "https://restarian.com"
   },
   "dependencies": {},
-  "description": "A terminal and browser logging and printing aid.",
-  "devDependencies": {
+  "description": "comprehensive printing and logging for javascript engineering.",
+  "devDependencies": 
     "chai": "^3.5.0",
     "mocha": "^3.2.0"
   },
