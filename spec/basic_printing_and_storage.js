@@ -41,6 +41,7 @@ describe("Internal storage", function() {
 		expect(s.clear().set_option({compress_level: 4}).sp(Function).toString()).to.equal('function Function(){ [native code] }')
 		expect(s.clear().set_option({compress_level: 3}).sp(Number).toString()).to.equal('function Number() { \n [native code]  }')
 		expect(s.clear().set_option({compress_level: 2}).sp(String).toString()).to.equal('function String() { \n    [native code] \n}')
+		expect(s.clear().set_option({compress_level: 2}).sp(RegExp).toString()).to.equal('function RegExp() { \n    [native code] \n}')
 
 		expect(s.clear().set_option({compress_level: 4}).toString(Object).toString()).to.equal('function Object(){ [native code] }')
 		expect(s.clear().set_option({compress_level: 3}).sp(Object).toString()).to.equal('function Object() { \n [native code]  }')
@@ -80,21 +81,6 @@ describe("Internal storage", function() {
 		obj_a.prop_a = true
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(obj)).to.equal('{[[PrimitiveValue]]:0,"one":1}')
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(obj_a)).to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,length:2}')
-	})
-	it("serializes objects with __proto__ chains", function() {
-
-		var a = {aa: "str", bb: "joes", __proto__: {here: 22, there: 55}}
-		var b = {aa: "str", bb: "joes"}//, __proto__: {here: 22, there: 55}}
-		var c = {__proto__: {here: 22, there: 55}}
-		var d = {__proto__: {here: 22, __proto__: {cool: "joes", yep: 6}, there: 55}}
-		// Create a top-level copy of the Print library which does not store text internally untill a print command is used.
-		var up = s.new_copy()
-
-		expect(up.sp(a).toString()).to.equal('{"aa":"str","bb":"joes",__proto__:{"here":22,"there":55}}')
-		expect(up.sp(b).toString()).to.equal('{"aa":"str","bb":"joes"}')
-		expect(up.sp(c).toString()).to.equal('{__proto__:{"here":22,"there":55}}')
-		expect(up.sp(d).toString()).to.equal('{__proto__:{"here":22,"there":55,__proto__:{"cool":"joes","yep":6}}}')
-		expect(up.sp({}).toString()).to.equal('{}')
 	})
 	it("Clears stored text data with the clear() command", function() {
 
