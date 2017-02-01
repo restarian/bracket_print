@@ -1,40 +1,4 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "brackit_print",
-        "scope": null,
-        "escapedName": "brackit_print",
-        "name": null,
-        "rawSpec": "brackit_print",
-        "spec": "/home/septer/Restarian/node_modules/brackit_print",
-        "type": "directory"
-      },
-      "/home/septer/Restarian/node_modules"
-    ]
-  ],
-  "_from": "../../Restarian/node_modules/brackit_print",
-  "_id": "brackit_print@0.7.2",
-  "_inCache": true,
-  "_location": "/brackit_print",
-  "_phantomChildren": {},
-  "_requested": {
-    "raw": "brackit_print",
-    "scope": null,
-    "escapedName": "brackit_print",
-    "name": null,
-    "rawSpec": "brackit_print",
-    "spec": "/home/septer/Restarian/node_modules/brackit_print",
-    "type": "directory"
-  },
-  "_requiredBy": [
-    "#USER"
-  ],
-  "_resolved": "file:../../Restarian/node_modules/brackit_print",
-  "_shasum": "4525b91a6a0ceb31d9117ef8cb23843a3c845729",
-  "_shrinkwrap": null,
-  "_spec": "brackit_print",
-  "_where": "/home/septer/Restarian/node_modules",
   "author": {
     "name": "Robert Edward Steckroth",
     "email": "RobertSteckroth@gmail.com",
