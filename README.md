@@ -1,26 +1,32 @@
 # **Brackit Print**
 ![Brackit](https://raw.githubusercontent.com/restarian/brackit/master/Open_source/doc/image/Brackit_icon_250px.png)
 
-### Brackit Print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser.
+### Brackit Print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser console and HTML.
 **Author: Robert Steckroth**  
 ..a part of the brackit open-source suite
 __________
 
-Operates with an advanced ECMA prototype chain to deliver a versatile and intuitive utility.
+- Operates with an advanced ECMA prototype chain to deliver a versatile and intuitive utility.
 -----
 
-Safe! Able to serialize the entire nodejs global Object without hiccups (in about 65ms).
+- Stable! Brackit Print can serialize massive Objects without hiccups.
 -----
 
-Uses a comprehensive level mechanism to control what is serialized with a nearly total overhead discharge.
+- Uses a comprehensive level mechanism to control what is logged with a nearly total overhead discharge.
 -----
 
-Provides themes on a global and per level basis.
+- Provides syntax theming on a global and per level basis.
+-----
+
+- Serializes ECMA script *(almost entirely)*.
+-----
+
+- Cross platform auto-detection for Linux terminal, Firefox and Chrome.
 -----
 
 ![Brackit](https://bitbucket.org/surgemcgee/brackit_print/raw/master/docs/images/terminal_pic_1.jpg)
 ![Brackit](https://bitbucket.org/surgemcgee/brackit_print/raw/master/docs/images/browser_pic_1.jpg)
-![Brackit](https://bitbucket.org/surgemcgee/brackit_print/raw/master/docs/images/browser_pic_2.jpg)
+![Brackit](https://bitbucket.org/surgemcgee/brackit_print/raw/master/docs/images/browser_pic_3.jpg)
 
 __________
 
