@@ -31,7 +31,7 @@ describe("Internal storage", function() {
 			expect(str.toString(arguments)).to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
 		}(null, 1,true, "A string", "", undefined)
 	})
-	it.skip("serializes Error instances and Object", function() {
+	it.skip("serializes Error instances and Objects", function() {
 
 		//Print().set_option.toString(Error)
 		//Print().set_option.toString(Error())
@@ -48,7 +48,7 @@ describe("Internal storage", function() {
 		expect(s.clear().set_option({compress_level: 1}).toString(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
 
 		expect(s.clear().sp(Buffer("Brackit")).toString()).to.equal('Brackit')
-		expect(s.clear().set_option({compress_function: true}).sp(Buffer("Brackit")).toString()).to.equal('Brackit')
+		expect(s.clear().set_option({truncate_function: true}).sp(Buffer("Brackit")).toString()).to.equal('Brackit')
 	})
 	it("serializes objects with odd property qualifiers", function() {
 
@@ -57,7 +57,8 @@ describe("Internal storage", function() {
 		expect(s.sp({undefined: undefined, null: null, a: "f"*2}).toString())
 			.to.equal('{"cool":"joes"} {"undefined":undefined,"null":null,"a":NaN}')
 	})
-	it("serializes objects with odd property qualifiers", function() {
+
+	it("serializes primitve Objects", function() {
 
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B",length:1}')
@@ -70,6 +71,8 @@ describe("Internal storage", function() {
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object())).to.equal('{}')
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object(undefined))).to.equal('{}')
 		expect(Print().set_option({compress_level: 4, use_title: false}).toString(new Object(null))).to.equal('{}')
+	})
+	it("serializes primitve Objects with added properties", function() {
 
 		var obj = new Number()
 		obj.one = 1

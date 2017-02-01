@@ -19,7 +19,7 @@ describe("Options", function() {
 		expect(s.new_copy({}, {}).log_title).to.equal("Heading one")
 		expect(s.new_copy({}, {}, "COOL TITLE").log_title).to.equal("COOL TITLE")
 		expect(s.set_option({log_title: "Heading two"}).log_title).to.equal("Heading two")
-		expect(s.new_copy({use_title_stamp: false}).log_title).to.equal("Heading two")
+		expect(s.new_copy({use_title_stamp: false}).log_title).to.equal("Heading one")
 
 		expect(Print("TITLE A")._mutable_options.log_title).to.equal("TITLE A")
 		expect(Print("TITLE B").new_copy().new_copy({}).set_option({}).set_option()._mutable_options.log_title).to.equal("TITLE B")

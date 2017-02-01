@@ -51,13 +51,16 @@
   "homepage": "https://bitbucket.org/surgemcgee/brackit_print#readme",
   "keywords": [
     "restarian",
+    "serialize",
     "log",
+    "logger",
     "logger",
     "logging",
     "console",
     "print",
     "parse",
-    "html"
+    "html",
+    "serializer"
   ],
   "license": "LGPL-3.0",
   "main": "lib/print.js",
@@ -70,7 +73,7 @@
   "name": "brackit_print",
   "optionalDependencies": {},
   "readme": "# **Brackit Print**\n![Brackit](https://raw.githubusercontent.com/restarian/brackit/master/Open_source/doc/image/Brackit_icon_250px.png)\n\n### Brackit Print is a printing and logging utility with colorful output for the terminal and browser console.\n**Author: Robert Steckroth**  \n..a part of the brackit open-source suite\n_____\n\n*License*: LGPLv3\n![Brackit](https://raw.githubusercontent.com/restarian/brackit/master/Open_source/doc/image/lgplv3-147x51.png)\n\nCopyright (C) Restarian Technolagy 2016 - Robert Steckroth <RobertSteckroth@gmail.com>\n\n docs pending..\n",
-  "readmeFilename": "README.md",
+  "readmeFilename": "docs/README.md",
   "repository": {
     "type": "git",
     "url": "git+https://surgemcgee@bitbucket.org/surgemcgee/brackit_print.git"
