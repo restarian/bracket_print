@@ -10,12 +10,12 @@ describe("Internal storage", function() {
 	beforeEach(function() {
 
 		s = Print({compress_level: 4}).sp({cool: "joes"})
-		str = s.new_copy()
+		str = s.new_copy({enumerate_all: true})
 	})
 
 	it("serializes the global Object in the node environment and truncated it to 1.01 megabytes", function() {
 
-		expect(s.new_copy({use_color: false, compress_level: 3, character_limit: 101000}).sp(global).toString().length).to.equal(101000)
+//		expect(s.new_copy({use_color: false, compress_level: 3, character_limit: 101000}).sp(global).toString().length).to.equal(101000)
 	})
 	it("serializes objects with manually added __proto__ chains", function() {
 
@@ -33,9 +33,13 @@ describe("Internal storage", function() {
 		expect(up.sp({}).toString()).to.equal('{}')
 
 	})
-	it.skip("serializes objects with manually added empty __proto__ Objects", function() {
+	it("serializes objects with manually added empty __proto__ Objects", function() {
 
-		expect(up.toString({__proto__:{}})).to.equal('{__proto__:{}}')
+		expect(up.toString({__proto__:{aa:4}})).to.equal('{__proto__:{"aa":4}}')
+		expect(up.toString({__proto__:{}})).to.equal('')
+		expect(up.toString({__proto__:{__proto__:{}}})).to.equal('{}')
+		expect(up.toString({__proto__:{bob:null},cool:"joes"})).to.equal('{__proto__:{"bob":null}}')
+		expect(up.toString({__proto__:{},cool:"joes"})).to.equal('{__proto__:{"aa":4}}')
 	})
 	it("serializes objects Object.prototype __proto__ chains", function() {
 
@@ -43,6 +47,7 @@ describe("Internal storage", function() {
 			this.cool = "joes"
 		}
 
+		expect(str.toString(new F())).to.equal('{"cool":"joes",__proto__:{"see":function (){\t\t\t\tPrint().log("me")}}}')
 		F.prototype = {
 			see: function() {
 				Print().log("me")

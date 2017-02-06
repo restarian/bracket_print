@@ -11,11 +11,28 @@ describe("Options", function() {
 		s.compress_level = Infinity // Compression to the max! :)
 	})
 
+	it("create the desired prototype chain and utilize redundancy", function() {
+
+		var up = Print(), option = up._mutable_options
+
+		expect(up.level).to.deep.equal(option.level)
+		Print.prototype.level = 15
+		expect(up.level).to.deep.equal(15)
+
+		var a = up.new_copy({level: 8, enumerate_all: true, character_limit: 1332})
+		var b = a.new_copy({level: 12})
+
+		expect(a.level).to.deep.equal(8)
+		expect(b.level).to.deep.equal(12)
+		expect(up.level).to.deep.equal(15)
+		//expect(a).to.deep.equal()
+	})
 	it("store and transfers the log_title in many ways", function() {
 
 		expect(s.set_option({}).log_title).to.equal("Heading one")
 		expect(s.log_title).to.equal("Heading one")
 		expect(s.new_copy().log_title).to.equal("Heading one")
+		expect(s.new_copy({}, {}).log_title).to.equal("Heading one")
 		expect(s.new_copy({}, {}).log_title).to.equal("Heading one")
 		expect(s.new_copy({}, {}, "COOL TITLE").log_title).to.equal("COOL TITLE")
 		expect(s.set_option({log_title: "Heading two"}).log_title).to.equal("Heading two")
@@ -48,9 +65,17 @@ describe("Options", function() {
 	it("quoting can be changed and is used properly", function() {
 
 		expect(s.set_option({denote_quoting: "\'"}).sp({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
-		expect(s.clear().set_option({denote_quoting: "\""}).sp({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
-		expect(s.clear().set_option({denote_quoting: ""}).sp({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
-		expect(s.clear().set_option({denote_quoting: "~"}).sp({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
+		expect(s.set_option({denote_quoting: "\""}).sp({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
+		expect(s.set_option({denote_quoting: ""}).sp({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
+		s.denote_quoting = "~"
+		expect(s.set_option({denote_quoting: "~"}).sp({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
+		s.denote_quoting = "\""
+		expect(s.sp({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
+	})
+	it("enumerate_all option has desire effect", function() {
+
+		//expect(s.clear().set_option({denote_quoting: "~"}).sp({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
+
 	})
 	it("max_character setting is adhered to", function() {
 
