@@ -1,4 +1,6 @@
 {
+  "name": "bracket_print",
+  "main": "build/bracket_print.js",
   "author": {
     "name": "Robert Edward Steckroth",
     "email": "RobertSteckroth@gmail.com",
@@ -8,7 +10,8 @@
   "description": "comprehensive printing and logging for javascript engineering.",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "mocha-maybe": ""
   },
   "directories": {},
   "gitHead": "b5d84f4df87cb579a15f181656acf69419d5ab03",
@@ -27,22 +30,20 @@
     "serializer"
   ],
   "license": "LGPL-3.0",
-  "main": "lib/print.js",
   "maintainers": [
     {
       "name": "nickali",
       "email": "robertsteckroth@gmail.com"
     }
   ],
-  "name": "brackit_print",
   "optionalDependencies": {},
-  "readmeFilename": "docs/README.md",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://surgemcgee@bitbucket.org/surgemcgee/brackit_print.git"
+    "url": "git+https://github.com/restarian/brackit_print.git"
   },
   "scripts": {
-    "test": "mocha spec"
+    "test": "mocha test"
   },
   "version": "0.8.10"
 }

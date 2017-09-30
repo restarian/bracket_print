@@ -1,12 +1,13 @@
 #!/usr/bin/env npm test
 var chai = require("chai"),
-expect = chai.expect
-var Print = require("../")
+expect = chai.expect,
+path = require("path")
+
+var Print = require(path.join(path.dirname(__filename), "/../"))
 
 describe("Internal storage", function() {
-
 	var s
-	Print.prototype.set_level = ""
+	Print.prototype.level = ""
 	beforeEach(function() {
 
 		s = Print({compress_level: 4}).sp({cool: "joes"})

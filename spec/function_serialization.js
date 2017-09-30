@@ -1,7 +1,7 @@
 #!/usr/bin/env npm test
 var chai = require("chai"),
 expect = chai.expect
-var Print = require("../lib/print")
+var Print = require("../bracket_print")
 
 describe("Functions", function() {
 	var s
