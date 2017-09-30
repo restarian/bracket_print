@@ -1,3 +1,4 @@
 node_modules/
-npm-debug.log
-/node_modules/
+SCRAP.js
+test.js
+*.sw[a-z]
