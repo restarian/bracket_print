@@ -6,16 +6,18 @@
     "email": "RobertSteckroth@gmail.com",
     "url": "https://restarian.com"
   },
-  "dependencies": {},
+  "dependencies": { },
   "description": "comprehensive printing and logging for javascript engineering.",
   "devDependencies": {
+    "brace_prototype": "^0.1.1",
+    "brace_umd": "^0.5.0",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "mocha-maybe": ""
   },
   "directories": {},
   "gitHead": "b5d84f4df87cb579a15f181656acf69419d5ab03",
-  "homepage": "https://bitbucket.org/surgemcgee/brackit_print#readme",
+  "homepage": "https://bitbucket.org/surgemcgee/bracket_print#readme",
   "keywords": [
     "restarian",
     "serialize",
@@ -26,7 +28,6 @@
     "console",
     "print",
     "parse",
-    "html",
     "serializer"
   ],
   "license": "LGPL-3.0",
@@ -40,7 +41,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/restarian/brackit_print.git"
+    "url": "git+https://github.com/restarian/bracket_print.git"
   },
   "scripts": {
     "test": "mocha test"
