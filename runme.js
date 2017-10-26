@@ -5,12 +5,11 @@ requirejs.config({
 	nodeRequire: require,
 })
 
-requirejs(["require", "./build/bracket_print.js"], function(req) {
+requirejs(["./build/bracket_print.js"], function(print) {
 
-var up = req("bracket_print")
-//up.prototype.platform = "terminal"
-
-up().sp("ddddd", {cool: "joes"}).log(22233, "dsdsd")
+var up = print("Print is here")
+//print.prototype.platform = "terminal"
+//up.sp("???????", {cool: "joes"}).log(22233, "*****")
 
 })
 
