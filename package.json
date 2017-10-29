@@ -6,11 +6,11 @@
     "email": "RobertSteckroth@gmail.com",
     "url": "https://restarian.com"
   },
-  "dependencies": {},
   "description": "Comprehensive printing and logging for javascript engineering.",
+  "dependencies": {},
   "devDependencies": {
-    "brace_prototype": "file:../brace_prototype",
-    "brace_umd": "^0.6.0",
+    "brace_prototype": "^0.1.6",
+    "brace_umd": "^0.6.1",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "mocha-maybe": "^0.1.0",
