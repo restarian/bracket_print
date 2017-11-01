@@ -7,9 +7,10 @@ requirejs.config({
 
 requirejs(["./lib/bracket_print.js"], function(print) {
 
-var up = print("Print is here")
+var up = new print("Print is here")
 //print.prototype.platform = "terminal"
-console.log(up.sp("???????", {cool: "joes"}).set_option({use_style: false}).sp("*****").toStyleString())
-//up.set_option({level: 2}).sp("???????", {cool: "joes"}).log(22233, "*****")
+//console.log(up.sp("???????", {cool: "joes"}).sp(true).toStyleString())
+console.log(up.sp("???????", {cool: "joes"}).option({style: false}).sp(true, null).option({style: true}).toStyleString())
+//up.option({level: 2}).sp("???????", {cool: "joes"}).log(22233, "*****")
 })
 
