@@ -1,4 +1,3 @@
-#!/usr/bin/env npm test
 var chai = require("chai"),
 expect = chai.expect
 var Print = require("../")
@@ -6,16 +5,16 @@ var Print = require("../")
 describe("Internal storage", function() {
 
 	var s, str
-	Print.prototype.set_level = ""
+	Print.prototype.level = ""
 	beforeEach(function() {
 
 		s = Print({compress_level: 4}).sp({cool: "joes"})
-		str = s.new_copy({enumerate_all: true})
+		str = s.clone({enumerate_all: true})
 	})
 
 	it("serializes the global Object in the node environment and truncated it to 1.01 megabytes", function() {
 
-//		expect(s.new_copy({use_color: false, compress_level: 3, character_limit: 101000}).sp(global).toString().length).to.equal(101000)
+//		expect(s.clone({use_color: false, compress_level: 3, character_limit: 101000}).sp(global).toString().length).to.equal(101000)
 	})
 	it("serializes objects with manually added __proto__ chains", function() {
 
@@ -24,7 +23,7 @@ describe("Internal storage", function() {
 		var c = {__proto__: {here: 22, there: 55}}
 		var d = {__proto__: {here: 22, __proto__: {cool: "joes", yep: 6}, there: 55}}
 		// Create a top-level copy of the Print library which does not store text internally untill a print command is used.
-		var up = s.new_copy()
+		var up = s.clone()
 
 		expect(up.sp(a).toString()).to.equal('{"aa":"str","bb":"joes",__proto__:{"here":22,"there":55}}')
 		expect(up.sp(b).toString()).to.equal('{"aa":"str","bb":"joes"}')

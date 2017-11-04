@@ -4,8 +4,8 @@
 ------
 
 ### Document pages
-* [The main page](https://github.com/restarian/brackit_print/blob/master/doc/README.md)
-* [Screenshots of output ](https://github.com/restarian/brackit_print/blob/master/doc/screenshot.md)
+* [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
+* [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 
 ----
 

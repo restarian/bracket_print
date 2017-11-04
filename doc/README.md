@@ -1,41 +1,29 @@
 # Brackit print
-### The main page
+### Synopsis
 
-![Brackit](https://raw.githubusercontent.com/restarian/brackit/master/Open_source/doc/image/Brackit_icon_250px.png)
+..part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)
+![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
 
 ------
 
 ### Document pages
-* [License information](https://github.com/restarian/brackit_print/blob/master/doc/license.md)
-* [Screenshots of output ](https://github.com/restarian/brackit_print/blob/master/doc/screenshot.md)
+
+* [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
+* [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 
 ----
 
-
-..part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)
-![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/brace_logo_small.png)
+[![Ubuntu on Windows](https://raw.githubusercontent.com/restarian/restarian/master/doc/image/ubuntu_windows_logo.png)](https://github.com/Microsoft/BashOnWindows)
 
 ### Brackit print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser console and HTML.
 
 **Author: Robert Steckroth**  
 **License: LGPL-v3**
 
-
-- Operates with an advanced ECMA prototype chain to deliver a versatile and intuitive utility.
------
-
-- Stable! Brackit Print can serialize massive Objects without hiccups.
------
-
-- Uses a comprehensive level mechanism to control what is logged with a nearly total overhead discharge.
------
-
-- Provides syntax theming on a global and per level basis.
------
-
-- Serializes ECMA script *(almost entirely)*.
------
-
-- Cross platform auto-detection for Linux terminal, Firefox and Chrome.
------
+**Bonuses:**
+* Stable! Brackit Print can serialize massive objects (including *window*), without hiccups.
+* Uses a prototypal return chain to allow for usage as functional programming callbacks.
+* Uses a comprehensive level mechanism to control what is logged with a nearly total overhead discharge.
+* Provides configurable syntax mapping with custom individualized styles.
+* Cross platform auto-detection for nodejs and browser.
 

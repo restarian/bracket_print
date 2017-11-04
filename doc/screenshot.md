@@ -3,8 +3,8 @@
 
 ----
 ### Document pages
-* [The main page](https://github.com/restarian/brackit_print/blob/master/doc/README.md)
-* [License information](https://github.com/restarian/brackit_print/blob/master/doc/license.md)
+* [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
+* [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 
 ----
 
