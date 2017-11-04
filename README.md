@@ -1,5 +1,6 @@
-# Brackit print
+# Brackit Print
 ### Synopsis
+
 
 ..part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)
 ![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
@@ -8,9 +9,9 @@
 
 ### Document pages
 
-* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
-* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
-* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
+* [Using as Callback a Function](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
+* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
+* [Constructing Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
 * [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 

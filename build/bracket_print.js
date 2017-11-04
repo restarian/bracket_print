@@ -136,34 +136,34 @@ define("serializer", [ "require" ], function(t) {
                 this.append_string("bracket", "{" + r);
                 if (!this.truncate_function) {
                     var v = i + e;
-                    var w = true;
+                    var j = true;
                     if (!/[\n,\r]/.test(b)) b = "\n" + b + "\n";
                     b.replace(/(.*)([\n,\r]+)/g, function() {
                         var t = arguments[1].replace(/\s*/g, "");
                         if (this.compress_level >= 4 && !t) return "";
                         if ((this.compress_level === 2 || this.compress_level === 3) && /[\n,\r]{2,}/.test(arguments[2])) arguments[2] = "\n\n";
                         if (t) this.append_string("indent", v);
-                        w = false;
+                        j = false;
                         var e = s;
                         if (this.compress_level < 4) {
                             var i = arguments[2].match(/[\n,\r]/g);
                             i.pop();
                             i.forEach(function() {
-                                w = true;
+                                j = true;
                                 e += s;
                             });
                         }
                         this.append_string("function_body", arguments[1] || "");
                         this.append_string("indent", e);
                     }.bind(this));
-                    if (!w) this.remove_call(-1);
+                    if (!j) this.remove_call(-1);
                 } else {
                     this.append_string("function_body", r + "..." + r);
                 }
             } else {
                 this.append_string(m && "brace" || "bracket", m && "[" || "{" + (this.compress_level < 3 && this.style_map[this.platform].denote_space || ""));
             }
-            var j = 1;
+            var w = 1;
             if (!l.length) {
                 if (typeof t.__proto__ === "object" && a(t.__proto__).length) {
                     this.append_string("indent", s + i + e);
@@ -194,10 +194,10 @@ define("serializer", [ "require" ], function(t) {
                 var O = l[c];
                 if (this.plain.length >= this.character_limit) return;
                 var q = !!(typeof t[O] === "object" && t[O] !== null && t[O] !== undefined && a(t[O]).length);
-                if (j !== 1 && this.compress_level < 2) this.append_string("indent", s + i + e);
-                if (j === 1 || q) {
+                if (w !== 1 && this.compress_level < 2) this.append_string("indent", s + i + e);
+                if (w === 1 || q) {
                     this.append_string("indent", s + i + e);
-                    if (j === 1 && typeof t.valueOf === "function" && t.valueOf() !== t) {
+                    if (w === 1 && typeof t.valueOf === "function" && t.valueOf() !== t) {
                         this.append_string("namespace", "[[PrimitiveValue]]");
                         this.append_string("colon", ":" + r);
                         if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
@@ -218,7 +218,7 @@ define("serializer", [ "require" ], function(t) {
                     this.append_string("namespace", new this.parent().add("[[", m && "Array" || "Object", " with ", k, " propert").add(k === 1 && "y" || "ies", "]]"));
                 }
                 this.append_string("comma", "," + r);
-                if (j === l.length) {
+                if (w === l.length) {
                     if (h && typeof t.length !== "undefined") {
                         this.append_string("indent", s + i + e);
                         this.append_string("string", "length");
@@ -238,7 +238,7 @@ define("serializer", [ "require" ], function(t) {
                     this.append_string(m && "brace" || "bracket", m && "]" || "}");
                     this.append_string("comma", "," + r);
                 }
-                j++;
+                w++;
             }
             this.remove_call(-1);
         } else if (typeof t === "number") {
@@ -254,6 +254,7 @@ define("serializer", [ "require" ], function(t) {
         } else {
             this.append_string("namespace", t);
         }
+        if (this._cache.length && typeof n !== "number") this._cache = [];
         return true;
     };
 });
@@ -389,7 +390,7 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
                 return this;
             }.bind(this);
         },
-        get sp() {
+        get s() {
             return this._print_command("space");
         },
         get space() {
@@ -398,10 +399,19 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         get tab() {
             return this._print_command("tab");
         },
+        get t() {
+            return this._print_command("tab");
+        },
         get line() {
             return this._print_command("line");
         },
+        get l() {
+            return this._print_command("line");
+        },
         get add() {
+            return this._print_command("add");
+        },
+        get a() {
             return this._print_command("add");
         },
         _print_command: function(t) {
@@ -473,7 +483,7 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         get log_undefined() {
             return function() {
                 this.log.apply(this, arguments);
-                return;
+                return undefined;
             }.bind(this);
         },
         get log_null() {
@@ -718,7 +728,7 @@ define("bracket_print", [ "require", "./proto_object", "./style_map" ], function
     };
     e.append_string = function(t, e) {
         if (this.plain.length === this.character_limit) return false; else if (!arguments.length) return true;
-        var i = e.toString();
+        var i = typeof e == "string" && e || String(e);
         var n = ".. Object truncated";
         n = this.character_limit > n.length * 3 && n || "";
         if (this.plain.length + i.length > this.character_limit - n.length) i = i.substr(0, this.character_limit - this.plain.length - n.length) + n;

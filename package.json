@@ -16,6 +16,9 @@
     "mocha-maybe": "^0.1.0",
     "requirejs": "^2.3.5"
   },
+  "optionalDependencies": {
+    "brace_navlink": "^0.2.0"
+  },
   "directories": {},
   "keywords": [
     "restarian",

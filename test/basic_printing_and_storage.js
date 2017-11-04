@@ -11,7 +11,7 @@ describe("Internal storage", function() {
 
 	beforeEach(function() {
 
-		s = Print({compress_level: 4}).sp({cool: 'joes'})
+		s = Print({compress_level: 4}).s({cool: 'joes'})
 	})
 
 	it("serializes the ECMA Object types while also using toString correctly", function() {
@@ -44,25 +44,25 @@ describe("Internal storage", function() {
 
 	it("serializes native ECMA Objects", function() {
 
-		expect(s.empty().option({compress_level: 4}).sp(Function).toString()).to.equal('function Function(){ [native code] }')
-		expect(s.empty().option({compress_level: 3}).sp(Number).toString()).to.equal('function Number() {\n [native code] \n}')
-		expect(s.empty().option({compress_level: 2}).sp(String).toString()).to.equal('function String() { \n    [native code] \n}')
-		expect(s.empty().option({compress_level: 2}).sp(RegExp).toString()).to.equal('function RegExp() { \n    [native code] \n}')
+		expect(s.empty().option({compress_level: 4}).s(Function).toString()).to.equal('function Function(){ [native code] }')
+		expect(s.empty().option({compress_level: 3}).s(Number).toString()).to.equal('function Number() {\n [native code] \n}')
+		expect(s.empty().option({compress_level: 2}).s(String).toString()).to.equal('function String() { \n    [native code] \n}')
+		expect(s.empty().option({compress_level: 2}).s(RegExp).toString()).to.equal('function RegExp() { \n    [native code] \n}')
 
 		expect(s.empty().option({compress_level: 4}).toString(Object).toString()).to.equal('function Object(){ [native code] }')
-		expect(s.empty().option({compress_level: 3}).sp(Object).toString()).to.equal('function Object() { \n [native code]  }')
-		expect(s.empty().option({compress_level: 2}).sp(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
+		expect(s.empty().option({compress_level: 3}).s(Object).toString()).to.equal('function Object() { \n [native code]  }')
+		expect(s.empty().option({compress_level: 2}).s(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
 		expect(s.empty().option({compress_level: 1}).toString(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
 
-		expect(s.empty().sp(Buffer("Brackit")).toString()).to.equal('Brackit')
-		expect(s.empty().option({truncate_function: true}).sp(Buffer("Brackit")).toString()).to.equal('Brackit')
+		expect(s.empty().s(Buffer("Brackit")).toString()).to.equal('Brackit')
+		expect(s.empty().option({truncate_function: true}).s(Buffer("Brackit")).toString()).to.equal('Brackit')
 	})
 
 	it("serializes objects with odd property qualifiers", function() {
 
 		expect(s.option({}).toString()).to.equal('{"cool":"joes"}')
 		// TODO: add comma before an Object if the last print command was to serialize.
-		expect(s.sp({undefined: undefined, null: null, a: "f"*2}).toString())
+		expect(s.s({undefined: undefined, null: null, a: "f"*2}).toString())
 			.to.equal('{"cool":"joes"} {"undefined":undefined,"null":null,"a":NaN}')
 	})
 
@@ -94,11 +94,11 @@ describe("Internal storage", function() {
 	it("Clears stored text data with the empty() command", function() {
 
 		s.empty()
-		expect(s.sp("Brackit Print").toString()).to.equal("Brackit Print")
+		expect(s.s("Brackit Print").toString()).to.equal("Brackit Print")
 		s.empty()
-		expect(s.sp("Brackit Print").toString()).to.equal("Brackit Print")
-		expect(s.sp("Go!").toString()).to.equal("Brackit Print Go!")
-		expect(s.empty().sp("Fub").toString()).to.equal("Fub")
+		expect(s.s("Brackit Print").toString()).to.equal("Brackit Print")
+		expect(s.s("Go!").toString()).to.equal("Brackit Print Go!")
+		expect(s.empty().s("Fub").toString()).to.equal("Fub")
 		expect(s.empty().toString()).to.equal("")
 	})
 })

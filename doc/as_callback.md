@@ -1,10 +1,11 @@
-# Brackit Printnull
+# Brackit Print
+### Callback Functionality
 
 ----
 ### Document pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
-* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
-* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
+* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
+* [Constructing Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
 * [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 
@@ -42,6 +43,10 @@ do_this(cb.line("success callback was called").log, cp.line("error callback was 
 ```
 
 Errors will automatical print as well:
+
 ```
 bracket_print.log(new Error("Hello error")
 ```
+
+
+
