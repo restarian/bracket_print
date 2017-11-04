@@ -8,6 +8,9 @@
 
 ### Document pages
 
+* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
+* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
+* [Document pages](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
 * [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 

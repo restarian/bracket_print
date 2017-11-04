@@ -15,6 +15,7 @@ var up = new print("Print is here")
 //up.option({level: 1}).sp({}).log()
 //up.empty().option({level: 1}).sp("???????", {cool: "joes"}).log(22233, "*****", null, true)
 //console.log(print({compress_level: 4}).sp({cool: "joes"}).toString(false))
-console.log(up.option({compress_level: 4}).toString(new Number(43)))
+console.log(up.option({compress_level: 4}).sp(new Number(43)).toString())
+//console.log(up.option({compress_level: 4}).toString(new Number(43)))
 })
 

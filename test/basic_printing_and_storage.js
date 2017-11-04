@@ -12,16 +12,15 @@ describe("Internal storage", function() {
 	beforeEach(function() {
 
 		s = Print({compress_level: 4}).sp({cool: 'joes'})
-		//s = up.clone()
 	})
 
 	it("serializes the ECMA Object types while also using toString correctly", function() {
 
-		expect(s.toString(true)).to.equal('{cool:"joes"} true')
-		expect(s.toString(false)).to.equal('{cool:"joes"} true false')
+		expect(s.toString(true)).to.equal('{"cool":"joes"} true')
+		expect(s.toString(false)).to.equal('{"cool":"joes"} true false')
 		expect(s.clone().toString(0)).to.equal('0')
 		expect(s.clone().toString(-0)).to.equal('0')
-		expect(s.toString(1)).to.equal('{cool:"joes"} true false 1')
+		expect(s.toString(1)).to.equal('{"cool":"joes"} true false 1')
 		expect(s.empty().toString(-99)).to.equal('-99')
 		expect(s.clone().toString(null)).to.equal('null')
 		expect(s.clone().toString(undefined)).to.equal('undefined')
@@ -31,9 +30,9 @@ describe("Internal storage", function() {
 	it("serializes the ECMA arguments object", function() {
 
 		void function() {
-			expect(s.empty().toString(arguments)).to.equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
-			expect(s.clone({quote_qualifier: true}).toString(arguments)).to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
-			expect(s.clone({quote_qualifier: true, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
+			expect(s.empty().toString(arguments)).to.to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
+			expect(s.empty().clone({quote_qualifier: false}).toString(arguments)).equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
+			expect(s.clone({quote_qualifier: false, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
 		}(null, 1,true, "A string", "", undefined)
 	})
 
@@ -43,7 +42,7 @@ describe("Internal storage", function() {
 		expect(s.empty().toString(new Error("more error"))).to.include(__filename)
 	})
 
-	it.only("serializes native ECMA Objects", function() {
+	it("serializes native ECMA Objects", function() {
 
 		expect(s.empty().option({compress_level: 4}).sp(Function).toString()).to.equal('function Function(){ [native code] }')
 		expect(s.empty().option({compress_level: 3}).sp(Number).toString()).to.equal('function Number() {\n [native code] \n}')
@@ -58,6 +57,7 @@ describe("Internal storage", function() {
 		expect(s.empty().sp(Buffer("Brackit")).toString()).to.equal('Brackit')
 		expect(s.empty().option({truncate_function: true}).sp(Buffer("Brackit")).toString()).to.equal('Brackit')
 	})
+
 	it("serializes objects with odd property qualifiers", function() {
 
 		expect(s.option({}).toString()).to.equal('{"cool":"joes"}')
@@ -66,7 +66,7 @@ describe("Internal storage", function() {
 			.to.equal('{"cool":"joes"} {"undefined":undefined,"null":null,"a":NaN}')
 	})
 
-	it.only("serializes primitve Objects", function() {
+	it("serializes primitve Objects", function() {
 		s.empty()
 		expect(s.clone({compress_level: 4}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
 		expect(s.clone({compress_level: 4}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B",length:1}')
@@ -80,6 +80,7 @@ describe("Internal storage", function() {
 		expect(s.clone({compress_level: 4}).toString(new Object(undefined))).to.equal('{}')
 		expect(s.clone({compress_level: 4}).toString(new Object(null))).to.equal('{}')
 	})
+
 	it("serializes primitve Objects with added properties", function() {
 
 		var obj = new Number()
@@ -89,6 +90,7 @@ describe("Internal storage", function() {
 		expect(Print().option({compress_level: 4}).toString(obj)).to.equal('{[[PrimitiveValue]]:0,"one":1}')
 		expect(Print().option({compress_level: 4}).toString(obj_a)).to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,length:2}')
 	})
+
 	it("Clears stored text data with the empty() command", function() {
 
 		s.empty()

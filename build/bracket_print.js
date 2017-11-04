@@ -78,8 +78,12 @@ define("serializer", [ "require" ], function(t) {
         } else if (t !== t) {
             this.append_string("nan", "NaN");
         } else if (t instanceof Error) {
-            var o = t.stack.split(/[\n\r]/);
-            this.append_string("namespace", o.splice(0, 1) + s);
+            var o = t.stack.split(/[\n,\r]/).slice(1).map(function(t) {
+                return t.replace(/^\s*/, this.compress_level < 4 && i + e || " ");
+            }, this);
+            this.append_string("namespace", "Error");
+            this.append_string("colon", ":" + r);
+            this.append_string("string", i + t.message + s);
             this.append_string("function_body", o.join(s));
         } else if (typeof t === "undefined") {
             this.append_string("undefined", "undefined");
@@ -91,7 +95,7 @@ define("serializer", [ "require" ], function(t) {
             var l = a(t), h = false;
             n = n || 0;
             this._cache[n] = this._cache[n] || [];
-            if (typeof t === "object" && typeof t.valueOf === "function" && t.valueOf() !== t) {
+            if (typeof t.valueOf === "function" && t.valueOf() !== t) {
                 h = true;
             } else {
                 this._cache[n].push(t);
@@ -161,26 +165,26 @@ define("serializer", [ "require" ], function(t) {
             }
             var j = 1;
             if (!l.length) {
-                if (t.__proto__ && typeof t.__proto__ === "object" && a(t.__proto__).length) {
+                if (typeof t.__proto__ === "object" && a(t.__proto__).length) {
                     this.append_string("indent", s + i + e);
                     this.append_string("namespace", "__proto__");
                     this.append_string("colon", ":" + r);
                     if (!this._serializer(t.__proto__, e, i + e, n + 1)) return false;
-                    if (h) {
+                }
+                if (h) {
+                    this.append_string("indent", s + i + e);
+                    this.append_string("namespace", "[[PrimitiveValue]]");
+                    this.append_string("colon", ":" + r);
+                    if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
+                    this.append_string("comma", "," + r);
+                    if (typeof t.length !== "undefined") {
                         this.append_string("indent", s + i + e);
-                        this.append_string("namespace", "[[PrimitiveValue]]");
+                        this.append_string("string", "length");
                         this.append_string("colon", ":" + r);
-                        if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
+                        if (!this._serializer(t.length, e, i + e, n + 1)) return false;
                         this.append_string("comma", "," + r);
-                        if (typeof t.length !== "undefined") {
-                            this.append_string("indent", s + i + e);
-                            this.append_string("string", "length");
-                            this.append_string("colon", ":" + r);
-                            if (!this._serializer(t.length, e, i + e, n + 1)) return false;
-                            this.append_string("comma", "," + r);
-                        }
-                        this.remove_call(-1);
                     }
+                    this.remove_call(-1);
                 }
                 this.append_string("indent", s + i);
                 this.append_string(m && "brace" || "bracket", m && "]" || "}");
@@ -189,9 +193,9 @@ define("serializer", [ "require" ], function(t) {
             for (var c = 0; c < l.length; c++) {
                 var O = l[c];
                 if (this.plain.length >= this.character_limit) return;
-                var k = !!(typeof t[O] === "object" && t[O] !== null && t[O] !== undefined && a(t[O]).length);
+                var q = !!(typeof t[O] === "object" && t[O] !== null && t[O] !== undefined && a(t[O]).length);
                 if (j !== 1 && this.compress_level < 2) this.append_string("indent", s + i + e);
-                if (j === 1 || k) {
+                if (j === 1 || q) {
                     this.append_string("indent", s + i + e);
                     if (j === 1 && typeof t.valueOf === "function" && t.valueOf() !== t) {
                         this.append_string("namespace", "[[PrimitiveValue]]");
@@ -202,14 +206,16 @@ define("serializer", [ "require" ], function(t) {
                     }
                 }
                 if (!m) {
-                    if (!this._serializer(O)) return false;
+                    this._is_qualifier = true;
+                    if (!this._serializer(O, undefined, undefined, n)) return false;
+                    this._is_qualifier = false;
                     this.append_string("colon", ":" + r);
                 }
-                if (n < this.depth_limit - 1 || !k) {
+                if (n < this.depth_limit - 1 || !q) {
                     if (!this._serializer(t[O], e, i + e, n + 1)) return false;
                 } else {
-                    var q = a(t[O]).length;
-                    this.append_string("namespace", new this.parent().add("[[", m && "Array" || "Object", " with ", q, " propert").add(q === 1 && "y" || "ies", "]]"));
+                    var k = a(t[O]).length;
+                    this.append_string("namespace", new this.parent().add("[[", m && "Array" || "Object", " with ", k, " propert").add(k === 1 && "y" || "ies", "]]"));
                 }
                 this.append_string("comma", "," + r);
                 if (j === l.length) {
@@ -239,16 +245,15 @@ define("serializer", [ "require" ], function(t) {
             this.append_string("number", t);
         } else if (typeof t === "string") {
             if (this._cache.length) {
-                this.append_string("quote", this.denote_quoting);
+                if (!this._is_qualifier || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
                 this.append_string("string", t);
-                this.append_string("quote", this.denote_quoting);
+                if (!this._is_qualifier || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
             } else {
                 this.append_string("string", t);
             }
         } else {
             this.append_string("namespace", t);
         }
-        if (this._cache.length && typeof n !== "number") this._cache = [];
         return true;
     };
 });
@@ -304,7 +309,8 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         style_character_limit: Math.pow(2, 28),
         truncate_function: false,
         enumerate_all: false,
-        denote_quote: '"',
+        denote_quoting: '"',
+        quote_qualifier: true,
         level: 1,
         internal_level: 2
     });
@@ -345,11 +351,13 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         _log_level: [ -Infinity, Infinity ],
         toStyleString: function() {
             var t = this.formated;
-            if (arguments.length) t += this._print_command(this._last_command || "space").apply(this, arguments).formated;
+            if (arguments.length) t = this._print_command(this._last_command || "space").apply(this, arguments).formated;
             return (this.style_map[this.platform].theme[this.theme + "_" + this.level].open_with || "") + t + (this.style_map[this.platform].theme[this.theme + "_" + this.level].close_with || "");
         },
         toString: function() {
-            return this._print_command(this._last_command || "space").apply(this, arguments).plain;
+            var t = this.plain;
+            if (arguments.length) t = this._print_command(this._last_command || "space").apply(this, arguments).plain;
+            return t;
         },
         option: function() {
             var t = this._is_chained && this || new this.parent(this);
@@ -491,6 +499,7 @@ define("style_map", [ "require" ], function(t) {
             denote_space: " ",
             denote_add: "",
             use_theme_from: "html",
+            default_theme: "light_1",
             format: function(t, e, i) {
                 i.push(t);
                 return "%c" + e;
@@ -501,6 +510,7 @@ define("style_map", [ "require" ], function(t) {
             denote_tab: "&#09;",
             denote_space: "&nbsp;",
             denote_add: "",
+            default_theme: "light_1",
             format: function(t, e) {
                 return "<span style='" + t + ";'>" + e + "</span>";
             },
@@ -527,7 +537,7 @@ define("style_map", [ "require" ], function(t) {
                     number: "color: green; font-weight: bold",
                     string: "color: #b91db3; font-weight: bold",
                     function_body: "color: #656565; font-weight: bold",
-                    not_a_number: "color: #249e93; font-weight: bold",
+                    nan: "color: #249e93; font-weight: bold",
                     null: "color: #249e93; font-weight: bold",
                     boolean: "color: red; font-weight: bold",
                     comma: "color: #323232; font-weight: bold",
@@ -544,7 +554,7 @@ define("style_map", [ "require" ], function(t) {
                     number: "color: green",
                     string: "color: #e9e9e9",
                     function_body: "color: #a7a7a7",
-                    not_a_number: "color: yellow",
+                    nan: "color: yellow",
                     null: "color: #5bc3ba; font-weight: bold",
                     boolean: "color: red",
                     comma: "color: #787878",
@@ -561,7 +571,7 @@ define("style_map", [ "require" ], function(t) {
                     number: "color: green; font-weight: bold",
                     string: "color: #e9e9e9; font-weight: bold",
                     function_body: "color: #a7a7a7; font-weight: bold",
-                    not_a_number: "color: yellow; font-weight: bold",
+                    nan: "color: yellow; font-weight: bold",
                     null: "color: #5bc3ba; font-weight: bold; font-weight: bold",
                     boolean: "color: red; font-weight: bold",
                     comma: "color: #787878; font-weight: bold",
@@ -596,7 +606,7 @@ define("style_map", [ "require" ], function(t) {
                     quote: "[0;30m",
                     number: "[0;32m",
                     string: "[0;35m",
-                    function_body: "[0;30m",
+                    function_body: "[0;37m",
                     nan: "[0;33m",
                     null: "[0;36m",
                     boolean: "[0;31m",
@@ -605,7 +615,7 @@ define("style_map", [ "require" ], function(t) {
                     parenthesis: "[0;36m",
                     bracket: "[0;36m",
                     brace: "[0;36m",
-                    colon: "[0;30m",
+                    colon: "[0;37m",
                     namespace: "[0;31m",
                     indent: "[0;37m",
                     title: "[0;35m",
@@ -616,8 +626,8 @@ define("style_map", [ "require" ], function(t) {
                     quote: "[1;30m",
                     number: "[1;32m",
                     string: "[1;35m",
-                    function_body: "[1;30m",
-                    not_a_number: "[1;33m",
+                    function_body: "[1;37m",
+                    nan: "[1;33m",
                     null: "[1;36m",
                     boolean: "[1;31m",
                     comma: "[1;30m",
@@ -625,7 +635,7 @@ define("style_map", [ "require" ], function(t) {
                     parenthesis: "[1;36m",
                     bracket: "[1;36m",
                     brace: "[1;36m",
-                    colon: "[1;30m",
+                    colon: "[1;37m",
                     namespace: "[0;31m",
                     indent: "[1;37m",
                     title: "[1;32m",
@@ -708,7 +718,7 @@ define("bracket_print", [ "require", "./proto_object", "./style_map" ], function
     };
     e.append_string = function(t, e) {
         if (this.plain.length === this.character_limit) return false; else if (!arguments.length) return true;
-        var i = e && e.toString() || "";
+        var i = e.toString();
         var n = ".. Object truncated";
         n = this.character_limit > n.length * 3 && n || "";
         if (this.plain.length + i.length > this.character_limit - n.length) i = i.substr(0, this.character_limit - this.plain.length - n.length) + n;
