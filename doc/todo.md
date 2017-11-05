@@ -1,17 +1,16 @@
 # Brackit Print
-### Constructing and Using Raw Strings 
+### Todo
 
 ----
-
 ### Document pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
 * [Callback Functionality](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
 * [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
+* [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
 * [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
 * [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 * [Constructing Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/titles.md)
-* [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
 
@@ -19,21 +18,13 @@
 ![bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
 
 
-It is easy and programmatically efficient to assemble strings using bracket print. The process can be made the most efficient by turning off style formatting via the option member like below. 
+**Things to do in Bracket Print:**
 
-```javascript
-var up = bracket_print({style: false})
+Basic:
+	* Create a style map pre-parser to check for errors and pre-format values.
 
-// The string is logged to console using log.
-up.s("bracket_print", "can", "assemble").l("complex strings with minimal effort.", "This will make logging more pleasant").log()
-
-// The string is returned using toString.
-var log_string = up.toString()
-// This returns the same string as above.
-var log_string_a = up.toStyleString()
-
-
-```
-
-The toString member is cheap to call (it simple returns an instance value if no parameters are provided), so the above example has very little CPU impact. The toStyleString call above.
-
+Features:
+	* Add special Object types which can be plugged into the serializer (e.g. custom jquery object serialization).
+		* The style map should create strings where expected
+		* The style map should warn when incorrect values are set
+		* The style map should lowercase everything 
