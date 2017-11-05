@@ -5,13 +5,10 @@
 
 ### Document pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
-* [Callback Functionality](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
+* [Using as Callback a Function](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
 * [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
 * [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
-* [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
 * [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
-* [Constructing Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/titles.md)
-* [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
 
@@ -32,8 +29,8 @@ var log_string = up.toString()
 // This returns the same string as above.
 var log_string_a = up.toStyleString()
 
-
 ```
 
-The toString member is cheap to call (it simple returns an instance value if no parameters are provided), so the above example has very little CPU impact. The toStyleString call above.
+The *toString* member is cheap to call (it simple returns an instance value if no parameters are provided), so the above example has very little CPU impact. The *toStyleString* call above returns the non-styled text sense the *style* option was set falsey. There is not an increase in performance overhead to use it instead of *toString* when *style* is disabled.
 
+Any parameters that are passed into *toString* or *toStyleString* will be added to the call chain using the last command used for separation. The default command of *space* will be used when *toString* or *toStyleString* is called before a separation command.

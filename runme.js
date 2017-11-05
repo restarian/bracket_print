@@ -23,6 +23,12 @@ var c = "ddd"
 //up.option({level: 1}).sp({}).log()
 //up.empty().option({level: 1}).sp("???????", {cool: "joes"}).log(22233, "*****", null, true)
 //console.log(print({compress_level: 4, value_buffer: "toString", enumerate_all: true}).s(Buffer("ffffffffffff")).toString(false))
-console.log(up.option({enumerate_all: false, compress_level: 1}).s({cool: a, here: {cool:a}}).log().toString().length)
+//console.log(up.option({enumerate_all: false, compress_level: 1}).s({cool: a, here: {cool:a}}).log().toString().length)
+
+//var up = bracket_print
+//up.option({title: true, log_title: "not this one"}).log(null)
+up.log(null)
+//up.log_level = "1,3-10"
+//console.log(up.log_level)
 })
 
