@@ -9,7 +9,13 @@
 			"location": nodeRequire("path").dirname(module.children[module.children.length-1].filename),
 		}
 	],
+	// This removes the id from the amdefine definition so that the library can be loaded as anonymous (brace_umd does this at run-time).
+	"onBuildWrite": function (moduleName, path, contents) {
+		// This removes the id from the amdefine definition so that the library can be loaded as anonymous (brace_umd does this at run-time).
+		return contents.replace(RegExp("[\",\']"+ config.name + "[\",\']\,"), "")
+	},
+	"keepAmdefine": true,
 	"optimize": "uglify2",
-	"uglify2": nodeRequire("brace_umd").build_option_extend({output: {beautify: true}, mangle: {properties: false}})
+	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: {properties: false}})
 }
 

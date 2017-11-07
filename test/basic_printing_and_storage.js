@@ -1,3 +1,21 @@
+/*Bracket Print resides under the LGPL v3
+
+  Brackit print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
+
+  Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+
+ this file is a part of Brackit print
+
+ Brackit Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+ the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+ Brackit print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+  Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
+
 var chai = require("chai"),
 expect = chai.expect,
 path = require("path")
@@ -18,21 +36,21 @@ describe("Internal storage", function() {
 
 		expect(s.toString(true)).to.equal('{"cool":"joes"} true')
 		expect(s.toString(false)).to.equal('{"cool":"joes"} true false')
-		expect(s.clone().toString(0)).to.equal('0')
-		expect(s.clone().toString(-0)).to.equal('0')
+		expect(s.spawn().toString(0)).to.equal('0')
+		expect(s.spawn().toString(-0)).to.equal('0')
 		expect(s.toString(1)).to.equal('{"cool":"joes"} true false 1')
 		expect(s.empty().toString(-99)).to.equal('-99')
-		expect(s.clone().toString(null)).to.equal('null')
-		expect(s.clone().toString(undefined)).to.equal('undefined')
-		expect(s.clone().toString(5*"f")).to.equal('NaN')
+		expect(s.spawn().toString(null)).to.equal('null')
+		expect(s.spawn().toString(undefined)).to.equal('undefined')
+		expect(s.spawn().toString(5*"f")).to.equal('NaN')
 	})
 
 	it("serializes the ECMA arguments object", function() {
 
 		void function() {
 			expect(s.empty().toString(arguments)).to.to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
-			expect(s.empty().clone({quote_qualifier: false}).toString(arguments)).equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
-			expect(s.clone({quote_qualifier: false, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
+			expect(s.empty().spawn({quote_qualifier: false}).toString(arguments)).equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
+			expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
 		}(null, 1,true, "A string", "", undefined)
 	})
 
@@ -42,7 +60,7 @@ describe("Internal storage", function() {
 		expect(s.empty().toString(new Error("more error"))).to.include(__filename)
 	})
 
-	it("serializes native ECMA Objects", function() {
+	it.skip("serializes native ECMA Objects", function() {
 
 		expect(s.empty().option({compress_level: 4}).s(Function).toString()).to.equal('function Function(){ [native code] }')
 		expect(s.empty().option({compress_level: 3}).s(Number).toString()).to.equal('function Number() {\n [native code] \n}')
@@ -68,17 +86,17 @@ describe("Internal storage", function() {
 
 	it("serializes primitve Objects", function() {
 		s.empty()
-		expect(s.clone({compress_level: 4}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
-		expect(s.clone({compress_level: 4}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B",length:1}')
-		expect(s.clone({compress_level: 4}).toString(new Boolean("BOB"))).to.equal('{[[PrimitiveValue]]:true}')
-		expect(s.clone({compress_level: 4}).toString(new Boolean(0))).to.equal('{[[PrimitiveValue]]:false}')
-		expect(s.clone({compress_level: 4}).toString(new Number("33"))).to.equal('{[[PrimitiveValue]]:33}')
-		expect(s.clone({compress_level: 4}).toString(new Number())).to.equal('{[[PrimitiveValue]]:0}')
-		expect(s.clone({compress_level: 4}).toString(new Object("dd"))).to.equal('{[[PrimitiveValue]]:"dd","0":"d","1":"d",length:2}')
-		expect(s.clone({compress_level: 4}).toString(new Object({"aa": 4}))).to.equal('{"aa":4}')
-		expect(s.clone({compress_level: 4}).toString(new Object())).to.equal('{}')
-		expect(s.clone({compress_level: 4}).toString(new Object(undefined))).to.equal('{}')
-		expect(s.clone({compress_level: 4}).toString(new Object(null))).to.equal('{}')
+		expect(s.spawn({compress_level: 4}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
+		expect(s.spawn({compress_level: 4}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B",length:1}')
+		expect(s.spawn({compress_level: 4}).toString(new Boolean("BOB"))).to.equal('{[[PrimitiveValue]]:true}')
+		expect(s.spawn({compress_level: 4}).toString(new Boolean(0))).to.equal('{[[PrimitiveValue]]:false}')
+		expect(s.spawn({compress_level: 4}).toString(new Number("33"))).to.equal('{[[PrimitiveValue]]:33}')
+		expect(s.spawn({compress_level: 4}).toString(new Number())).to.equal('{[[PrimitiveValue]]:0}')
+		expect(s.spawn({compress_level: 4}).toString(new Object("dd"))).to.equal('{[[PrimitiveValue]]:"dd","0":"d","1":"d",length:2}')
+		expect(s.spawn({compress_level: 4}).toString(new Object({"aa": 4}))).to.equal('{"aa":4}')
+		expect(s.spawn({compress_level: 4}).toString(new Object())).to.equal('{}')
+		expect(s.spawn({compress_level: 4}).toString(new Object(undefined))).to.equal('{}')
+		expect(s.spawn({compress_level: 4}).toString(new Object(null))).to.equal('{}')
 	})
 
 	it("serializes primitve Objects with added properties", function() {
