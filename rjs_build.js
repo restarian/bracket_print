@@ -16,6 +16,7 @@
 	},
 	"keepAmdefine": true,
 	"optimize": "uglify2",
-	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: {properties: false}})
+	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: {properties: false}}),
+	"writeBuildTxt": false
 }
 

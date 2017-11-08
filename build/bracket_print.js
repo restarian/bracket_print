@@ -1,4 +1,4 @@
-/*Bracket Print resides under the LGPL v3
+/* Bracket Print resides under the LGPL v3
 
   Brackit print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
@@ -43,7 +43,7 @@ SOFTWARE.
  this file is part of the Brace Prototype module
  Author: Robert Edward Steckroth II, Bustout, <RobertSteckroth@gmail.com> */
 
-/* Bracket Print resides under the LGPL v3
+/*Bracket Print resides under the LGPL v3
 
   Brackit print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
@@ -85,26 +85,26 @@ if (typeof define !== "function") {
 }
 
 define("serializer", [ "require" ], function(t) {
-    return function(t, e, i, n) {
-        var r, s = "";
-        var o = this.style_map[this.platform].denote_line;
+    return function(t, e, i, n, r) {
+        var s, o = "";
+        var a = this.style_map[this.platform].denote_line;
         if (typeof n !== "number" || !this._cache) this._cache = [];
         e = typeof e === "string" && e || this.style_map[this.platform].denote_space + this.style_map[this.platform].denote_space;
         i = i || "";
-        if (this.compress_level > 3) {
+        if (this.compression > 3) {
             e = "";
-            r = "";
             s = "";
-        } else if (this.compress_level === 3) {
+            o = "";
+        } else if (this.compression === 3) {
             e = "";
-            r = this.style_map[this.platform].denote_space;
             s = this.style_map[this.platform].denote_space;
-        } else if (this.compress_level === 2) {
-            r = this.style_map[this.platform].denote_space;
-            s = this.style_map[this.platform].denote_line;
+            o = this.style_map[this.platform].denote_space;
+        } else if (this.compression === 2) {
+            s = this.style_map[this.platform].denote_space;
+            o = this.style_map[this.platform].denote_line;
         } else {
-            r = this.style_map[this.platform].denote_space;
-            s = this.style_map[this.platform].denote_line;
+            s = this.style_map[this.platform].denote_space;
+            o = this.style_map[this.platform].denote_line;
         }
         if (t instanceof this.parent) {
             this.append_string("string", t);
@@ -115,38 +115,38 @@ define("serializer", [ "require" ], function(t) {
         } else if (t !== t) {
             this.append_string("nan", "NaN");
         } else if (t instanceof Error) {
-            var a = t.stack.split(/[\n,\r]/).slice(1).map(function(t) {
-                return t.replace(/^\s*/, this.compress_level < 4 && i + e || " ");
+            var l = t.stack.split(/[\n,\r]/).slice(1).map(function(t) {
+                return t.replace(/^\s*/, this.compression < 4 && i + e || " ");
             }, this);
             this.append_string("namespace", "Error");
-            this.append_string("colon", ":" + r);
-            this.append_string("string", i + t.message + s);
-            this.append_string("function_body", a.join(s));
+            this.append_string("colon", ":" + s);
+            this.append_string("string", i + t.message + o);
+            this.append_string("function_body", l.join(o));
         } else if (typeof t === "undefined") {
             this.append_string("undefined", "undefined");
         } else if ((!this.enumerate_all || this.value_buffer) && typeof Buffer !== "undefined" && t instanceof Buffer) {
             this.append_string("string", t.toString());
         } else if (typeof t === "object" || typeof t === "function") {
             if (!this.append_string()) return;
-            var l = !this.enumerate_all && Object.keys || Object.getOwnPropertyNames;
-            var h = l(t), p = false;
+            var h = !this.enumerate_all && Object.keys || Object.getOwnPropertyNames;
+            var p = h(t), c = false;
             n = n || 0;
             this._cache[n] = this._cache[n] || [];
             if (typeof t.valueOf === "function" && t.valueOf() !== t) {
-                p = true;
+                c = true;
             } else {
                 this._cache[n].push(t);
             }
-            for (var c = 0; c < n; c++) {
-                for (var f = 0; f < this._cache[c].length; f++) {
-                    if (typeof t === "object" && t === this._cache[c][f]) {
-                        var _ = "<..circular duplicate of:";
-                        var m = l(this._cache[c][f]);
-                        m.unshift("");
-                        m = m.join(" " + (this._cache[c - 1] && this._cache[c - 1][f] || "<-"));
-                        if (_.length + m.length > 75) m = m.substr(0, 71 - _.length) + "..";
-                        this.append_string("namespace", _);
-                        this.append_string("function_body", m);
+            for (var f = 0; f < n; f++) {
+                for (var _ = 0; _ < this._cache[f].length; _++) {
+                    if (typeof t === "object" && t === this._cache[f][_]) {
+                        var m = "<..circular duplicate of:";
+                        var u = h(this._cache[f][_]);
+                        u.unshift("");
+                        u = u.join(" " + (this._cache[f - 1] && this._cache[f - 1][_] || "<-"));
+                        if (m.length + u.length > 75) u = u.substr(0, 71 - m.length) + "..";
+                        this.append_string("namespace", m);
+                        this.append_string("function_body", u);
                         this.append_string("namespace", ">");
                         return;
                     }
@@ -154,50 +154,50 @@ define("serializer", [ "require" ], function(t) {
             }
             var d = t.constructor === Array;
             if (typeof t === "function") {
-                var u = t.toString().match(/function(?:\ |[\n,\r])*(\S*)\(([^\)]*)\)(?:\ |[\n,\r])*\{((?:.|[\n,\r])*)\}(?:\ |[\n,\r])*/i) || [];
-                var g = u[1] || "";
-                var b = u[2] || "";
-                var y = u[3] || "";
+                var g = t.toString().match(/function(?:\ |[\n,\r])*(\S*)\(([^\)]*)\)(?:\ |[\n,\r])*\{((?:.|[\n,\r])*)\}(?:\ |[\n,\r])*/i) || [];
+                var b = g[1] || "";
+                var y = g[2] || "";
+                var v = g[3] || "";
                 this.append_string("namespace", "function ");
-                this.append_string("string", g);
-                var v = b.split(",");
-                this.append_string("parenthesis", "(" + (v[0] && r || ""));
-                v.forEach(function(t) {
+                this.append_string("string", b);
+                var j = y.split(",");
+                this.append_string("parenthesis", "(" + (j[0] && s || ""));
+                j.forEach(function(t) {
                     this.append_string("variable", t);
                     this.append_string("comma", ",");
                 }, this);
                 this.remove_call(-1);
-                this.append_string("parenthesis", (v[0] && r || "") + ")" + r);
-                this.append_string("bracket", "{" + r);
+                this.append_string("parenthesis", (j[0] && s || "") + ")" + s);
+                this.append_string("bracket", "{" + s);
                 if (this.truncate_function) {
-                    this.append_string("function_body", r + "..." + r);
+                    this.append_string("function_body", s + "..." + s);
                 } else {
-                    var j = true;
-                    if (!/[\n,\r]/.test(y)) y = o + y + o;
-                    var w = Infinity, O = Infinity;
+                    var O = true;
+                    if (!/[\n,\r]/.test(v)) v = a + v + a;
+                    var w = Infinity, q = Infinity;
                     if (this.indent_function) {
-                        (y.match(/^\s+/gm) || []).forEach(function(t) {
+                        (v.match(/^\s+/gm) || []).forEach(function(t) {
                             w = Math.min((t.match(/\t/g) || []).length, w);
-                            O = Math.min((t.match(/\ /g) || []).length, O);
+                            q = Math.min((t.match(/\ /g) || []).length, q);
                         });
                     }
-                    var q = true;
-                    y.replace(/(^.*)([\n,\r]+)/gm, function() {
+                    var k = true;
+                    v.replace(/(^.*)([\n,\r]+)/gm, function() {
                         var t = /\S/.test(arguments[1]);
-                        if (this.compress_level >= 4 && !t) return "";
-                        if (t) q = false;
-                        if ((this.compress_level === 2 || this.compress_level === 3) && /[\n,\r]{3,}/.test(arguments[2])) arguments[2] = o + o;
+                        if (this.compression >= 4 && !t) return "";
+                        if (t) k = false;
+                        if ((this.compression === 2 || this.compression === 3) && /[\n,\r]{3,}/.test(arguments[2])) arguments[2] = a + a;
                         if (t) this.append_string("indent", i + e);
-                        j = false;
+                        O = false;
                         var n = (arguments[2].match(/[\n,\r]/g) || []).reduce(function(t, e, i, n) {
                             if (n.length - 1 !== i) {
-                                j = true;
-                                return t + o;
+                                O = true;
+                                return t + a;
                             }
                             return t;
-                        }, o);
-                        var r = w, s = O;
-                        if (this.compress_level >= 0 && q) this.append_string("function_body", arguments[1].replace(/^[\t,\n,\r,\s]+/, "")); else if (this.indent_function) {
+                        }, a);
+                        var r = w, s = q;
+                        if (this.compression >= 0 && k) this.append_string("function_body", arguments[1].replace(/^[\t,\n,\r,\s]+/, "")); else if (this.indent_function) {
                             this.append_string("function_body", arguments[1].replace(/\t/g, function(t) {
                                 if (--r > 0) return "";
                                 return t;
@@ -209,98 +209,96 @@ define("serializer", [ "require" ], function(t) {
                         this.append_string("indent", n);
                         return arguments[0];
                     }.bind(this));
-                    if (!j) this.remove_call(-1);
+                    if (!O) this.remove_call(-1);
                 }
             } else {
-                this.append_string(d && "brace" || "bracket", d && "[" || "{" + (this.compress_level < 3 && this.style_map[this.platform].denote_space || ""));
+                this.append_string(d && "brace" || "bracket", d && "[" || "{" + (this.compression < 3 && this.style_map[this.platform].denote_space || ""));
             }
-            var k = 1;
-            if (!h.length) {
-                if (typeof t.__proto__ === "object" && l(t.__proto__).length) {
-                    this.append_string("indent", s + i + e);
-                    this.append_string("namespace", "__proto__");
-                    this.append_string("colon", ":" + r);
+            var P = 1;
+            if (!p.length) {
+                if (typeof t.__proto__ === "object" && h(t.__proto__).length) {
+                    this.append_string("indent", o + i + e);
+                    this._serializer("__proto__", undefined, undefined, n, true);
+                    this.append_string("colon", ":" + s);
                     if (!this._serializer(t.__proto__, e, i + e, n + 1)) return false;
                 }
-                if (p) {
-                    this.append_string("indent", s + i + e);
+                if (c) {
+                    this.append_string("indent", o + i + e);
                     this.append_string("namespace", "[[PrimitiveValue]]");
-                    this.append_string("colon", ":" + r);
+                    this.append_string("colon", ":" + s);
                     if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
-                    this.append_string("comma", "," + r);
+                    this.append_string("comma", "," + s);
                     if (typeof t.length !== "undefined") {
-                        this.append_string("indent", s + i + e);
+                        this.append_string("indent", o + i + e);
                         this.append_string("string", "length");
-                        this.append_string("colon", ":" + r);
+                        this.append_string("colon", ":" + s);
                         if (!this._serializer(t.length, e, i + e, n + 1)) return false;
-                        this.append_string("comma", "," + r);
+                        this.append_string("comma", "," + s);
                     }
                     this.remove_call(-1);
                 }
-                this.append_string("indent", s + i);
+                this.append_string("indent", o + i);
                 this.append_string(d && "brace" || "bracket", d && "]" || "}");
-                this.append_string("comma", "," + r);
+                this.append_string("comma", "," + s);
             }
-            for (var f = 0; f < h.length; f++) {
-                var P = h[f];
+            for (var _ = 0; _ < p.length; _++) {
+                var z = p[_];
                 if (this.plain.length >= this.character_limit) return;
-                var I = !!(typeof t[P] === "object" && t[P] !== null && t[P] !== undefined && l(t[P]).length);
-                if (k !== 1 && this.compress_level < 2) this.append_string("indent", s + i + e);
-                if (k === 1 || I) {
-                    this.append_string("indent", s + i + e);
-                    if (k === 1 && typeof t.valueOf === "function" && t.valueOf() !== t) {
+                var S = !!(typeof t[z] === "object" && t[z] !== null && t[z] !== undefined && h(t[z]).length);
+                if (P !== 1 && this.compression < 2) this.append_string("indent", o + i + e);
+                if (P === 1 || S) {
+                    this.append_string("indent", o + i + e);
+                    if (P === 1 && typeof t.valueOf === "function" && t.valueOf() !== t) {
                         this.append_string("namespace", "[[PrimitiveValue]]");
-                        this.append_string("colon", ":" + r);
+                        this.append_string("colon", ":" + s);
                         if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
-                        this.append_string("comma", "," + s);
-                        this.append_string("indent", r);
+                        this.append_string("comma", "," + o);
+                        this.append_string("indent", s);
                     }
                 }
                 if (!d) {
-                    this._is_qualifier = true;
-                    if (!this._serializer(P, undefined, undefined, n)) return false;
-                    this._is_qualifier = false;
-                    this.append_string("colon", ":" + r);
+                    if (!this._serializer(z, undefined, undefined, n, true)) return false;
+                    this.append_string("colon", ":" + s);
                 }
-                if (n < this.depth_limit - 1 || !I) {
-                    if (!this._serializer(t[P], e, i + e, n + 1)) return false;
+                if (n < this.depth_limit - 1 || !S) {
+                    if (!this._serializer(t[z], e, i + e, n + 1)) return false;
                 } else {
-                    var S = l(t[P]).length;
+                    var I = h(t[z]).length;
                     this.append_string("namespace", new this.parent({
                         style: false
-                    }).add("<..", d && "Array" || "object", " with ", S, " propert").add(S === 1 && "y" || "ies", ">"));
+                    }).add("<..", d && "Array" || "object", " with ", I, " propert").add(I === 1 && "y" || "ies", ">"));
                 }
-                this.append_string("comma", "," + r);
-                if (k === h.length) {
-                    if (p && typeof t.length !== "undefined") {
-                        this.append_string("indent", s + i + e);
-                        this.append_string("string", "length");
-                        this.append_string("colon", ":" + r);
+                this.append_string("comma", "," + s);
+                if (P === p.length) {
+                    if (c && typeof t.length !== "undefined") {
+                        this.append_string("indent", o + i + e);
+                        this._serializer("length", undefined, undefined, n, true);
+                        this.append_string("colon", ":" + s);
                         if (!this._serializer(t.length, e, i + e, n + 1)) return false;
-                        this.append_string("comma", "," + r);
+                        this.append_string("comma", "," + s);
                     }
                     this.remove_call(-1);
                     if (t.__proto__ && typeof t.__proto__ === "object" && Object.keys(t.__proto__).length) {
-                        this.append_string("comma", "," + r);
-                        this.append_string("indent", s + i + e);
-                        this.append_string("namespace", "__proto__");
-                        this.append_string("colon", ":" + r);
+                        this.append_string("comma", "," + s);
+                        this.append_string("indent", o + i + e);
+                        this._serializer("__proto__", undefined, undefined, n, true);
+                        this.append_string("colon", ":" + s);
                         if (!this._serializer(t.__proto__, e, i + e, n + 1)) return false;
                     }
-                    this.append_string("indent", s + i);
+                    this.append_string("indent", o + i);
                     this.append_string(d && "brace" || "bracket", d && "]" || "}");
-                    this.append_string("comma", "," + r);
+                    this.append_string("comma", "," + s);
                 }
-                k++;
+                P++;
             }
             this.remove_call(-1);
         } else if (typeof t === "number") {
             this.append_string("number", t);
         } else if (typeof t === "string") {
             if (this._cache.length) {
-                if (!this._is_qualifier || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
+                if (!r || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
                 this.append_string("string", t);
-                if (!this._is_qualifier || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
+                if (!r || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
             } else {
                 this.append_string("string", t);
             }
@@ -312,50 +310,40 @@ define("serializer", [ "require" ], function(t) {
     };
 });
 
-if (typeof define !== "function") {
-    var define = require("amdefine")(module);
-}
+if ("function" != typeof define) var define = require("amdefine")(module);
 
 define("brace_prototype/brace_prototype", [], function() {
     return function(t) {
-        if (typeof t !== "object") return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || t;
+        if ("object" != typeof t) return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || t;
         var e = {};
         for (var i in t) e[i] = null;
         var n = function(t) {
             if (this.hasOwnProperty(t)) {
-                if (typeof Object.getPrototypeOf === "function") return !!Object.getPrototypeOf(this)[t] && delete this[t] || true; else for (var e = this.__proto__; e; e = e.__proto__) if (t in e) return delete this[t] || true;
+                if ("function" == typeof Object.getPrototypeOf) return !!Object.getPrototypeOf(this)[t] && delete this[t] || !0;
+                for (var e = this.__proto__; e; e = e.__proto__) if (t in e) return delete this[t] || !0;
             }
-            return false;
+            return !1;
         };
-        t.clear = function() {
+        return t.clear = function() {
             if (!arguments.length) for (var t in e) n.call(this, t);
-            for (var i in arguments) if (arguments[i] in e) n.call(this, arguments[i]); else console.log("The qualifier", arguments[i], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
-        };
-        t.extend = function(t) {
-            Object.getOwnPropertyNames(t).forEach(function(e) {
+            for (var i in arguments) arguments[i] in e ? n.call(this, arguments[i]) : console.log("The qualifier", arguments[i], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
+        }, t.extend = function(t) {
+            return Object.getOwnPropertyNames(t).forEach(function(e) {
                 var i = Object.getOwnPropertyDescriptor(t, e);
                 Object.defineProperty(this, e, i);
-            }, this);
-            return this;
-        };
-        t.proto_extend = function(e) {
-            Object.getOwnPropertyNames(e).forEach(function(t) {
+            }, this), this;
+        }, t.proto_extend = function(e) {
+            return Object.getOwnPropertyNames(e).forEach(function(t) {
                 var i = Object.getOwnPropertyDescriptor(e, t);
                 Object.defineProperty(this, t, i);
-            }, t);
-            return t;
-        };
-        t.add_qualifier = function(i) {
-            e[i] = null;
-            t[i] = t[i] || null;
-        };
-        t.remove_qualifier = function(t) {
+            }, t), t;
+        }, t.add_qualifier = function(i) {
+            e[i] = null, t[i] = t[i] || null;
+        }, t.remove_qualifier = function(t) {
             delete e[t];
-        };
-        t.list = function() {
+        }, t.list = function() {
             return e;
-        };
-        return t;
+        }, t;
     };
 });
 
@@ -375,9 +363,9 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         title_stamp: function() {
             return new Date();
         },
-        theme: "light",
-        compress_level: 2,
-        indentation_string: "   ",
+        theme: "dark",
+        compression: 2,
+        indentation_string: "    ",
         platform: (typeof require == "function" && require.isBrowser === false || typeof module === "object" && typeof module.exports === "object") && "terminal" || "browser",
         depth_limit: 800,
         character_limit: Math.pow(2, 25),
@@ -387,10 +375,11 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         enumerate_all: false,
         value_buffer: true,
         denote_quoting: '"',
-        quote_qualifier: true,
+        quote_qualifier: false,
         level: 1,
-        internal_level: 2
+        internal_level: false
     });
+    i.add_qualifier("log_level");
     return i.proto_extend({
         _serializer: t,
         get log_level() {
@@ -413,9 +402,8 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
                     var n = /minus/.test(e[0]), r = /minus/.test(e[1]);
                     if (/Infinity/.test(e[i])) e[i] = Infinity; else e[i] = parseInt(e[i].replace(/minus/, ""));
                     if (/Infinity/.test(e[i])) e[i + 1] = Infinity; else e[i + 1] = parseInt(e[i + 1].replace(/minus/, ""));
-                    if (e[i] !== e[i] || e[i + 1] !== e[i + 1]) return new this.parent({
-                        theme: this.theme + "_internal",
-                        level: this.internal_level,
+                    if (e[i] !== e[i] || e[i + 1] !== e[i + 1]) return new this.parent(this, {
+                        level: this.internal_level || this.level,
                         log_title: "Bracket Print Error"
                     }).log("The value set to log_level can not be parsed as an integer:", e);
                     if (n) e[i] *= -1;
@@ -429,7 +417,9 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         toStyleString: function() {
             var t = this.formated;
             if (arguments.length) t = this._print_command(this._last_command || "space").apply(this, arguments).formated;
-            return (this.style_map[this.platform].theme[this.theme + "_" + this.level].open_with || "") + t + (this.style_map[this.platform].theme[this.theme + "_" + this.level].close_with || "");
+            var e = this.style_map[this.platform];
+            var i = e.theme[this.theme + "_" + this.level];
+            return (i && i.open_with || e && e.open_with || "") + t + (i && i.close_with || e && e.close_with || "");
         },
         toString: function() {
             var t = this.plain;
@@ -450,20 +440,20 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
                             e = true;
                             this.log_title = n;
                         } else {
-                            for (var s in n) if (s in this.list()) {
-                                if (s !== "log_title" || !e) this[s] = n[s];
-                            } else if (!n instanceof this.parent) {
-                                return new this.parent({
-                                    theme: this.theme + "_internal",
-                                    level: this.internal_level,
-                                    log_title: "Bracket Print Error"
-                                }).s("Option", s, "is not a brackit print option. Use .list() to see all user configurable options:").line(this.list()).log();
+                            for (var s in n) {
+                                if (s in this.list()) {
+                                    if (s !== "log_title" || !e) this[s] = n[s];
+                                } else if (!(n instanceof this.parent)) {
+                                    return new this.parent(this, {
+                                        level: this.internal_level || this.level,
+                                        log_title: "Bracket Print Error"
+                                    }).s("Option", s, "is not a brackit print option. Reference the brace prototype module for option configurations.").line(Object.keys(this.list())).log();
+                                }
                             }
                         }
                     } else {
-                        return new this.parent({
-                            theme: this.theme + "_internal",
-                            level: this.internal_level,
+                        return new this.parent(this, {
+                            level: this.internal_level || this.level,
                             log_title: "Bracket Print Error"
                         }).log("The parameter passed in as an option", typeof t[r], t[r], "is not accepted. See docs for more information.");
                         continue;
@@ -536,7 +526,7 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
             t._is_chained = true;
             return function() {
                 var t = false;
-                for (var e = 0; e < this.log_level.length; e += 2) if (parseInt(this.level) >= this.log_level[e] && parseInt(this.level) <= this.log_level[e + 1]) {
+                for (var e = 0; e < this.log_level.length; e += 2) if (this.level >= this.log_level[e] && this.level <= this.log_level[e + 1]) {
                     t = true;
                     break;
                 }
@@ -639,21 +629,23 @@ define("style_map", [ "require" ], function(t) {
                     variable: "color: #4a6a27"
                 },
                 light_2: {
-                    quote: "color: #454343; font-weight: bold;",
-                    number: "color: green; font-weight: bold",
-                    string: "color: #b91db3; font-weight: bold",
-                    function_body: "color: #656565; font-weight: bold",
-                    nan: "color: #249e93; font-weight: bold",
-                    null: "color: #249e93; font-weight: bold",
-                    boolean: "color: red; font-weight: bold",
-                    comma: "color: #323232; font-weight: bold",
-                    undefined: "color: #f4d400; font-weight: bold",
-                    scope_container: "color: #286f4f; font-weight: bold",
-                    colon: "color: #363533; font-weight: bold",
-                    namespace: "color: #690900; font-weight: bold",
-                    indent: "color: #c2bab8; font-weight: bold",
-                    title: "color: #0a0a0a; font-weight: bold",
-                    variable: "color: #4a6a27; font-weight: bold"
+                    open_with: "<span style='font-weight: bold'>",
+                    close_with: "</span>",
+                    quote: "color: #454343",
+                    number: "color: green",
+                    string: "color: #b91db3",
+                    function_body: "color: #656565",
+                    nan: "color: #249e93",
+                    null: "color: #249e93",
+                    boolean: "color: red",
+                    comma: "color: #323232",
+                    undefined: "color: #f4d400",
+                    scope_container: "color: #286f4f",
+                    colon: "color: #363533",
+                    namespace: "color: #690900",
+                    indent: "color: #c2bab8",
+                    title: "color: #0a0a0a",
+                    variable: "color: #4a6a27"
                 },
                 dark_1: {
                     quote: "color: #d2d2d2",
@@ -661,7 +653,7 @@ define("style_map", [ "require" ], function(t) {
                     string: "color: #e9e9e9",
                     function_body: "color: #a7a7a7",
                     nan: "color: yellow",
-                    null: "color: #5bc3ba; font-weight: bold",
+                    null: "color: #5bc3ba",
                     boolean: "color: red",
                     comma: "color: #787878",
                     undefined: "color: #e9d234",
@@ -669,25 +661,27 @@ define("style_map", [ "require" ], function(t) {
                     colon: "color: #dfd9b3",
                     namespace: "color: #e05c50",
                     indent: "color: #373332",
-                    title: "color: #f2f2f2; font-weight: bold",
+                    title: "color: #f2f2f2",
                     variable: "color: #baeb83"
                 },
                 dark_2: {
-                    quote: "color: #d2d2d2; font-weight: bold",
-                    number: "color: green; font-weight: bold",
-                    string: "color: #e9e9e9; font-weight: bold",
-                    function_body: "color: #a7a7a7; font-weight: bold",
-                    nan: "color: yellow; font-weight: bold",
-                    null: "color: #5bc3ba; font-weight: bold; font-weight: bold",
-                    boolean: "color: red; font-weight: bold",
-                    comma: "color: #787878; font-weight: bold",
-                    undefined: "color: #e9d234; font-weight: bold",
-                    scope_container: "color: #80ab96; font-weight: bold",
-                    colon: "color: #dfd9b3; font-weight: bold",
-                    namespace: "color: #e05c50; font-weight: bold",
-                    indent: "color: #373332; font-weight: bold",
-                    title: "color: #f2f2f2; font-weight: bold",
-                    variable: "color: #baeb83; font-weight: bold"
+                    open_with: "<span style='font-weight: bold'>",
+                    close_with: "</span>",
+                    quote: "color: #d2d2d2",
+                    number: "color: green",
+                    string: "color: #e9e9e9",
+                    function_body: "color: #a7a7a7",
+                    nan: "color: yellow",
+                    null: "color: #5bc3ba",
+                    boolean: "color: red",
+                    comma: "color: #787878",
+                    undefined: "color: #e9d234",
+                    scope_container: "color: #80ab96",
+                    colon: "color: #dfd9b3",
+                    namespace: "color: #e05c50",
+                    indent: "color: #373332",
+                    title: "color: #f2f2f2",
+                    variable: "color: #baeb83"
                 }
             }
         },
@@ -695,19 +689,13 @@ define("style_map", [ "require" ], function(t) {
             denote_line: "\n",
             denote_tab: "\t;",
             denote_space: " ",
-            default_theme: "light_1",
+            close_with: "[0m",
+            default_theme: "dark_1",
             format: function(t, e) {
                 return t + e;
             },
             theme: {
-                light_internal: {
-                    base: "[0;31m"
-                },
-                dark_internal: {
-                    base: "[1;36m"
-                },
                 light_1: {
-                    close_with: "[0m",
                     base: "[0;35m",
                     quote: "[0;30m",
                     number: "[0;32m",
@@ -751,7 +739,7 @@ define("style_map", [ "require" ], function(t) {
                     base: "[0;36m",
                     quote: "[0;37m",
                     number: "[0;32m",
-                    string: "[0;35m",
+                    string: "[0;31m",
                     function_body: "[0;30m",
                     nan: "[0;33m",
                     null: "[0;36m",
@@ -837,23 +825,25 @@ define([ "require", "./proto_object", "./style_map" ], function(t, e, i) {
             this.plain += i;
             var r, s = this.style_map[this.platform].import_theme || this.platform;
             if (this.style_map[s].theme[this.theme + "_" + this.level]) r = this.theme + "_" + this.level; else if (this.style_map[this.platform].default_theme && this.style_map[s].theme[this.style_map[this.platform].default_theme]) r = this.style_map[s].default_theme; else r = Object.keys(this.style_map[s].theme)[0];
-            if (!r) return new this.parent({
-                theme: this.theme + "_internal",
-                level: this.internal_level,
+            if (!r) return new this.parent(this, {
+                level: this.internal_level || this.level,
                 log_title: "Bracket Print Error"
-            }).log_true("The requested theme", r, "is not included.") && this;
+            }).log_true("The requested theme", r, "is not included.");
             if (this.style) {
                 var o = this.style_map[this.platform].format.length >= 3;
                 this.formated_index.push(this.formated.length);
                 var a = t in this.style_map[s].theme[r] && this.style_map[s].theme[r][t] || this.style_map[s].theme[r].base || undefined;
-                if (!a) return new this.parent({
-                    theme: this.theme + "_internal",
-                    level: this.internal_level,
+                if (!a) return new this.parent(this, {
+                    level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"
-                }).s("There is not a style value set for").add(s, ".", r, ".", a).s("or a").add(s, ".", r, ".base value.").log_true() && this;
+                }).s("There is not a style value set for").a(s, ".", r, ".", a).s("or a").a(s, ".", r, ".base value.").log_true();
                 this.formated += this.style_map[s].format(a, i, o && this.apply_arguments || undefined);
             } else {
-                if (this.formated.length) this.formated += (this.style_map[s].theme[r].close_with || "") + i; else this.formated += i;
+                if (this.formated.length) {
+                    var s = this.style_map[this.platform];
+                    var l = s.theme[this.theme + "_" + this.level];
+                    this.formated += (l && l.close_with || s && s.close_with || "") + i(l && l.open_with || s && s.open_with || "");
+                } else this.formated += i;
             }
         } else {
             return false;

@@ -54,10 +54,37 @@ describe("Options", function() {
 		expect(s.spawn({}, {}).log_title).to.equal("Heading one")
 		expect(s.spawn({}, {}).log_title).to.equal("Heading one")
 		expect(s.spawn({}, {}, "COOL TITLE").log_title).to.equal("COOL TITLE")
-		expect(s.option({log_title: "Heading two"}).log_title).to.equal("Heading two")
+		expect(s.option({log_title: "Heading two"}, {log_title: "SPLIB"}).log_title).to.equal("SPLIB")
+		expect(s.option({log_title: "Heading two"}, {log_title: "SPLIB"}, s).log_title).to.equal(s.log_title)
+		expect(s.option("ME", {log_title: "Heading two"}, {log_title: "nope"}).log_title).to.equal("ME")
+		expect(s.option("ME", {log_title: "Heading two"}, "HERE").log_title).to.equal("HERE")
 		expect(s.spawn({use_title_stamp: false}).log_title).to.equal("Heading one")
 		expect(Print("TITLE B").spawn().spawn({}).option({}).option().log_title).to.equal("TITLE B")
+		expect(Print("Cool", {log_title: "Heading two"}).log_title).to.equal("Cool")
+		expect(Print("Cool", {log_title: "Heading two"}, "Joe", {log_title: "nope"}, s).log_title).to.equal("Joe")
 
+	})
+
+	it.only("The log level property is parsed and assigned the proper value", function() {
+		
+		var p = Print().s
+
+		expect(p().option({log_level: "all"}).log_level).to.deep.equal([-Infinity, Infinity])
+		expect(p().option({log_level: ""}).log_level).to.deep.equal([-Infinity, Infinity])
+		expect(p().spawn({log_level: "0"}).log_level).to.deep.equal([0, 0])
+		expect(p().spawn({log_level: "1"}).log_level).to.deep.equal([1, 1])
+		
+		/*
+		expect(p({log_level: "1,"}).log_level).to.deep.equal([-Infinity, Infinity])
+		expect(p({log_level: "1,2"}).log_level).to.deep.equal([-Infinity, Infinity])
+		expect(p({log_level: "0,4,"}).log_level).to.deep.equal([-Infinity, Infinity])
+		expect(p({log_level: "0,4,4"}).log_level).to.deep.equal([-Infinity, Infinity])
+		expect(p({log_level: "0,4,100"}).log_level).to.deep.equal([-Infinity, Infinity])
+
+		s.log_level = "0"
+		expect(s.log_level).to.deep.equal([0,0])
+		expect(s.option({log_level: "0"}).log_level).to.deep.equal([0,0])
+*/		
 	})
 
 	it("quoting can be changed and is used properly", function() {

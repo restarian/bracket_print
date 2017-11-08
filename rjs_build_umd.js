@@ -13,6 +13,7 @@
 		"start": nodeRequire("brace_umd").wrap_start,
 		// Add an anonymous definition.
 		"end": nodeRequire("brace_umd").wrap_end_option({"auto_anonymous": true})
-	}
+	},
+	"writeBuildTxt": false
 }
 
