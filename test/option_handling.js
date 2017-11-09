@@ -22,12 +22,11 @@ var Print = require("../build/bracket_print_umd.js")
 
 describe("Options", function() {
 
-	var s
-
+	var s 
+	Print.prototype.log_level = "" 
 	beforeEach(function() {
 		s = Print("Heading one")
-		Print.prototype.log_level = "" 
-		s.compress_level = Infinity // Compression to the max! :)
+		s.compression = 4
 	})
 
 	it("create the desired prototype chain and utilize redundancy", function() {
@@ -65,7 +64,7 @@ describe("Options", function() {
 
 	})
 
-	it.only("The log level property is parsed and assigned the proper value", function() {
+	it("The log level property is parsed and assigned the proper value", function() {
 		
 		var p = Print().s
 
@@ -73,32 +72,44 @@ describe("Options", function() {
 		expect(p().option({log_level: ""}).log_level).to.deep.equal([-Infinity, Infinity])
 		expect(p().spawn({log_level: "0"}).log_level).to.deep.equal([0, 0])
 		expect(p().spawn({log_level: "1"}).log_level).to.deep.equal([1, 1])
-		
-		/*
-		expect(p({log_level: "1,"}).log_level).to.deep.equal([-Infinity, Infinity])
-		expect(p({log_level: "1,2"}).log_level).to.deep.equal([-Infinity, Infinity])
-		expect(p({log_level: "0,4,"}).log_level).to.deep.equal([-Infinity, Infinity])
-		expect(p({log_level: "0,4,4"}).log_level).to.deep.equal([-Infinity, Infinity])
-		expect(p({log_level: "0,4,100"}).log_level).to.deep.equal([-Infinity, Infinity])
+	
+		var p = p().spawn()	
+		expect(p.spawn({log_level: "1,"}).log_level).to.deep.equal([1, 1])
+		expect(p.option({log_level: "1,2"}).log_level).to.deep.equal([1, 1, 2, 2])
+		expect(p.empty({log_level: "0,4,"}).log_level).to.deep.equal([0, 0, 4, 4])
+		expect(p.empty({log_level: "0,4"}).log_level).to.deep.equal([0, 0, 4, 4])
+		expect(p.empty({log_level: "0-4,"}).log_level).to.deep.equal([0, 4])
+		expect(p.empty({log_level: "0-4,,"}).log_level).to.deep.equal([0, 4])
+		expect(p.empty({log_level: "0-4,,3-10"}).log_level).to.deep.equal([0, 4, 3, 10])
+		expect(p.empty({log_level: "0-4"}).log_level).to.deep.equal([0, 4])
+		expect(p.option({log_level: "0,4-4"}).log_level).to.deep.equal([0, 0, 4, 4])
+		expect(p.option({log_level: "0-4,100"}).log_level).to.deep.equal([0, 4, 100, 100])
 
-		s.log_level = "0"
-		expect(s.log_level).to.deep.equal([0,0])
-		expect(s.option({log_level: "0"}).log_level).to.deep.equal([0,0])
-*/		
+		var p = p.s()
+		p.log_level = "0"
+		expect(p.log_level).to.deep.equal([0, 0])
+		p.log_level = "0-100,1"
+		expect(p.log_level).to.deep.equal([0, 100, 1, 1])
+		p.log_level = "0-100,1,,"
+		expect(p.log_level).to.deep.equal([0, 100, 1, 1])
+
 	})
 
 	it("quoting can be changed and is used properly", function() {
 
-		expect(s.option({denote_quoting: "\'"}).s({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
-		expect(s.option({denote_quoting: "\""}).s({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
+		expect(s.option({denote_quoting: "\'", quote_qualifier: true}).s({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
+		expect(s.option({denote_quoting: "\""}).s({1:44,here: "there"}).toString()) .to.equal("{1:44,here:\"there\"}")
 		expect(s.option({denote_quoting: ""}).s({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
 		s.denote_quoting = "~"
-		expect(s.option({denote_quoting: "~"}).s({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
-		s.denote_quoting = "\""
-		expect(s.s({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
+		expect(s.option({denote_quoting: "~", quote_qualifier: true}).s({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
+		s.denote_quoting = "\"\""
+		s.quote_qualifier = true 
+		expect(s.s({1:44,here: "there"}).toString()) .to.equal("{\"\"1\"\":44,\"\"here\"\":\"\"there\"\"}")
+		s.quote_qualifier = false 
+		expect(s.s({1:44,here: "there"}).toString()) .to.equal("{1:44,here:\"\"there\"\"}")
 	})
 
-	it("enumerate_all option has desire effect", function() {
+	it.skip("enumerate_all option has desire effect", function() {
 
 		expect(s.empty().option({denote_quoting: "~"}).s({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")
 
@@ -109,15 +120,15 @@ describe("Options", function() {
 		for ( var a = 0; a < 100; a++ )
 			b[Math.random()] = Math.random()
 
-		expect(s.spawn().option({compress_level: 1, character_limit: 1742}).s(Buffer).toString().length).to.equal(1742)
-		expect(s.spawn().option({compress_level: 1, character_limit: 123}).s(b).toString().length).to.equal(123)
-		expect(s.spawn().option({compress_level: 2, character_limit: 101}).s(b).toString().length).to.equal(101)
-		expect(s.spawn().option({compress_level: 3, character_limit: 189}).s(b).toString().length).to.equal(189)
-		expect(s.spawn().option({compress_level: 4, character_limit: 8}).s(b).toString().length).to.equal(8)
-		expect(s.spawn().option({compress_level: 1, character_limit: 1}).s(b).toString().length).to.equal(1)
-		expect(s.spawn().option({compress_level: 2, character_limit: 1}).s(b).toString().length).to.equal(1)
-		expect(s.spawn().option({compress_level: 3, character_limit: 1}).s(b).toString().length).to.equal(1)
-		expect(s.spawn().option({compress_level: 4, character_limit: 1}).s(b).toString().length).to.equal(1)
+		expect(s.spawn().option({compression: 1, character_limit: 1742}).s(Buffer).toString().length).to.equal(1742)
+		expect(s.spawn().option({compression: 1, character_limit: 123}).s(b).toString().length).to.equal(123)
+		expect(s.spawn().option({compression: 2, character_limit: 101}).s(b).toString().length).to.equal(101)
+		expect(s.spawn().option({compression: 3, character_limit: 189}).s(b).toString().length).to.equal(189)
+		expect(s.spawn().option({compression: 4, character_limit: 8}).s(b).toString().length).to.equal(8)
+		expect(s.spawn().option({compression: 1, character_limit: 1}).s(b).toString().length).to.equal(1)
+		expect(s.spawn().option({compression: 2, character_limit: 1}).s(b).toString().length).to.equal(1)
+		expect(s.spawn().option({compression: 3, character_limit: 1}).s(b).toString().length).to.equal(1)
+		expect(s.spawn().option({compression: 4, character_limit: 1}).s(b).toString().length).to.equal(1)
 	})
 	it("utilize the depth_limit", function() {
 

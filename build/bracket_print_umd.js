@@ -331,10 +331,10 @@ SOFTWARE.
                     if (n < this.depth_limit - 1 || !P) {
                         if (!this._serializer(e[S], t, i + t, n + 1)) return false;
                     } else {
-                        var z = h(e[S]).length;
+                        var E = h(e[S]).length;
                         this.append_string("namespace", new this.parent({
                             style: false
-                        }).add("<..", m && "Array" || "object", " with ", z, " propert").add(z === 1 && "y" || "ies", ">"));
+                        }).add("<..", m && "Array" || "object", " with ", E, " propert").add(E === 1 && "y" || "ies", ">"));
                     }
                     this.append_string("comma", "," + s);
                     if (x === c.length) {
@@ -377,39 +377,54 @@ SOFTWARE.
             return true;
         };
     });
-    if ("function" != typeof o) var o = l("amdefine")(module);
     o("brace_prototype", [], function() {
         return function(e) {
-            if ("object" != typeof e) return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || e;
-            var t = {};
-            for (var i in e) t[i] = null;
+            if (typeof e !== "object") return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || e;
+            var t = {}, i = {};
+            Object.getOwnPropertyNames(e).forEach(function(e) {
+                t[e] = null;
+            });
             var n = function(e) {
                 if (this.hasOwnProperty(e)) {
-                    if ("function" == typeof Object.getPrototypeOf) return !!Object.getPrototypeOf(this)[e] && delete this[e] || !0;
-                    for (var t = this.__proto__; t; t = t.__proto__) if (e in t) return delete this[e] || !0;
+                    if (typeof Object.getPrototypeOf === "function") return !!Object.getPrototypeOf(this)[e] && delete this[e] || true; else for (var t = this.__proto__; t; t = t.__proto__) if (e in t) return delete this[e] || true;
                 }
-                return !1;
+                return false;
             };
-            return e.clear = function() {
-                if (!arguments.length) for (var e in t) n.call(this, e);
-                for (var i in arguments) arguments[i] in t ? n.call(this, arguments[i]) : console.log("The qualifier", arguments[i], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
-            }, e.extend = function(e) {
-                return Object.getOwnPropertyNames(e).forEach(function(t) {
+            e.clear = function() {
+                if (!arguments.length) {
+                    for (var e in t) n.call(this, e);
+                    for (var e in i) n.call(this, e);
+                }
+                for (var r in arguments) if (arguments[r] in t) n.call(this, arguments[r]); else console.log("The qualifier", arguments[r], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
+            };
+            e.extend = function(e) {
+                Object.getOwnPropertyNames(e).forEach(function(t) {
                     var i = Object.getOwnPropertyDescriptor(e, t);
                     Object.defineProperty(this, t, i);
-                }, this), this;
-            }, e.proto_extend = function(t) {
-                return Object.getOwnPropertyNames(t).forEach(function(e) {
+                }, this);
+                return this;
+            };
+            e.proto_extend = function(t) {
+                Object.getOwnPropertyNames(t).forEach(function(e) {
                     var i = Object.getOwnPropertyDescriptor(t, e);
                     Object.defineProperty(this, e, i);
-                }, e), e;
-            }, e.add_qualifier = function(i) {
-                t[i] = null, e[i] = e[i] || null;
+                }, e);
+                return e;
+            };
+            e.add_qualifier = function(i) {
+                t[i] = null;
+                e[i] = e[i] || null;
+            };
+            e.add_hidden_qualifier = function(t) {
+                i[t] = null;
+                e[t] = e[t] || null;
             }, e.remove_qualifier = function(e) {
                 delete t[e];
-            }, e.list = function() {
+            };
+            e.list = function() {
                 return t;
-            }, e;
+            };
+            return e;
         };
     });
     o("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
@@ -434,11 +449,7 @@ SOFTWARE.
             denote_quoting: '"',
             quote_qualifier: false,
             level: 1,
-            internal_level: false
-        });
-        i.add_qualifier("log_level");
-        return i.proto_extend({
-            _serializer: e,
+            internal_level: false,
             get log_level() {
                 return this._log_level;
             },
@@ -469,7 +480,11 @@ SOFTWARE.
                     parsed = parsed.concat(t);
                 });
                 this._log_level = parsed;
-            },
+            }
+        });
+        i.add_hidden_qualifier("_log_level");
+        return i.extend({
+            _serializer: e,
             _log_level: [ -Infinity, Infinity ],
             toStyleString: function() {
                 var e = this.formated;

@@ -84,19 +84,19 @@ if (typeof define !== "function") {
     var define = require("amdefine")(module);
 }
 
-define("serializer", [ "require" ], function(t) {
-    return function(t, e, i, n, r) {
+define("serializer", [ "require" ], function(e) {
+    return function(e, t, i, n, r) {
         var s, o = "";
         var a = this.style_map[this.platform].denote_line;
         if (typeof n !== "number" || !this._cache) this._cache = [];
-        e = typeof e === "string" && e || this.style_map[this.platform].denote_space + this.style_map[this.platform].denote_space;
+        t = typeof t === "string" && t || this.style_map[this.platform].denote_space + this.style_map[this.platform].denote_space;
         i = i || "";
         if (this.compression > 3) {
-            e = "";
+            t = "";
             s = "";
             o = "";
         } else if (this.compression === 3) {
-            e = "";
+            t = "";
             s = this.style_map[this.platform].denote_space;
             o = this.style_map[this.platform].denote_space;
         } else if (this.compression === 2) {
@@ -106,55 +106,55 @@ define("serializer", [ "require" ], function(t) {
             s = this.style_map[this.platform].denote_space;
             o = this.style_map[this.platform].denote_line;
         }
-        if (t instanceof this.parent) {
-            this.append_string("string", t);
-        } else if (t === null) {
+        if (e instanceof this.parent) {
+            this.append_string("string", e);
+        } else if (e === null) {
             this.append_string("null", "null");
-        } else if (typeof t === "boolean") {
-            this.append_string("boolean", t);
-        } else if (t !== t) {
+        } else if (typeof e === "boolean") {
+            this.append_string("boolean", e);
+        } else if (e !== e) {
             this.append_string("nan", "NaN");
-        } else if (t instanceof Error) {
-            var l = t.stack.split(/[\n,\r]/).slice(1).map(function(t) {
-                return t.replace(/^\s*/, this.compression < 4 && i + e || " ");
+        } else if (e instanceof Error) {
+            var l = e.stack.split(/[\n,\r]/).slice(1).map(function(e) {
+                return e.replace(/^\s*/, this.compression < 4 && i + t || " ");
             }, this);
             this.append_string("namespace", "Error");
             this.append_string("colon", ":" + s);
-            this.append_string("string", i + t.message + o);
+            this.append_string("string", i + e.message + o);
             this.append_string("function_body", l.join(o));
-        } else if (typeof t === "undefined") {
+        } else if (typeof e === "undefined") {
             this.append_string("undefined", "undefined");
-        } else if ((!this.enumerate_all || this.value_buffer) && typeof Buffer !== "undefined" && t instanceof Buffer) {
-            this.append_string("string", t.toString());
-        } else if (typeof t === "object" || typeof t === "function") {
+        } else if ((!this.enumerate_all || this.value_buffer) && typeof Buffer !== "undefined" && e instanceof Buffer) {
+            this.append_string("string", e.toString());
+        } else if (typeof e === "object" || typeof e === "function") {
             if (!this.append_string()) return;
             var h = !this.enumerate_all && Object.keys || Object.getOwnPropertyNames;
-            var p = h(t), c = false;
+            var c = h(e), p = false;
             n = n || 0;
             this._cache[n] = this._cache[n] || [];
-            if (typeof t.valueOf === "function" && t.valueOf() !== t) {
-                c = true;
+            if (typeof e.valueOf === "function" && e.valueOf() !== e) {
+                p = true;
             } else {
-                this._cache[n].push(t);
+                this._cache[n].push(e);
             }
             for (var f = 0; f < n; f++) {
                 for (var _ = 0; _ < this._cache[f].length; _++) {
-                    if (typeof t === "object" && t === this._cache[f][_]) {
-                        var m = "<..circular duplicate of:";
-                        var u = h(this._cache[f][_]);
-                        u.unshift("");
-                        u = u.join(" " + (this._cache[f - 1] && this._cache[f - 1][_] || "<-"));
-                        if (m.length + u.length > 75) u = u.substr(0, 71 - m.length) + "..";
-                        this.append_string("namespace", m);
-                        this.append_string("function_body", u);
+                    if (typeof e === "object" && e === this._cache[f][_]) {
+                        var u = "<..circular duplicate of:";
+                        var m = h(this._cache[f][_]);
+                        m.unshift("");
+                        m = m.join(" " + (this._cache[f - 1] && this._cache[f - 1][_] || "<-"));
+                        if (u.length + m.length > 75) m = m.substr(0, 71 - u.length) + "..";
+                        this.append_string("namespace", u);
+                        this.append_string("function_body", m);
                         this.append_string("namespace", ">");
                         return;
                     }
                 }
             }
-            var d = t.constructor === Array;
-            if (typeof t === "function") {
-                var g = t.toString().match(/function(?:\ |[\n,\r])*(\S*)\(([^\)]*)\)(?:\ |[\n,\r])*\{((?:.|[\n,\r])*)\}(?:\ |[\n,\r])*/i) || [];
+            var d = e.constructor === Array;
+            if (typeof e === "function") {
+                var g = e.toString().match(/function(?:\ |[\n,\r])*(\S*)\(([^\)]*)\)(?:\ |[\n,\r])*\{((?:.|[\n,\r])*)\}(?:\ |[\n,\r])*/i) || [];
                 var b = g[1] || "";
                 var y = g[2] || "";
                 var v = g[3] || "";
@@ -162,8 +162,8 @@ define("serializer", [ "require" ], function(t) {
                 this.append_string("string", b);
                 var j = y.split(",");
                 this.append_string("parenthesis", "(" + (j[0] && s || ""));
-                j.forEach(function(t) {
-                    this.append_string("variable", t);
+                j.forEach(function(e) {
+                    this.append_string("variable", e);
                     this.append_string("comma", ",");
                 }, this);
                 this.remove_call(-1);
@@ -176,34 +176,34 @@ define("serializer", [ "require" ], function(t) {
                     if (!/[\n,\r]/.test(v)) v = a + v + a;
                     var w = Infinity, q = Infinity;
                     if (this.indent_function) {
-                        (v.match(/^\s+/gm) || []).forEach(function(t) {
-                            w = Math.min((t.match(/\t/g) || []).length, w);
-                            q = Math.min((t.match(/\ /g) || []).length, q);
+                        (v.match(/^\s+/gm) || []).forEach(function(e) {
+                            w = Math.min((e.match(/\t/g) || []).length, w);
+                            q = Math.min((e.match(/\ /g) || []).length, q);
                         });
                     }
                     var k = true;
                     v.replace(/(^.*)([\n,\r]+)/gm, function() {
-                        var t = /\S/.test(arguments[1]);
-                        if (this.compression >= 4 && !t) return "";
-                        if (t) k = false;
+                        var e = /\S/.test(arguments[1]);
+                        if (this.compression >= 4 && !e) return "";
+                        if (e) k = false;
                         if ((this.compression === 2 || this.compression === 3) && /[\n,\r]{3,}/.test(arguments[2])) arguments[2] = a + a;
-                        if (t) this.append_string("indent", i + e);
+                        if (e) this.append_string("indent", i + t);
                         O = false;
-                        var n = (arguments[2].match(/[\n,\r]/g) || []).reduce(function(t, e, i, n) {
+                        var n = (arguments[2].match(/[\n,\r]/g) || []).reduce(function(e, t, i, n) {
                             if (n.length - 1 !== i) {
                                 O = true;
-                                return t + a;
+                                return e + a;
                             }
-                            return t;
+                            return e;
                         }, a);
                         var r = w, s = q;
                         if (this.compression >= 0 && k) this.append_string("function_body", arguments[1].replace(/^[\t,\n,\r,\s]+/, "")); else if (this.indent_function) {
-                            this.append_string("function_body", arguments[1].replace(/\t/g, function(t) {
+                            this.append_string("function_body", arguments[1].replace(/\t/g, function(e) {
                                 if (--r > 0) return "";
-                                return t;
-                            }).replace(/\ /g, function(t) {
+                                return e;
+                            }).replace(/\ /g, function(e) {
                                 if (--s > 0) return "";
-                                return t;
+                                return e;
                             }));
                         }
                         this.append_string("indent", n);
@@ -215,24 +215,24 @@ define("serializer", [ "require" ], function(t) {
                 this.append_string(d && "brace" || "bracket", d && "[" || "{" + (this.compression < 3 && this.style_map[this.platform].denote_space || ""));
             }
             var P = 1;
-            if (!p.length) {
-                if (typeof t.__proto__ === "object" && h(t.__proto__).length) {
-                    this.append_string("indent", o + i + e);
+            if (!c.length) {
+                if (typeof e.__proto__ === "object" && h(e.__proto__).length) {
+                    this.append_string("indent", o + i + t);
                     this._serializer("__proto__", undefined, undefined, n, true);
                     this.append_string("colon", ":" + s);
-                    if (!this._serializer(t.__proto__, e, i + e, n + 1)) return false;
+                    if (!this._serializer(e.__proto__, t, i + t, n + 1)) return false;
                 }
-                if (c) {
-                    this.append_string("indent", o + i + e);
+                if (p) {
+                    this.append_string("indent", o + i + t);
                     this.append_string("namespace", "[[PrimitiveValue]]");
                     this.append_string("colon", ":" + s);
-                    if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
+                    if (!this._serializer(e.valueOf(), t, i + t, n + 1)) return false;
                     this.append_string("comma", "," + s);
-                    if (typeof t.length !== "undefined") {
-                        this.append_string("indent", o + i + e);
+                    if (typeof e.length !== "undefined") {
+                        this.append_string("indent", o + i + t);
                         this.append_string("string", "length");
                         this.append_string("colon", ":" + s);
-                        if (!this._serializer(t.length, e, i + e, n + 1)) return false;
+                        if (!this._serializer(e.length, t, i + t, n + 1)) return false;
                         this.append_string("comma", "," + s);
                     }
                     this.remove_call(-1);
@@ -241,17 +241,17 @@ define("serializer", [ "require" ], function(t) {
                 this.append_string(d && "brace" || "bracket", d && "]" || "}");
                 this.append_string("comma", "," + s);
             }
-            for (var _ = 0; _ < p.length; _++) {
-                var z = p[_];
+            for (var _ = 0; _ < c.length; _++) {
+                var z = c[_];
                 if (this.plain.length >= this.character_limit) return;
-                var S = !!(typeof t[z] === "object" && t[z] !== null && t[z] !== undefined && h(t[z]).length);
-                if (P !== 1 && this.compression < 2) this.append_string("indent", o + i + e);
+                var S = !!(typeof e[z] === "object" && e[z] !== null && e[z] !== undefined && h(e[z]).length);
+                if (P !== 1 && this.compression < 2) this.append_string("indent", o + i + t);
                 if (P === 1 || S) {
-                    this.append_string("indent", o + i + e);
-                    if (P === 1 && typeof t.valueOf === "function" && t.valueOf() !== t) {
+                    this.append_string("indent", o + i + t);
+                    if (P === 1 && typeof e.valueOf === "function" && e.valueOf() !== e) {
                         this.append_string("namespace", "[[PrimitiveValue]]");
                         this.append_string("colon", ":" + s);
-                        if (!this._serializer(t.valueOf(), e, i + e, n + 1)) return false;
+                        if (!this._serializer(e.valueOf(), t, i + t, n + 1)) return false;
                         this.append_string("comma", "," + o);
                         this.append_string("indent", s);
                     }
@@ -261,29 +261,29 @@ define("serializer", [ "require" ], function(t) {
                     this.append_string("colon", ":" + s);
                 }
                 if (n < this.depth_limit - 1 || !S) {
-                    if (!this._serializer(t[z], e, i + e, n + 1)) return false;
+                    if (!this._serializer(e[z], t, i + t, n + 1)) return false;
                 } else {
-                    var I = h(t[z]).length;
+                    var I = h(e[z]).length;
                     this.append_string("namespace", new this.parent({
                         style: false
                     }).add("<..", d && "Array" || "object", " with ", I, " propert").add(I === 1 && "y" || "ies", ">"));
                 }
                 this.append_string("comma", "," + s);
-                if (P === p.length) {
-                    if (c && typeof t.length !== "undefined") {
-                        this.append_string("indent", o + i + e);
+                if (P === c.length) {
+                    if (p && typeof e.length !== "undefined") {
+                        this.append_string("indent", o + i + t);
                         this._serializer("length", undefined, undefined, n, true);
                         this.append_string("colon", ":" + s);
-                        if (!this._serializer(t.length, e, i + e, n + 1)) return false;
+                        if (!this._serializer(e.length, t, i + t, n + 1)) return false;
                         this.append_string("comma", "," + s);
                     }
                     this.remove_call(-1);
-                    if (t.__proto__ && typeof t.__proto__ === "object" && Object.keys(t.__proto__).length) {
+                    if (e.__proto__ && typeof e.__proto__ === "object" && Object.keys(e.__proto__).length) {
                         this.append_string("comma", "," + s);
-                        this.append_string("indent", o + i + e);
+                        this.append_string("indent", o + i + t);
                         this._serializer("__proto__", undefined, undefined, n, true);
                         this.append_string("colon", ":" + s);
-                        if (!this._serializer(t.__proto__, e, i + e, n + 1)) return false;
+                        if (!this._serializer(e.__proto__, t, i + t, n + 1)) return false;
                     }
                     this.append_string("indent", o + i);
                     this.append_string(d && "brace" || "bracket", d && "]" || "}");
@@ -292,71 +292,89 @@ define("serializer", [ "require" ], function(t) {
                 P++;
             }
             this.remove_call(-1);
-        } else if (typeof t === "number") {
-            this.append_string("number", t);
-        } else if (typeof t === "string") {
+        } else if (typeof e === "number") {
+            this.append_string("number", e);
+        } else if (typeof e === "string") {
             if (this._cache.length) {
                 if (!r || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
-                this.append_string("string", t);
+                this.append_string("string", e);
                 if (!r || this.quote_qualifier) this.append_string("quote", this.denote_quoting);
             } else {
-                this.append_string("string", t);
+                this.append_string("string", e);
             }
         } else {
-            this.append_string("namespace", t);
+            this.append_string("namespace", e);
         }
         if (this._cache.length && typeof n !== "number") this._cache = [];
         return true;
     };
 });
 
-if ("function" != typeof define) var define = require("amdefine")(module);
+if (typeof define !== "function") {
+    var define = require("amdefine")(module);
+}
 
 define("brace_prototype/brace_prototype", [], function() {
-    return function(t) {
-        if ("object" != typeof t) return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || t;
-        var e = {};
-        for (var i in t) e[i] = null;
-        var n = function(t) {
-            if (this.hasOwnProperty(t)) {
-                if ("function" == typeof Object.getPrototypeOf) return !!Object.getPrototypeOf(this)[t] && delete this[t] || !0;
-                for (var e = this.__proto__; e; e = e.__proto__) if (t in e) return delete this[t] || !0;
+    return function(e) {
+        if (typeof e !== "object") return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || e;
+        var t = {}, i = {};
+        Object.getOwnPropertyNames(e).forEach(function(e) {
+            t[e] = null;
+        });
+        var n = function(e) {
+            if (this.hasOwnProperty(e)) {
+                if (typeof Object.getPrototypeOf === "function") return !!Object.getPrototypeOf(this)[e] && delete this[e] || true; else for (var t = this.__proto__; t; t = t.__proto__) if (e in t) return delete this[e] || true;
             }
-            return !1;
+            return false;
         };
-        return t.clear = function() {
-            if (!arguments.length) for (var t in e) n.call(this, t);
-            for (var i in arguments) arguments[i] in e ? n.call(this, arguments[i]) : console.log("The qualifier", arguments[i], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
-        }, t.extend = function(t) {
-            return Object.getOwnPropertyNames(t).forEach(function(e) {
-                var i = Object.getOwnPropertyDescriptor(t, e);
-                Object.defineProperty(this, e, i);
-            }, this), this;
-        }, t.proto_extend = function(e) {
-            return Object.getOwnPropertyNames(e).forEach(function(t) {
+        e.clear = function() {
+            if (!arguments.length) {
+                for (var e in t) n.call(this, e);
+                for (var e in i) n.call(this, e);
+            }
+            for (var r in arguments) if (arguments[r] in t) n.call(this, arguments[r]); else console.log("The qualifier", arguments[r], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
+        };
+        e.extend = function(e) {
+            Object.getOwnPropertyNames(e).forEach(function(t) {
                 var i = Object.getOwnPropertyDescriptor(e, t);
                 Object.defineProperty(this, t, i);
-            }, t), t;
-        }, t.add_qualifier = function(i) {
-            e[i] = null, t[i] = t[i] || null;
-        }, t.remove_qualifier = function(t) {
-            delete e[t];
-        }, t.list = function() {
+            }, this);
+            return this;
+        };
+        e.proto_extend = function(t) {
+            Object.getOwnPropertyNames(t).forEach(function(e) {
+                var i = Object.getOwnPropertyDescriptor(t, e);
+                Object.defineProperty(this, e, i);
+            }, e);
             return e;
-        }, t;
+        };
+        e.add_qualifier = function(i) {
+            t[i] = null;
+            e[i] = e[i] || null;
+        };
+        e.add_hidden_qualifier = function(t) {
+            i[t] = null;
+            e[t] = e[t] || null;
+        }, e.remove_qualifier = function(e) {
+            delete t[e];
+        };
+        e.list = function() {
+            return t;
+        };
+        return e;
     };
 });
 
-define("brace_prototype", [ "brace_prototype/brace_prototype" ], function(t) {
-    return t;
+define("brace_prototype", [ "brace_prototype/brace_prototype" ], function(e) {
+    return e;
 });
 
 if (typeof define !== "function") {
     var define = require("amdefine")(module);
 }
 
-define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
-    var i = e({
+define("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
+    var i = t({
         style: true,
         title: true,
         log_title: "",
@@ -377,72 +395,72 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         denote_quoting: '"',
         quote_qualifier: false,
         level: 1,
-        internal_level: false
-    });
-    i.add_qualifier("log_level");
-    return i.proto_extend({
-        _serializer: t,
+        internal_level: false,
         get log_level() {
             return this._log_level;
         },
-        set log_level(t) {
-            if (t === "all" || t === "") return this._log_level = [ -Infinity, Infinity ];
-            if (Object.prototype.toString.call(t) === "[object Array]") {
-                if (t.length % 2) t.pop();
+        set log_level(e) {
+            if (e === "all" || e === "") return this._log_level = [ -Infinity, Infinity ];
+            if (Object.prototype.toString.call(e) === "[object Array]") {
+                if (e.length % 2) e.pop();
             } else {
-                t = [ t ];
+                e = [ e ];
             }
-            t = t.join("-");
+            e = e.join("-");
             this._log_level = parsed = [];
-            t.toString().replace(/\ +/g, "").replace(/\-\-([^\-]{1})/g, "-minus$1").replace(/^\-/, "minus").split(",").forEach(function(t) {
-                if (!t) return;
-                var e = t.split("-");
-                if (e.length < 2) e.push(e[0]);
-                for (var i = 0; i < e.length; i += 2) {
-                    var n = /minus/.test(e[0]), r = /minus/.test(e[1]);
-                    if (/Infinity/.test(e[i])) e[i] = Infinity; else e[i] = parseInt(e[i].replace(/minus/, ""));
-                    if (/Infinity/.test(e[i])) e[i + 1] = Infinity; else e[i + 1] = parseInt(e[i + 1].replace(/minus/, ""));
-                    if (e[i] !== e[i] || e[i + 1] !== e[i + 1]) return new this.parent(this, {
+            e.toString().replace(/\ +/g, "").replace(/\-\-([^\-]{1})/g, "-minus$1").replace(/^\-/, "minus").split(",").forEach(function(e) {
+                if (!e) return;
+                var t = e.split("-");
+                if (t.length < 2) t.push(t[0]);
+                for (var i = 0; i < t.length; i += 2) {
+                    var n = /minus/.test(t[0]), r = /minus/.test(t[1]);
+                    if (/Infinity/.test(t[i])) t[i] = Infinity; else t[i] = parseInt(t[i].replace(/minus/, ""));
+                    if (/Infinity/.test(t[i])) t[i + 1] = Infinity; else t[i + 1] = parseInt(t[i + 1].replace(/minus/, ""));
+                    if (t[i] !== t[i] || t[i + 1] !== t[i + 1]) return new this.parent(this, {
                         level: this.internal_level || this.level,
                         log_title: "Bracket Print Error"
-                    }).log("The value set to log_level can not be parsed as an integer:", e);
-                    if (n) e[i] *= -1;
-                    if (r) e[i + 1] *= -1;
+                    }).log("The value set to log_level can not be parsed as an integer:", t);
+                    if (n) t[i] *= -1;
+                    if (r) t[i + 1] *= -1;
                 }
-                parsed = parsed.concat(e);
+                parsed = parsed.concat(t);
             });
             this._log_level = parsed;
-        },
+        }
+    });
+    i.add_hidden_qualifier("_log_level");
+    return i.extend({
+        _serializer: e,
         _log_level: [ -Infinity, Infinity ],
         toStyleString: function() {
-            var t = this.formated;
-            if (arguments.length) t = this._print_command(this._last_command || "space").apply(this, arguments).formated;
-            var e = this.style_map[this.platform];
-            var i = e.theme[this.theme + "_" + this.level];
-            return (i && i.open_with || e && e.open_with || "") + t + (i && i.close_with || e && e.close_with || "");
+            var e = this.formated;
+            if (arguments.length) e = this._print_command(this._last_command || "space").apply(this, arguments).formated;
+            var t = this.style_map[this.platform];
+            var i = t.theme[this.theme + "_" + this.level];
+            return (i && i.open_with || t && t.open_with || "") + e + (i && i.close_with || t && t.close_with || "");
         },
         toString: function() {
-            var t = this.plain;
-            if (arguments.length) t = this._print_command(this._last_command || "space").apply(this, arguments).plain;
-            return t;
+            var e = this.plain;
+            if (arguments.length) e = this._print_command(this._last_command || "space").apply(this, arguments).plain;
+            return e;
         },
         option: function() {
-            var t = this._is_chained && this || new this.parent(this);
-            var e = false;
-            var i = function(t) {
+            var e = this._is_chained && this || new this.parent(this);
+            var t = false;
+            var i = function(e) {
                 var n;
-                for (var r = 0; r < t.length; r++) {
-                    if (Object.prototype.toString.call(t[r]) === "[object Arguments]") {
-                        i(t[r]);
-                    } else if (typeof t[r] === "object" || typeof t[r] === "string") {
-                        n = t[r];
+                for (var r = 0; r < e.length; r++) {
+                    if (Object.prototype.toString.call(e[r]) === "[object Arguments]") {
+                        i(e[r]);
+                    } else if (typeof e[r] === "object" || typeof e[r] === "string") {
+                        n = e[r];
                         if (typeof n === "string") {
-                            e = true;
+                            t = true;
                             this.log_title = n;
                         } else {
                             for (var s in n) {
                                 if (s in this.list()) {
-                                    if (s !== "log_title" || !e) this[s] = n[s];
+                                    if (s !== "log_title" || !t) this[s] = n[s];
                                 } else if (!(n instanceof this.parent)) {
                                     return new this.parent(this, {
                                         level: this.internal_level || this.level,
@@ -455,13 +473,13 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
                         return new this.parent(this, {
                             level: this.internal_level || this.level,
                             log_title: "Bracket Print Error"
-                        }).log("The parameter passed in as an option", typeof t[r], t[r], "is not accepted. See docs for more information.");
+                        }).log("The parameter passed in as an option", typeof e[r], e[r], "is not accepted. See docs for more information.");
                         continue;
                     }
                 }
-            }.bind(t);
+            }.bind(e);
             i(arguments);
-            return t;
+            return e;
         },
         spawn: function() {
             return new this.parent(this, arguments);
@@ -496,41 +514,41 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
         get a() {
             return this._print_command("add");
         },
-        _print_command: function(t) {
-            var e = this._is_chained && this || new this.parent(this);
-            e._is_chained = true;
-            e._last_command = t;
+        _print_command: function(e) {
+            var t = this._is_chained && this || new this.parent(this);
+            t._is_chained = true;
+            t._last_command = e;
             return function() {
                 if (!arguments.length) return this;
-                for (var t = 0; t < this.log_level.length; t += 2) if (parseInt(this.level) >= this.log_level[t] && parseInt(this.level) <= this.log_level[t + 1]) {
+                for (var e = 0; e < this.log_level.length; e += 2) if (parseInt(this.level) >= this.log_level[e] && parseInt(this.level) <= this.log_level[e + 1]) {
                     return this._chain.apply(this, arguments);
                 }
                 return this;
-            }.bind(e);
+            }.bind(t);
         },
         get _chain() {
             return function() {
-                var t = this.indentation_string.replace(/\t/g, this.style_map[this.platform].denote_tab).replace(/\n/g, this.style_map[this.platform].denote_line).replace(/\ /g, this.style_map[this.platform].denote_space);
-                for (var e = 0; e < arguments.length; e++) {
+                var e = this.indentation_string.replace(/\t/g, this.style_map[this.platform].denote_tab).replace(/\n/g, this.style_map[this.platform].denote_line).replace(/\ /g, this.style_map[this.platform].denote_space);
+                for (var t = 0; t < arguments.length; t++) {
                     if (this.plain.length && typeof this.style_map[this.platform]["denote_" + this._last_command] !== "undefined") {
                         this.plain += this.style_map[this.platform]["denote_" + this._last_command];
                         this.formated += this.style_map[this.platform]["denote_" + this._last_command];
                     }
-                    if (!this._serializer(arguments[e], t)) break;
+                    if (!this._serializer(arguments[t], e)) break;
                 }
                 return this;
             };
         },
         get log() {
-            var t = this._is_chained && this || new this.parent(this);
-            t._is_chained = true;
+            var e = this._is_chained && this || new this.parent(this);
+            e._is_chained = true;
             return function() {
-                var t = false;
-                for (var e = 0; e < this.log_level.length; e += 2) if (this.level >= this.log_level[e] && this.level <= this.log_level[e + 1]) {
-                    t = true;
+                var e = false;
+                for (var t = 0; t < this.log_level.length; t += 2) if (this.level >= this.log_level[t] && this.level <= this.log_level[t + 1]) {
+                    e = true;
                     break;
                 }
-                if (!t) return this;
+                if (!e) return this;
                 if (arguments.length > 0) {
                     if (this[this._last_command]) {
                         this[this._last_command].apply(this, arguments);
@@ -548,7 +566,7 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(t, e) {
                     console.log(this.plain);
                 }
                 return this;
-            }.bind(t);
+            }.bind(e);
         },
         get log_false() {
             return function() {
@@ -587,7 +605,7 @@ if (typeof define !== "function") {
     var define = require("amdefine")(module);
 }
 
-define("style_map", [ "require" ], function(t) {
+define("style_map", [ "require" ], function(e) {
     return {
         browser: {
             denote_line: "\n",
@@ -596,9 +614,9 @@ define("style_map", [ "require" ], function(t) {
             denote_add: "",
             use_theme_from: "html",
             default_theme: "light_1",
-            format: function(t, e, i) {
-                i.push(t);
-                return "%c" + e;
+            format: function(e, t, i) {
+                i.push(e);
+                return "%c" + t;
             }
         },
         html: {
@@ -607,8 +625,8 @@ define("style_map", [ "require" ], function(t) {
             denote_space: "&nbsp;",
             denote_add: "",
             default_theme: "light_1",
-            format: function(t, e) {
-                return "<span style='" + t + ";'>" + e + "</span>";
+            format: function(e, t) {
+                return "<span style='" + e + ";'>" + t + "</span>";
             },
             theme: {
                 light_1: {
@@ -691,8 +709,8 @@ define("style_map", [ "require" ], function(t) {
             denote_space: " ",
             close_with: "[0m",
             default_theme: "dark_1",
-            format: function(t, e) {
-                return t + e;
+            format: function(e, t) {
+                return e + t;
             },
             theme: {
                 light_1: {
@@ -782,12 +800,12 @@ if (typeof define !== "function") {
     var define = require("amdefine")(module);
 }
 
-define([ "require", "./proto_object", "./style_map" ], function(t, e, i) {
+define([ "require", "./proto_object", "./style_map" ], function(e, t, i) {
     var n = function() {
-        var t;
-        if (!(this instanceof (t = n))) return new (Array.prototype.slice.call(arguments).reduce(function(t, e) {
-            return t = t.bind(t.prototype, e);
-        }, t))();
+        var e;
+        if (!(this instanceof (e = n))) return new (Array.prototype.slice.call(arguments).reduce(function(e, t) {
+            return e = e.bind(e.prototype, t);
+        }, e))();
         this._is_chained = true;
         this.option(arguments);
         this._is_chained = false;
@@ -798,25 +816,25 @@ define([ "require", "./proto_object", "./style_map" ], function(t, e, i) {
         this.plain_index = [];
         this.formated_index = [];
     };
-    n.prototype = e;
+    n.prototype = t;
     n.prototype.parent = n;
-    e.style_map = i;
-    e.remove_call = function() {
-        var t = this.style_map[this.platform].format.length >= 3;
-        if (t) this.apply_arguments.splice.apply(this.apply_arguments, arguments);
-        var e = this.formated_index.splice.apply(this.formated_index, arguments)[0] || 0;
+    t.style_map = i;
+    t.remove_call = function() {
+        var e = this.style_map[this.platform].format.length >= 3;
+        if (e) this.apply_arguments.splice.apply(this.apply_arguments, arguments);
+        var t = this.formated_index.splice.apply(this.formated_index, arguments)[0] || 0;
         var i = this.plain_index.splice.apply(this.plain_index, arguments)[0] || 0;
         var n = {
-            formated: this.formated.substr(e),
+            formated: this.formated.substr(t),
             plain: this.plain.substr(i)
         };
-        this.formated = this.formated.substr(0, e);
+        this.formated = this.formated.substr(0, t);
         this.plain = this.plain.substr(0, i);
         return n;
     };
-    e.append_string = function(t, e) {
+    t.append_string = function(e, t) {
         if (this.plain.length === this.character_limit) return false; else if (!arguments.length) return true;
-        var i = typeof e == "string" && e || String(e);
+        var i = typeof t == "string" && t || String(t);
         var n = " <..output truncated>";
         n = this.character_limit > n.length * 3 && n || "";
         if (this.plain.length + i.length > this.character_limit - n.length) i = i.substr(0, this.character_limit - this.plain.length - n.length) + n;
@@ -832,7 +850,7 @@ define([ "require", "./proto_object", "./style_map" ], function(t, e, i) {
             if (this.style) {
                 var o = this.style_map[this.platform].format.length >= 3;
                 this.formated_index.push(this.formated.length);
-                var a = t in this.style_map[s].theme[r] && this.style_map[s].theme[r][t] || this.style_map[s].theme[r].base || undefined;
+                var a = e in this.style_map[s].theme[r] && this.style_map[s].theme[r][e] || this.style_map[s].theme[r].base || undefined;
                 if (!a) return new this.parent(this, {
                     level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"

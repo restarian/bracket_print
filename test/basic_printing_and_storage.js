@@ -25,20 +25,20 @@ var Print = require("../build/bracket_print_umd.js")
 describe("Internal storage", function() {
 
 	var s
-	//Print.prototype.level = ""
+	Print.prototype.log_level = ""
 
 	beforeEach(function() {
 
-		s = Print({compress_level: 4}).s({cool: 'joes'})
+		s = Print({compression: 4, quote_qualifier: true}).s({cool: 'joes'})
 	})
 
 	it("serializes the ECMA Object types while also using toString correctly", function() {
 
-		expect(s.toString(true)).to.equal('{"cool":"joes"} true')
-		expect(s.toString(false)).to.equal('{"cool":"joes"} true false')
+		s = s.option({quote_qualifier: false})
+		expect(s.toString(true, {cool: "joes"})).to.equal('{"cool":"joes"} true {cool:"joes"}')
 		expect(s.spawn().toString(0)).to.equal('0')
 		expect(s.spawn().toString(-0)).to.equal('0')
-		expect(s.toString(1)).to.equal('{"cool":"joes"} true false 1')
+		expect(s.toString(1)).to.equal('{"cool":"joes"} true {cool:"joes"} 1')
 		expect(s.empty().toString(-99)).to.equal('-99')
 		expect(s.spawn().toString(null)).to.equal('null')
 		expect(s.spawn().toString(undefined)).to.equal('undefined')
@@ -62,15 +62,15 @@ describe("Internal storage", function() {
 
 	it.skip("serializes native ECMA Objects", function() {
 
-		expect(s.empty().option({compress_level: 4}).s(Function).toString()).to.equal('function Function(){ [native code] }')
-		expect(s.empty().option({compress_level: 3}).s(Number).toString()).to.equal('function Number() {\n [native code] \n}')
-		expect(s.empty().option({compress_level: 2}).s(String).toString()).to.equal('function String() { \n    [native code] \n}')
-		expect(s.empty().option({compress_level: 2}).s(RegExp).toString()).to.equal('function RegExp() { \n    [native code] \n}')
+		expect(s.empty().option({compression: 4}).s(Function).toString()).to.equal('function Function(){ [native code] }')
+		expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n [native code] \n}')
+		expect(s.empty().option({compression: 2}).s(String).toString()).to.equal('function String() { \n    [native code] \n}')
+		expect(s.empty().option({compression: 2}).s(RegExp).toString()).to.equal('function RegExp() { \n    [native code] \n}')
 
-		expect(s.empty().option({compress_level: 4}).toString(Object).toString()).to.equal('function Object(){ [native code] }')
-		expect(s.empty().option({compress_level: 3}).s(Object).toString()).to.equal('function Object() { \n [native code]  }')
-		expect(s.empty().option({compress_level: 2}).s(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
-		expect(s.empty().option({compress_level: 1}).toString(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
+		expect(s.empty().option({compression: 4}).toString(Object).toString()).to.equal('function Object(){ [native code] }')
+		expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() { \n [native code]  }')
+		expect(s.empty().option({compression: 2}).s(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
+		expect(s.empty().option({compression: 1}).toString(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
 
 		expect(s.empty().s(Buffer("Brackit")).toString()).to.equal('Brackit')
 		expect(s.empty().option({truncate_function: true}).s(Buffer("Brackit")).toString()).to.equal('Brackit')
@@ -86,17 +86,17 @@ describe("Internal storage", function() {
 
 	it("serializes primitve Objects", function() {
 		s.empty()
-		expect(s.spawn({compress_level: 4}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
-		expect(s.spawn({compress_level: 4}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B",length:1}')
-		expect(s.spawn({compress_level: 4}).toString(new Boolean("BOB"))).to.equal('{[[PrimitiveValue]]:true}')
-		expect(s.spawn({compress_level: 4}).toString(new Boolean(0))).to.equal('{[[PrimitiveValue]]:false}')
-		expect(s.spawn({compress_level: 4}).toString(new Number("33"))).to.equal('{[[PrimitiveValue]]:33}')
-		expect(s.spawn({compress_level: 4}).toString(new Number())).to.equal('{[[PrimitiveValue]]:0}')
-		expect(s.spawn({compress_level: 4}).toString(new Object("dd"))).to.equal('{[[PrimitiveValue]]:"dd","0":"d","1":"d",length:2}')
-		expect(s.spawn({compress_level: 4}).toString(new Object({"aa": 4}))).to.equal('{"aa":4}')
-		expect(s.spawn({compress_level: 4}).toString(new Object())).to.equal('{}')
-		expect(s.spawn({compress_level: 4}).toString(new Object(undefined))).to.equal('{}')
-		expect(s.spawn({compress_level: 4}).toString(new Object(null))).to.equal('{}')
+		expect(s.spawn({compression: 4}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
+		expect(s.spawn({compression: 4}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B","length":1}')
+		expect(s.spawn({compression: 4}).toString(new Boolean("BOB"))).to.equal('{[[PrimitiveValue]]:true}')
+		expect(s.spawn({compression: 4}).toString(new Boolean(0))).to.equal('{[[PrimitiveValue]]:false}')
+		expect(s.spawn({compression: 4}).toString(new Number("33"))).to.equal('{[[PrimitiveValue]]:33}')
+		expect(s.spawn({compression: 4}).toString(new Number())).to.equal('{[[PrimitiveValue]]:0}')
+		expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new Object("dd"))).to.equal('{[[PrimitiveValue]]:"dd","0":"d","1":"d","length":2}')
+		expect(s.spawn({compression: 4}).toString(new Object({"aa": 4}))).to.equal('{"aa":4}')
+		expect(s.spawn({compression: 4}).toString(new Object())).to.equal('{}')
+		expect(s.spawn({compression: 4}).toString(new Object(undefined))).to.equal('{}')
+		expect(s.spawn({compression: 4}).toString(new Object(null))).to.equal('{}')
 	})
 
 	it("serializes primitve Objects with added properties", function() {
@@ -105,8 +105,9 @@ describe("Internal storage", function() {
 		obj.one = 1
 		var obj_a = new Object("aa")
 		obj_a.prop_a = true
-		expect(Print().option({compress_level: 4}).toString(obj)).to.equal('{[[PrimitiveValue]]:0,"one":1}')
-		expect(Print().option({compress_level: 4}).toString(obj_a)).to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,length:2}')
+		expect(Print().option({compression: 4}).toString(obj)).to.equal('{[[PrimitiveValue]]:0,one:1}')
+		expect(Print().option({compression: 4, quote_qualifier: true}).toString(obj_a))
+				.to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,"length":2}')
 	})
 
 	it("Clears stored text data with the empty() command", function() {

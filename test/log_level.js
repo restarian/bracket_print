@@ -25,9 +25,9 @@ describe("Use_log_level option", function() {
 
 	beforeEach(function() {
 		s = Print()
-		s.compress_log_level = Infinity // Compression to the max! :)
+		s.compression = 4
 		s1 = Print()
-		s1.compress_log_level = Infinity // Compression to the max! :)
+		s1.compression = 4
 	})
 
 	describe("parses the value set to the log_level property and convertes it to the appropriate value.", function() {
@@ -88,19 +88,28 @@ describe("Use_log_level option", function() {
 
 	describe("parses the value set to the log_level property and convertes it to the appropriate value", function() {
 
-		it("log_level controls the print commands", function() {
-			Print.prototype.log_level = 3
-			var str = s.s()
+		it.only("log_level controls the print commands", function() {
 
+			var str = Print().s()
+			Print.prototype.log_level = "3"
+			console.log(str.log_level)
+			str.clear()
+			console.log(str.log_level)
 			expect(str.option({level: 5}).s("Some text").toString()) .to.equal("")
 			expect(str.option({level: 4}).s("Some text").toString()) .to.equal("")
 			expect(str.option({level: 3}).s("Some text").toString()) .to.equal("Some text")
-			expect(str.option({level: 2}).s("Some text").toString()) .to.equal("Some text")
+			expect(str.option({level: 2}).s("Some text").toString()) .to.equal("")
 			expect(str.option({level: 3}).s("Some text").toString()) .to.equal("Some text Some text")
+			
+			expect(str.log_level).to.deep.equal([3,3])
+			str.log_level = 4
+			expect(str.log_level).to.deep.equal([4,4])
+			str.clear()
+			expect(str.log_level).to.deep.equal([3,3])
 
-			str.empty()
 			Print.prototype.log_level = "0-3, 6, 99"
-
+			str.clear()
+			str.empty()
 			expect(str.option({level: 1}).s("Some text").toString()) .to.equal("Some text")
 			expect(str.option({level: 2}).s("Some text").toString()) .to.equal("Some text Some text")
 			expect(str.option({level: 3}).s("Some text").toString()) .to.equal("Some text Some text Some text")
