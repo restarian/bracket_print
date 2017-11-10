@@ -24,23 +24,33 @@ describe("Functions", function() {
 	var s
 
 	beforeEach(function() {
-		s = Print({compress_level: 4}).s({cool: 'joes'})
+		s = Print({compression: 4}).s({cool: 'joes'})
 	})
 
-	it.only("serializes functions and function Objects", function() {
+	it.only("serializes functions with tabs only", function() {
 
+		// keep in mind that there is tabs inserted in the empty lines below for testing purposed which should not be removed.
 		var a = function(here, there) {
-	var a = "dd"
-			var b = true
 
-		}
-		var up = s.spawn({indentation_string: "---"})
-		//expect(up.option({compress_level: 1}).toString(a)).to.equal('function () { \n\n   var a = \"dd\"\n\n\n   var b = true\n\n\n\n}')
+	var a = "dd"
+		var b = true
+
+
+
+	
+	var c = true
+}
+
+//function ( here, there ) {\n\nvar a = "dd"\n\tvar b = true\n\n\nvar c = true\n\n\t\n}
+//function ( here, there ) {\n\nvar a = "dd"\n\t\tvar b = true\n\n\tvar c = true\n\n\t\n}
+		
+		var up = s.spawn({indentation_string: "---", shift_function_body: false})
+		expect(up.option({compression: 1}).toString(a)).to.equal('function ( here, there ) {\n\nvar a = \"dd\"\n\t\tvar b = true\n\n\tvar c = true\n\n\t\n}')
 		//expect(up.option({compress_level: 2}).toString(a)).to.equal('function () { \n\n   var a = \"dd\"\n\n   var b = true\n\n\n}')
 		//expect(up.option({compress_level: 3}).toString(a)).to.equal('function () { \n\nvar a = \"dd\"\n\nvar b = true\n\n }')
-		expect(up.option({compress_level: 4}).toString(a)).to.equal('function (here,there){\n---\tvar a = \"dd\"\n---\t\tvar b = true}')
+		//expect(up.option({compress_level: 4}).toString(a)).to.equal('function (here,there){\n---\tvar a = \"dd\"\n---\t\tvar b = true}')
 
-		expect(up.option({compress_level: 4, truncate_function: true}).toString(a)).to.equal('function (){...}')
+		//expect(up.option({compress_level: 4, truncate_function: true}).toString(a)).to.equal('function (){...}')
 
 	})
 

@@ -8,31 +8,56 @@ requirejs.config({
 
 requirejs(["./lib/bracket_print.js"], function(Print) {
 
-var up = new Print("Print is here", {indent_function: false, compression: 2, title: false})
+var up = new Print("Print is here", {truncate_function: false, shift_function_body: false, compression: 1, title: false})
 
 
 
-var a = function aaa(cool, joes) {
-
-		var a = "ddd"
-
-
+var b = function (cool, joes) { 
 
 
 
 
-		var b = "ddd"
+					var a = "ddd"
 
 
 
 
 
-			var c = "ddd"
+
+							var b = "ddd"
+
+
+
+
+
+					var c = "ddd"
+					
+
+
 }
 
+
+
+var a = function(here, there) {
+
+	var a = "dd"
+		var b = true
+
+
+
+	
+	var c = true
+
+		
+		}
+
+up.option({compression: 2, shift_function_body: false}).log(a)
+		//var .spawn({indentation_string: "---", shift_function_body: false})
+//		expect(up.option({compression: 1}).toString(a)).to.equal('function ( here, there ) {\n\nvar a = \"dd\"\n\tvar b = true\nvar c = true\n}')
+	
 //up.log({cool: a})//.to.equal('function (cool) {\n    \tvar a = "ddd"\n    var b = "ddd"\n    var c = "ddd"\n}')
-up.log(a)//.to.equal('function (cool) {\n    \tvar a = "ddd"\n    var b = "ddd"\n    var c = "ddd"\n}')
-//expect(up.toString(a, {cool: {joe: a}})
+//console.log(up.toString(a))//.to.equal('function (cool) {\n    \tvar a = "ddd"\n    var b = "ddd"\n    var c = "ddd"\n}')
+//up.log({cool: {joe: a}}, true)
 
 })
 

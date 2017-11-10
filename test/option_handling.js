@@ -23,7 +23,7 @@ var Print = require("../build/bracket_print_umd.js")
 describe("Options", function() {
 
 	var s 
-	Print.prototype.log_level = "" 
+	Print.prototype.log_level = "all" 
 	beforeEach(function() {
 		s = Print("Heading one")
 		s.compression = 4
@@ -97,6 +97,7 @@ describe("Options", function() {
 
 	it("quoting can be changed and is used properly", function() {
 
+		Print.prototype.log_level = "all" 
 		expect(s.option({denote_quoting: "\'", quote_qualifier: true}).s({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
 		expect(s.option({denote_quoting: "\""}).s({1:44,here: "there"}).toString()) .to.equal("{1:44,here:\"there\"}")
 		expect(s.option({denote_quoting: ""}).s({1:44,here: "there"}).toString()) .to.equal("{1:44,here:there}")
@@ -132,20 +133,22 @@ describe("Options", function() {
 	})
 	it("utilize the depth_limit", function() {
 
-		var a
+		var a 
 		void function make(obj, cnt) {
+			
+			if ( cnt > -1 ) {
+				obj.level = { "num": --cnt}
+				for ( var x = 0; x < cnt; x+=2 ) {
+					obj["prop_"+x] = "a property"
+					obj["prop_"+(x+1)] = x*x
+				}
+				make(obj.level, cnt)
+			}
 
-		  if ( cnt > -1 ) {
-		    obj.level = { "num": --cnt}
-        for ( var x = 0; x < cnt; x+=2 ) {
-		      obj["prop_"+x] = "a property"
-		      obj["prop_"+(x+1)] = x*x
-        }
-
-		    make(obj.level, cnt)
-		  }
 		}(a = {}, 6)
 
+		Print.prototype.quote_qualifier = true
+		s.clear("quote_qualifier")
 		expect(s.option({depth_limit: 1}).s(a).toString())
 			.to.equal('{"level":<..object with 6 properties>,"prop_0":"a property","prop_1":0,"prop_2":"a property","prop_3":4,"prop_4":"a property","prop_5":16}')
 		expect(s.option({depth_limit: 2}).s(a).toString())
