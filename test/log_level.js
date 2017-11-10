@@ -16,25 +16,27 @@
 
   Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
 
+
 var chai = require("chai"),
 expect = chai.expect
 var Print = require("../build/bracket_print_umd.js")
 
-describe("Use_log_level option", function() {
-	var s, s1
+describe("The log_level option", function() {
 
+	var s
 	beforeEach(function() {
 		s = Print()
 		s.compression = 4
-		s1 = Print()
-		s1.compression = 4
 	})
 
 	describe("parses the value set to the log_level property and convertes it to the appropriate value.", function() {
 
 		it("when set with a string of dashes and commas", function() {
 
+			var s1 = Print()
+			s1.compression = 4
 			var default_log_level_value = [-Infinity, Infinity]
+
 			expect(s.log_level).to.deep.equal(default_log_level_value)
 			Print.prototype.log_level = "0-5"
 			expect(s.log_level).to.deep.equal([0, 5])
@@ -65,6 +67,7 @@ describe("Use_log_level option", function() {
 		})
 
 		it("when set with an Array value", function() {
+
 			s.log_level = ["2", "  3"]
 			expect(s.log_level).to.deep.equal([2, 3])
 			s.log_level = [0, " 37,"]
@@ -81,6 +84,7 @@ describe("Use_log_level option", function() {
 			var a = Print({level: 7})
 			expect(a.s(false).toString()).to.equal("false")
 			var b = Print({level: 8})
+			b.clear()
 			expect(b.s(false).toString()).to.equal("")
 
 		})
@@ -88,17 +92,15 @@ describe("Use_log_level option", function() {
 
 	describe("parses the value set to the log_level property and convertes it to the appropriate value", function() {
 
-		it.only("log_level controls the print commands", function() {
+		it("log_level controls the print commands", function() {
 
 			var str = Print().s()
 			Print.prototype.log_level = "3"
-			console.log(str.log_level)
 			str.clear()
-			console.log(str.log_level)
 			expect(str.option({level: 5}).s("Some text").toString()) .to.equal("")
 			expect(str.option({level: 4}).s("Some text").toString()) .to.equal("")
 			expect(str.option({level: 3}).s("Some text").toString()) .to.equal("Some text")
-			expect(str.option({level: 2}).s("Some text").toString()) .to.equal("")
+			expect(str.option({level: 2}).s("Some text").toString()) .to.equal("Some text")
 			expect(str.option({level: 3}).s("Some text").toString()) .to.equal("Some text Some text")
 			
 			expect(str.log_level).to.deep.equal([3,3])
@@ -124,7 +126,8 @@ describe("Use_log_level option", function() {
 
 			var str = s.s()
 			Print.prototype.log_level = 3
-			Print.prototype.log_level = ",0-2, 0-2, 1-3,,6,"
+			str.clear()
+			str.log_level = ",0-2, 0-2, 1-3,,6,"
 
 			expect(str.option({level: 1}).s("*").toString()) .to.equal("*")
 			expect(str.option({level: 2}).s("*").toString()) .to.equal("* *")
@@ -133,6 +136,9 @@ describe("Use_log_level option", function() {
 			expect(str.option({level: 5}).s("*").toString()) .to.equal("* * *")
 			expect(str.option({level: 6}).s("*").toString()) .to.equal("* * * *")
 			expect(str.option({level: 7}).s("*").toString()) .to.equal("* * * *")
+			str.clear()
+			expect(str.option({level: 7}).s("*").toString()) .to.equal("* * * *")
+			expect(str.option({level: 3}).s("*").toString()) .to.equal("* * * * *")
 
 		})
 	})

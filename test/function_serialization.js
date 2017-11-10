@@ -27,18 +27,18 @@ describe("Functions", function() {
 		s = Print({compress_level: 4}).s({cool: 'joes'})
 	})
 
-	it.skip("serializes functions and function Objects", function() {
+	it.only("serializes functions and function Objects", function() {
 
-		var a = function() {
-			var a = "dd"
+		var a = function(here, there) {
+	var a = "dd"
 			var b = true
 
 		}
-		var up = s.spawn()
+		var up = s.spawn({indentation_string: "---"})
 		//expect(up.option({compress_level: 1}).toString(a)).to.equal('function () { \n\n   var a = \"dd\"\n\n\n   var b = true\n\n\n\n}')
 		//expect(up.option({compress_level: 2}).toString(a)).to.equal('function () { \n\n   var a = \"dd\"\n\n   var b = true\n\n\n}')
 		//expect(up.option({compress_level: 3}).toString(a)).to.equal('function () { \n\nvar a = \"dd\"\n\nvar b = true\n\n }')
-		expect(up.option({compress_level: 4}).toString(a)).to.equal('function (){\t\t\tvar a = \"dd\"\n\t\t\tvar b = true}')
+		expect(up.option({compress_level: 4}).toString(a)).to.equal('function (here,there){\n---\tvar a = \"dd\"\n---\t\tvar b = true}')
 
 		expect(up.option({compress_level: 4, truncate_function: true}).toString(a)).to.equal('function (){...}')
 
