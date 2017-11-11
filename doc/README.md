@@ -1,7 +1,6 @@
 # Brackit Print
 ### Synopsis
 
-
 ..part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)
 ![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
 
@@ -28,9 +27,8 @@
 **License: LGPL-v3**
 
 **Bonuses:**
-* Stable! Brackit Print can serialize massive objects (including *window*), without hiccups.
+* Brackit Print can serialize massive objects and functions (including the browser *window* Object), without hiccups.
 * Uses a prototypal return chain to allow for usage as functional programming callbacks.
 * Uses a comprehensive level mechanism to control what is logged with a nearly total overhead discharge.
 * Provides configurable syntax mapping with custom individualized styles.
-* Cross platform auto-detection for nodejs and browser.
-
+* Cross platform for nodejs and browser with Windows or Linux.

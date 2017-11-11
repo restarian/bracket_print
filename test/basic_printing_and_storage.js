@@ -1,15 +1,15 @@
 /*Bracket Print resides under the LGPL v3
 
-  Brackit print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
+  Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
   Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
- this file is a part of Brackit print
+ this file is a part of Bracket print
 
- Brackit Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+ Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
- Brackit print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -60,20 +60,21 @@ describe("Internal storage", function() {
 		expect(s.empty().toString(new Error("more error"))).to.include(__filename)
 	})
 
-	it.skip("serializes native ECMA Objects", function() {
+	it("serializes native ECMA Objects", function() {
 
-		expect(s.empty().option({compression: 4}).s(Function).toString()).to.equal('function Function(){ [native code] }')
-		expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n [native code] \n}')
-		expect(s.empty().option({compression: 2}).s(String).toString()).to.equal('function String() { \n    [native code] \n}')
-		expect(s.empty().option({compression: 2}).s(RegExp).toString()).to.equal('function RegExp() { \n    [native code] \n}')
+		s.shift_function_body = false
+		expect(s.empty().option({compression: 4}).s(Function).toString()).to.equal('function Function(){[native code]}')
+		expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n[native code] }')
+		expect(s.empty().option({compression: 2}).s(String).toString()).to.equal('function String() {\n[native code]\n}')
+		expect(s.empty().option({compression: 2}).s(RegExp).toString()).to.equal('function RegExp() {\n[native code]\n}')
 
-		expect(s.empty().option({compression: 4}).toString(Object).toString()).to.equal('function Object(){ [native code] }')
-		expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() { \n [native code]  }')
-		expect(s.empty().option({compression: 2}).s(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
-		expect(s.empty().option({compression: 1}).toString(Object).toString()).to.equal('function Object() { \n    [native code] \n}')
+		expect(s.empty().option({compression: 4}).toString(Object).toString()).to.equal('function Object(){[native code]}')
+		expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() {\n[native code] }')
+		expect(s.empty().option({compression: 2}).s(Object).toString()).to.equal('function Object() {\n[native code]\n}')
+		expect(s.empty().option({compression: 1}).toString(Object).toString()).to.equal('function Object() {\n[native code]\n}')
 
-		expect(s.empty().s(Buffer("Brackit")).toString()).to.equal('Brackit')
-		expect(s.empty().option({truncate_function: true}).s(Buffer("Brackit")).toString()).to.equal('Brackit')
+		expect(s.empty().s(Buffer("Bracket")).toString()).to.equal('Bracket')
+		expect(s.empty().option({truncate_function: true}).s(Buffer("Bracket")).toString()).to.equal('Bracket')
 	})
 
 	it("serializes objects with odd property qualifiers", function() {
@@ -113,10 +114,10 @@ describe("Internal storage", function() {
 	it("Clears stored text data with the empty() command", function() {
 
 		s.empty()
-		expect(s.s("Brackit Print").toString()).to.equal("Brackit Print")
+		expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
 		s.empty()
-		expect(s.s("Brackit Print").toString()).to.equal("Brackit Print")
-		expect(s.s("Go!").toString()).to.equal("Brackit Print Go!")
+		expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
+		expect(s.s("Go!").toString()).to.equal("Bracket Print Go!")
 		expect(s.empty().s("Fub").toString()).to.equal("Fub")
 		expect(s.empty().toString()).to.equal("")
 	})

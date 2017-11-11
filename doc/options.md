@@ -62,7 +62,7 @@ up.empty({log_title: "This title"})
 
 **title_stamp** - *[function]*, default: function() { return new Date() }
 
-* The return value of this function will be inserted after the *log_title* (if it contains a string), in the title. 
+* The return value of this function will be inserted after the *log_title* in the title. 
 
 **theme** - *[string]*, default: "dark"
 
@@ -70,11 +70,11 @@ up.empty({log_title: "This title"})
 
 **compression** - *[number, 1,..4]*, default: 2
 
-* The compression level of the Object serializations. Lower numbers create more spacious formatting. Level four removes all white space and new lines from the Object. Level one will create an overly spacious output. 
+* The compression level of the Object serializations. Lower numbers create more spacious formatting. Level four removes all white space and new lines from the Object. 
 
 **indentation_string** - *[string]*, default: "    "
 
-* The string to use as one indentation. A non-white-space value will be colorized by the style map indent value. The denote_space, denote_tab, and denote_line values in the platform style map will be applied to this before it is used.
+* The string to use as one indentation. A non-white-space value will be colorized by the style map indent value. The *denote_space*, *denote_tab*, and *denote_line* values in the platform style map will be applied to this before it is used.
 
 **platform** - *[string]*, default: (typeof require == "function" && require.isBrowser === false || typeof module === "object" && typeof module.exports === "object" ) && "terminal" || "browser",
 
@@ -90,13 +90,13 @@ up.empty({log_title: "This title"})
 
 **style_character_limit** - *[number]*, default: Math.pow(2,25)
 
-* The string storage and serializations will be cut short and truncated to this character limit which also includes the add styling syntax. This limit can not exceed the character_limit. 
+* The string storage and serializations will be cut short and truncated to this character limit which also includes the add styling syntax. This limit can not exceed the *character_limit*. 
 
 **truncate_function** - *[boolean]*, default: false
 
-* Do not print function body text. Instead print just the function declaration.
+* Do not print function body text. Instead print just the function declaration and ... in-between the opening and closing brackets.
 
-**indent_function** - *[boolean]*, default: true
+**shift_function_body** - *[boolean]*, default: true
 
 * Replaces the natural indent of the function body string with an indent which matches the current object parsing indent.
 
@@ -114,13 +114,18 @@ up.empty({log_title: "This title"})
 
 **quote_qualifier** - *[boolean]*, default: false
 
-* To put quoting around qualifiers in Objects. The denote_quoting string will be used in this as well.
+* To put quoting around qualifiers in Objects. The *denote_quoting* string will be used in this as well.
 
-**level** - *[number]*, default: 1
+**log_level** - *[number]*, default: 1
 
 * This option accepts strings, numbers and Arrays and will convert the value set to it to a string representation of ranges. Arrays should be in pairs denoting ranges. Two Array values of the same value need to be set to denote a single value. E.g. [1, 1, 4, 6] denotes a level of either 1 or on/between 4 and 6. Strings can be passed in lieu of Array pairs for more human friendly syntax. When strings are passed in: ranges are two numbers separated with a dash and single value levels are separated with commas. E.g. log_level = "1,4-6" denotes a level of either 1 or on/between 4 and 6 like the example above. White space is ignored and strings are parsed as numbers in any case (Array or String). The value of log_level will be set to *[-Infinity, Infinity]* (which will match all levels),  if an empty string or the string "all" is set. Note: The only way to use negative numbers is to passed in Array pairs.
 
+**level** - *[number]*, default: 1 
+
+* The level of the print instance which pertains to the current *log_level*. Continued text processing will not occur if the level is set to a value which is not in one of the *log_level* ranges.
+
 **internal_level** - *[number]*, default: false
 
-* This is used to set the level of any messages which are logged internally in bracket print. Setting the value falsey will use the same level as the level.
+* This is used to set the level of any messages which are logged internally in bracket print. Setting the value falsey will use the value level as the current level.
+
 

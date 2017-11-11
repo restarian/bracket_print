@@ -21,10 +21,10 @@
 **Things to do in Bracket Print:**
 
 Basic:
-	* Create a style map pre-parser to check for errors and pre-format values.
+
+* Unit test the style member
 
 Features:
-	* Add special Object types which can be plugged into the serializer (e.g. custom jquery object serialization).
-		* The style map should create strings where expected
-		* The style map should warn when incorrect values are set
-		* The style map should lowercase everything 
+
+* Add special Object types which can be plugged into the serializer (e.g. custom jquery object serialization).
+
