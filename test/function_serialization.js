@@ -21,31 +21,28 @@ expect = chai.expect
 var Print = require("../build/bracket_print_umd.js")
 
 describe("Functions", function() {
-	var s
 
-	beforeEach(function() {
-		s = Print({compression: 4}).s({cool: 'joes'})
-	})
-
-	it.skip("serializes functions with tabs only", function() {
+	it("serializes functions with many tab characters placed around", function() {
 
 		// keep in mind that there is tabs inserted in the empty lines below for testing purposed which should not be removed.
-		var a = function(here, there) {
+	var f
+	f = function(here, there) {
 
-						var a = "dd"
-							var b = true
+	var a = "dd"
+	var b = true
 
 
 
-						
-						var c = true
 
-		
+	var c = true
+
+
 
 		}
 
-		var up = s.spawn({indentation_string: "---", shift_function_body: false})
-		expect(up.option({compression: 3}).toString(a)).to.equal('function ( here, there ) {\n\nvar a = \"dd\"\n\t\tvar b = true\n\n\tvar c = true\n\n}')
+		var up = Print({indentation_string: "---", shift_function_body: false})
+
+		expect(up.option({compression: 4}).toString(f)).to.equal('function(here,there){var a = \"dd\"\nvar b = true\nvar c = true}')
 		//expect(up.option({compress_level: 2}).toString(a)).to.equal('function () { \n\n   var a = \"dd\"\n\n   var b = true\n\n\n}')
 		//expect(up.option({compress_level: 3}).toString(a)).to.equal('function () { \n\nvar a = \"dd\"\n\nvar b = true\n\n }')
 		//expect(up.option({compress_level: 4}).toString(a)).to.equal('function (here,there){\n---\tvar a = \"dd\"\n---\t\tvar b = true}')

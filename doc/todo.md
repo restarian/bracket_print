@@ -9,7 +9,7 @@
 * [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
 * [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
-* [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
+* [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 * [Constructing Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/titles.md)
 
 ----
@@ -22,9 +22,11 @@
 
 Basic:
 
-* Unit test the style member
+* Unit test the style map system
+* Add travis and appveyor remote testing
 
 Features:
 
 * Add special Object types which can be plugged into the serializer (e.g. custom jquery object serialization).
-
+* Create benchmark unit tests against json.stringify and other serializers
+* Attempt to optimize regex for faster speeds.

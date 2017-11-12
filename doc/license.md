@@ -10,7 +10,7 @@
 * [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
 * [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
-* [Screenshots of output ](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
+* [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 * [Constructing Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/titles.md)
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 

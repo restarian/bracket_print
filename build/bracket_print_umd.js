@@ -224,13 +224,13 @@ SOFTWARE.
                 }
                 var b = e.constructor === Array;
                 if (typeof e === "function") {
-                    var y = e.toString().match(/function(?:\ |[\n,\r])*(\S*)\(([^\)]*)\)(?:\ |[\n,\r])*\{((?:.|[\n,\r])*)\}(?:\ |[\n,\r])*/i) || [];
+                    var y = e.toString().match(/function(?: |[\n,\r])*(\S*)\(([^\)]*)\)(?: |[\n,\r,\t])*\{((?:.|[\n,\r])*)\}(?: |[\n,\r])*/i) || [];
                     var v = y[1] || "";
                     var j = y[2] || "";
                     var q = y[3] || "";
                     this.append_string("namespace", "function" + (!v && this.compression < 3 && l || ""));
                     if (v) this.append_string("string", l + v);
-                    var O = j.replace(/\ *,\ */g, ",").split(",");
+                    var O = j.replace(/\t/g, "").replace(/ *, */g, ",").split(",");
                     this.append_string("parenthesis", "(" + (O[0] && this.compression < 3 && o || ""));
                     O.forEach(function(e) {
                         this.append_string("parameter", e);
@@ -242,8 +242,7 @@ SOFTWARE.
                     if (this.truncate_function) {
                         this.append_string("function_body", o + "...");
                     } else {
-                        q = q.replace(/^[\t, ]$/gm, "");
-                        q = q.replace(/(\S+)[\t, ]+$/m, "$1");
+                        q = q.replace(/[\t, ]+$/, "").replace(/[\t, ]+([\n,\r]+)/g, "$1");
                         var w = 999999999, k = 999999999;
                         if (this.compression < 4) {
                             (q.match(/^\s+/gm) || []).forEach(function(e) {
@@ -305,7 +304,7 @@ SOFTWARE.
                         }
                         this.remove_call(-1);
                     }
-                    this.append_string("indent", s + i);
+                    this.append_string("indent", (this.compression < 3 && s || "") + i);
                     this.append_string(b && "brace" || "bracket", b && "]" || "}");
                     this.append_string("comma", "," + o);
                 }
@@ -483,6 +482,7 @@ SOFTWARE.
             }
         });
         i.add_hidden_qualifier("_log_level");
+        i.add_hidden_qualifier("_internal_error");
         return i.extend({
             _serializer: e,
             _log_level: [ -Infinity, Infinity ],
@@ -583,7 +583,7 @@ SOFTWARE.
             get _chain() {
                 return function() {
                     var e, t;
-                    if (!(t = this.current_theme) || !(e = this.current_platform)) return this;
+                    if (!(e = this.current_platform) || !(t = this.current_theme)) return this;
                     var i = this.indentation_string.replace(/\t/g, e.denote_tab || "\t").replace(/\n/g, e.denote_line || "\n").replace(/\ /g, e.denote_space || " ");
                     for (var n = 0; n < arguments.length; n++) {
                         if (this.plain.length && typeof e["denote_" + this._last_command] !== "undefined") {
@@ -877,32 +877,40 @@ SOFTWARE.
         n.prototype.parent = n;
         t.style_map = i;
         t.__defineGetter__("current_platform", function() {
-            if (!this.style_map[this.platform]) return new this.parent(this, {
-                level: this.internal_level || this.level,
-                log_title: "Bracket Print Error"
-            }).log_null("The requested platform", this.platform, "is not included in the style mapping.");
+            if (typeof this.style_map[this.platform] !== "object") {
+                if (!this._internal_error) return null;
+            }
             return this.style_map[this.platform];
         });
         t.__defineGetter__("current_theme", function() {
-            var e = this.current_platform, t;
+            var e, t;
+            if (!(e = this.current_platform)) return null;
             if (e.import_theme_from) {
-                if (!e.import_theme_from in this.style_map) return new this.parent(this, {
-                    level: this.internal_level || this.level,
-                    log_title: "Bracket Print Error"
-                }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping.");
-                t = this.style_map[e].theme;
+                if (!e.import_theme_from in this.style_map) {
+                    if (!this._internal_error) return new this.parent(this, {
+                        level: this.internal_level || this.level,
+                        log_title: "Bracket Print Error"
+                    }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping."); else return null;
+                }
+                t = this.style_map[e.import_theme_from].theme;
             } else {
                 t = e.theme;
             }
-            if (this.theme + "_" + this.level in t) t = t[this.theme + "_" + this.level]; else if ("default_theme" in e) {
-                if (!e.default_theme in t) return new this.parent(this, {
+            if (t && this.theme + "_" + this.level in t) t = t[this.theme + "_" + this.level]; else if ("default_theme" in e) {
+                if (!e.default_theme in t) if (!this._internal_error) return this._internal_error = new this.parent(this, {
+                    style: false,
                     level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"
-                }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else t = t[e.default_theme];
-            } else return new this.parent(this, {
-                level: this.internal_level || this.level,
-                log_title: "Bracket Print Error"
-            }).log_null("The theme", this.theme + "_" + this.level, "is not included in the style mapping.");
+                }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else return null; else t = t[e.default_theme];
+            } else {
+                if (this._internal_error) return this._internal_error = new this.parent(this, {
+                    style: false,
+                    level: this.internal_level || this.level,
+                    log_title: "Bracket Print Error"
+                }).log_null("The theme", this.theme + "_" + this.level, "is not included in the style mapping.");
+                return null;
+            }
+            this._internal_error = true;
             return t;
         });
         t.remove_call = function() {
@@ -926,18 +934,18 @@ SOFTWARE.
             if (this.plain.length >= this.character_limit) return false;
             this.plain_index.push(this.plain.length);
             this.plain += i;
-            var r, o;
-            if (!(o = this.current_theme) || !(r = this.current_platform)) return "";
+            var r = theme = {};
             if (this.style) {
+                if (!(theme = this.current_theme) || !(r = this.current_platform)) return "";
                 this.formated_index.push(this.formated.length);
-                var s;
-                if (!(s = e in o && o[e] || o.base)) return new this.parent(this, {
+                var o;
+                if (!(o = e in theme && theme[e] || theme.base)) return new this.parent(this, {
                     level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"
                 }).log_true("There is not a style value set for", e, "in platform", this.platform);
-                this.formated += r.format(s, i, r.format.length >= 3 && this.apply_arguments || undefined);
+                this.formated += r.format(o, i, r.format.length >= 3 && this.apply_arguments || undefined);
             } else {
-                if (this.formated.length) this.formated += (o.close_with || r.close_with || "") + i + (o.open_with || r.open_with || ""); else this.formated += i;
+                if (this.formated.length) this.formated += (theme.close_with || r.close_with || "") + i + (theme.open_with || r.open_with || ""); else this.formated += i;
             }
             return true;
         };
