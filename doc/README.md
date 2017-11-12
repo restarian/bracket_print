@@ -1,8 +1,11 @@
 # Brackit Print
 ### Synopsis
 
-..part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)
-![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
+|      |         |
+| ---- | ----
+| A part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)| Developed with Windows 10 and Ubuntu 16 
+| ![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png) | [![Ubuntu on Windows](https://raw.githubusercontent.com/restarian/restarian/master/doc/image/ubuntu_windows_logo.png)](https://github.com/Microsoft/BashOnWindows) | 
+
 
 ------
 
@@ -17,8 +20,6 @@
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
-
-[![Ubuntu on Windows](https://raw.githubusercontent.com/restarian/restarian/master/doc/image/ubuntu_windows_logo.png)](https://github.com/Microsoft/BashOnWindows)
 
 ### Brackit print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
 
