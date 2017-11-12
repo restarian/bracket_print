@@ -89,7 +89,7 @@ define("serializer", [ "require" ], function(e) {
         var o, s = "";
         var a = this.style_map[this.platform].denote_line || "\n";
         var l = this.style_map[this.platform].denote_space || " ";
-        var c = this.style_map[this.platform].denote_tab || "\t";
+        var h = this.style_map[this.platform].denote_tab || "\t";
         if (typeof i !== "number" || !this._cache) this._cache = [];
         t = typeof t === "string" && t || l + l;
         n = n || "";
@@ -117,13 +117,13 @@ define("serializer", [ "require" ], function(e) {
         } else if (e !== e) {
             this.append_string("nan", "NaN");
         } else if (e instanceof Error) {
-            var h = e.stack.split(/[\n,\r]/).slice(1).map(function(e) {
+            var c = e.stack.split(/[\n,\r]/).slice(1).map(function(e) {
                 return e.replace(/^\s*/, this.compression < 4 && n + t || " ");
             }, this);
             this.append_string("namespace", "Error");
             this.append_string("colon", ":" + o);
             this.append_string("string", n + e.message + s);
-            this.append_string("function_body", h.join(s));
+            this.append_string("function_body", c.join(s));
         } else if (typeof e === "undefined") {
             this.append_string("undefined", "undefined");
         } else if ((!this.enumerate_all || this.value_buffer) && typeof Buffer !== "undefined" && e instanceof Buffer) {
@@ -159,50 +159,50 @@ define("serializer", [ "require" ], function(e) {
                 var y = e.toString().match(/function(?: |[\n,\r])*(\S*)\(([^\)]*)\)(?: |[\n,\r,\t])*\{((?:.|[\n,\r])*)\}(?: |[\n,\r])*/i) || [];
                 var v = y[1] || "";
                 var j = y[2] || "";
-                var O = y[3] || "";
+                var w = y[3] || "";
                 this.append_string("namespace", "function" + (!v && this.compression < 3 && l || ""));
                 if (v) this.append_string("string", l + v);
-                var w = j.replace(/\t/g, "").replace(/ *, */g, ",").split(",");
-                this.append_string("parenthesis", "(" + (w[0] && this.compression < 3 && o || ""));
-                w.forEach(function(e) {
+                var O = j.replace(/\t/g, "").replace(/ *, */g, ",").split(",");
+                this.append_string("parenthesis", "(" + (O[0] && this.compression < 3 && o || ""));
+                O.forEach(function(e) {
                     this.append_string("parameter", e);
                     this.append_string("comma", "," + (this.compression < 4 && o || ""));
                 }, this);
                 this.remove_call(-1);
-                this.append_string("parenthesis", (w[0] && this.compression < 3 && o || "") + ")" + o);
+                this.append_string("parenthesis", (O[0] && this.compression < 3 && o || "") + ")" + o);
                 this.append_string("bracket", "{");
                 if (this.truncate_function) {
                     this.append_string("function_body", o + "...");
                 } else {
-                    O = O.replace(/[\t, ]+$/, "").replace(/[\t, ]+([\n,\r]+)/g, "$1");
+                    w = w.replace(/[\t, ]+$/, "").replace(/[\t, ]+([\n,\r]+)/g, "$1");
                     var q = 999999999, k = 999999999;
                     if (this.compression < 4) {
-                        (O.match(/^\s+/gm) || []).forEach(function(e) {
+                        (w.match(/^\s+/gm) || []).forEach(function(e) {
                             q = Math.min((e.match(/\t/g) || []).length, q);
                             k = Math.min((e.match(/\ /g) || []).length, k);
                         });
                     }
-                    if (!/^[\t, ]*[\n,\r]/.test(O) && this.compression < 4) this.append_string("indent", a);
+                    if (this.compression < 4 && !/^[\t, ]*[\n,\r]/.test(w)) this.append_string("indent", a);
                     var P = true;
-                    O = O.replace(/(^.*)([\n,\r]*)/gm, function() {
+                    w = w.replace(/(^.*)([\n,\r]*)/gm, function() {
                         if (this.compression === 1) max_blank_line = 2; else if (this.compression === 2) max_blank_line = 1; else if (this.compression >= 3) max_blank_line = 0;
                         var e = arguments[2].replace(/[\n,\r]/g, function() {
                             if (--max_blank_line > -2) return a; else return "";
                         });
                         if (this.compression > 3 && P && !(P = false)) e = "";
-                        if (a !== "\n") O = O.replace(/[\n,\r]/g, a);
+                        if (a !== "\n") w = w.replace(/[\n,\r]/g, a);
                         if (this.shift_function_body) this.append_string("indent", n + t);
                         var i = q, r = k;
                         var o = arguments[1].replace(/^([ ,\t]+)(.*)/, function(e, t, n) {
                             return t.replace(/\t/g, function() {
-                                if (--i > -1) return ""; else return c;
+                                if (--i > -1) return ""; else return h;
                             }) + n;
                         }).replace(/^([ ,\t]+)(.*)/, function(e, t, n) {
                             return t.replace(/ /g, function() {
                                 if (--r > -1) return ""; else return l;
                             }) + n;
                         });
-                        if (a !== "\t") o = o.replace(/\t/g, c);
+                        if (a !== "\t") o = o.replace(/\t/g, h);
                         if (l !== " ") o = o.replace(/ /g, l);
                         this.append_string("function_body", o);
                         this.append_string("indent", e);
@@ -213,7 +213,7 @@ define("serializer", [ "require" ], function(e) {
             } else {
                 this.append_string(b && "brace" || "bracket", b && "[" || "{" + (this.compression < 3 && l || ""));
             }
-            var x = 1;
+            var E = 1;
             if (!f.length) {
                 if (typeof e.__proto__ === "object" && p(e.__proto__).length) {
                     this.append_string("indent", s + n + t);
@@ -241,13 +241,13 @@ define("serializer", [ "require" ], function(e) {
                 this.append_string("comma", "," + o);
             }
             for (var m = 0; m < f.length; m++) {
-                var E = f[m];
+                var x = f[m];
                 if (this.plain.length >= this.character_limit) return;
-                var S = !!(typeof e[E] === "object" && e[E] !== null && e[E] !== undefined && p(e[E]).length);
-                if (x !== 1 && this.compression < 2) this.append_string("indent", s + n + t);
-                if (x === 1 || S) {
+                var S = !!(typeof e[x] === "object" && e[x] !== null && e[x] !== undefined && p(e[x]).length);
+                if (E !== 1 && this.compression < 2) this.append_string("indent", s + n + t);
+                if (E === 1 || S) {
                     this.append_string("indent", s + n + t);
-                    if (x === 1 && typeof e.valueOf === "function" && e.valueOf() !== e) {
+                    if (E === 1 && typeof e.valueOf === "function" && e.valueOf() !== e) {
                         this.append_string("namespace", "[[PrimitiveValue]]");
                         this.append_string("colon", ":" + o);
                         if (!this._serializer(e.valueOf(), t, n + t, i + 1)) return false;
@@ -256,19 +256,19 @@ define("serializer", [ "require" ], function(e) {
                     }
                 }
                 if (!b) {
-                    if (!this._serializer(E, undefined, undefined, i, true)) return false;
+                    if (!this._serializer(x, undefined, undefined, i, true)) return false;
                     this.append_string("colon", ":" + o);
                 }
                 if (i < this.depth_limit - 1 || !S) {
-                    if (!this._serializer(e[E], t, n + t, i + 1)) return false;
+                    if (!this._serializer(e[x], t, n + t, i + 1)) return false;
                 } else {
-                    var z = p(e[E]).length;
+                    var z = p(e[x]).length;
                     this.append_string("namespace", new this.parent({
                         style: false
                     }).add("<..", b && "Array" || "object", " with ", z, " propert").add(z === 1 && "y" || "ies", ">"));
                 }
                 this.append_string("comma", "," + o);
-                if (x === f.length) {
+                if (E === f.length) {
                     if (_ && typeof e.length !== "undefined") {
                         this.append_string("indent", s + n + t);
                         this._serializer("length", undefined, undefined, i, true);
@@ -288,7 +288,7 @@ define("serializer", [ "require" ], function(e) {
                     this.append_string(b && "brace" || "bracket", b && "]" || "}");
                     this.append_string("comma", "," + o);
                 }
-                x++;
+                E++;
             }
             this.remove_call(-1);
         } else if (typeof e === "number") {
@@ -461,7 +461,7 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
                                 if (o in this.list()) {
                                     if (o !== "log_title" || !t) this[o] = i[o];
                                 } else if (!(i instanceof this.parent)) {
-                                    return new this.parent(this, {
+                                    new this.parent(this, {
                                         level: this.internal_level || this.level,
                                         log_title: "Bracket Print Error"
                                     }).s("Option", o, "is not a brackit print option. Reference the brace prototype module for option configurations.").line(Object.keys(this.list())).log();
@@ -518,7 +518,10 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
             t._is_chained = true;
             t._last_command = e;
             return function() {
-                if (!arguments.length) return this;
+                if (!arguments.length) {
+                    this.current_theme;
+                    return this;
+                }
                 for (var e = 0; e < this.log_level.length; e += 2) if (parseInt(this.level) >= this.log_level[e] && parseInt(this.level) <= this.log_level[e + 1]) {
                     return this._chain.apply(this, arguments);
                 }
@@ -772,7 +775,7 @@ define("style_map", [], function() {
                     quote: "[0;37m",
                     number: "[0;32m",
                     string: "[0;31m",
-                    function_body: "[0;37m",
+                    function_body: "[0;97m",
                     nan: "[0;33m",
                     null: "[0;36m",
                     boolean: "[0;31m",
@@ -782,7 +785,7 @@ define("style_map", [], function() {
                     brace: "[0;36m",
                     colon: "[0;37m",
                     namespace: "[0;35m",
-                    indent: "[0;30m",
+                    indent: "[0;50m",
                     title: "[0;33m",
                     parameter: "[0;34m"
                 },
@@ -844,48 +847,55 @@ define([ "require", "./proto_object", "./style_map" ], function(e, t, n) {
     t.__defineGetter__("current_theme", function() {
         var e, t;
         if (!(e = this.current_platform)) return null;
+        var n = this.platform;
         if (e.import_theme_from) {
-            if (!e.import_theme_from in this.style_map) {
-                return new this.parent(this, {
-                    style: false,
-                    level: this.internal_level || this.level,
-                    log_title: "Bracket Print Error"
-                }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping.");
+            if (!e.import_theme_from in this.style_map) return new this.parent(this, {
+                style: false,
+                level: this.internal_level || this.level,
+                log_title: "Bracket Print Error"
+            }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping."); else {
+                t = this.style_map[e.import_theme_from].theme;
+                n = e.import_theme_from;
             }
-            t = this.style_map[e.import_theme_from].theme;
         } else {
             t = e.theme;
         }
-        if (t && this.theme + "_" + this.level in t) t = t[this.theme + "_" + this.level]; else if ("default_theme" in e) {
-            if (!e.default_theme in t) return new this.parent(this, {
+        var i = this.theme + "_" + this.level;
+        if (typeof t !== "object") return new this.parent(this, {
+            style: false,
+            level: this.internal_level || this.level,
+            log_title: "Bracket Print Error"
+        }).log_null("The theme", i, "is not found in the platform", n);
+        if (this.theme + "_" + this.level in t) t = t[this.theme + "_" + this.level]; else if ("default_theme" in e) {
+            if (!(e.default_theme in t)) return new this.parent(this, {
                 style: false,
                 level: this.internal_level || this.level,
                 log_title: "Bracket Print Error"
-            }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else t = t[e.default_theme];
-        } else {
-            return new this.parent(this, {
-                style: false,
-                level: this.internal_level || this.level,
-                log_title: "Bracket Print Error"
-            }).log_null("The theme", this.theme + "_" + this.level, "is not included in the style mapping.");
-        }
+            }).log_null("The default theme", e.default_theme, "specified is not found in the", n, "style mapping."); else t = t[e.default_theme];
+        } else return new this.parent(this, {
+            style: false,
+            level: this.internal_level || this.level,
+            log_title: "Bracket Print Error"
+        }).log_null("The theme", e.default_theme, "specified is not found in the", n, "style mapping.");
+        if (typeof t !== "object") return new this.parent(this, {
+            style: false,
+            level: this.internal_level || this.level,
+            log_title: "Bracket Print Error"
+        }).log_null("The theme specified is not found in the", n, "style mapping.");
         return t;
     });
     t.remove_call = function() {
-        if (this.current_platform.format.length >= 3) this.apply_arguments.splice.apply(this.apply_arguments, arguments);
+        if (this.current_platform.format && this.current_platform.format.length >= 3) this.apply_arguments.splice.apply(this.apply_arguments, arguments);
         var e = this.formated_index.splice.apply(this.formated_index, arguments)[0] || 0;
         var t = this.plain_index.splice.apply(this.plain_index, arguments)[0] || 0;
-        var n = {
-            formated: this.formated.substr(e),
-            plain: this.plain.substr(t)
-        };
         this.formated = this.formated.substr(0, e);
         this.plain = this.plain.substr(0, t);
-        return n;
+        return null;
     };
     t.append_string = function(e, t) {
         if (this.plain.length === this.character_limit) return false; else if (!arguments.length) return true;
         var n = typeof t == "string" && t || String(t);
+        if (!n) return true;
         var i = " <..output truncated>";
         i = this.character_limit > i.length * 3 && i || "";
         if (this.plain.length + n.length > this.character_limit - i.length) n = n.substr(0, this.character_limit - this.plain.length - i.length) + i;
@@ -898,6 +908,7 @@ define([ "require", "./proto_object", "./style_map" ], function(e, t, n) {
             this.formated_index.push(this.formated.length);
             var o;
             if (!(o = e in theme && theme[e] || theme.base)) return new this.parent(this, {
+                style: false,
                 level: this.internal_level || this.level,
                 log_title: "Bracket Print Error"
             }).log_true("There is not a style value set for", e, "in platform", this.platform);

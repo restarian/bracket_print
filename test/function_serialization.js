@@ -22,7 +22,7 @@ var Print = require("../build/bracket_print_umd.js")
 
 describe("Functions", function() {
 
-	it("serializes functions with many tab characters placed around", function() {
+	it("serializes functions with many tab characters placed around using all compression levels", function() {
 
 		// keep in mind that there is tabs inserted in the empty lines below for testing purposed which should not be removed.
 	var f
@@ -43,15 +43,18 @@ describe("Functions", function() {
 		var up = Print({indentation_string: "---", shift_function_body: false})
 
 		expect(up.option({compression: 4}).toString(f)).to.equal('function(here,there){var a = \"dd\"\nvar b = true\nvar c = true}')
-		//expect(up.option({compress_level: 2}).toString(a)).to.equal('function () { \n\n   var a = \"dd\"\n\n   var b = true\n\n\n}')
-		//expect(up.option({compress_level: 3}).toString(a)).to.equal('function () { \n\nvar a = \"dd\"\n\nvar b = true\n\n }')
-		//expect(up.option({compress_level: 4}).toString(a)).to.equal('function (here,there){\n---\tvar a = \"dd\"\n---\t\tvar b = true}')
 
-		//expect(up.option({compress_level: 4, truncate_function: true}).toString(a)).to.equal('function (){...}')
+		expect(up.option({compression: 3}).toString(f))
+			.to.equal('function(here, there) {\n\tvar a = "dd"\n\tvar b = true\n\tvar c = true}')
 
+		expect(up.option({compression: 2}).toString(f))
+			.to.equal('function ( here, there ) {\n\n\tvar a = "dd"\n\tvar b = true\n\n\tvar c = true\n}')
+
+		expect(up.option({compression: 1}).toString(f))
+			.to.equal('function ( here, there ) {\n\n\tvar a = "dd"\n\tvar b = true\n\n\n\tvar c = true\n}')
 	})
 
-	it.skip("serializes functions within prototypes", function() {
+	it("serializes functions within prototypes", function() {
 
 		var Fun = function() {
 		  Print().toString("Here")
@@ -66,7 +69,17 @@ describe("Functions", function() {
 		  }
 		}
 
-		expect(s.option({compress_level: 4, truncate_function: true}).toString(new Fun())).to.equal('{__proto__:{"a":function (){...},"b":function (){...}}}')
-		expect(s.option({compress_level: 4, truncate_function: true}).toString(Fun, new Fun())).to.equal('function (){...} {__proto__:{"a":function (){...},"b":function (){...}}}')
+		expect(Print().option({compression: 4, quote_qualifier: true, truncate_function: true}).toString(new Fun()))
+			.to.equal('{"__proto__":{"a":function(){...},"b":function(){...}}}')
+		expect(Print().option({compression: 4, quote_qualifier: false, truncate_function: true}).toString(Fun, new Fun()))
+			.to.equal('function(){...} {__proto__:{a:function(){...},b:function(){...}}}')
+ 
+		expect(Print().option({compression: 4, quote_qualifier: false, truncate_function: false}).toString(Fun, new Fun()))
+			.to.equal('function(){Print().toString("Here")} {__proto__:{a:function(){Print().log("Here is a")},b:function(){Print().log("Here is b")}}}')
+
+		expect(Print().option({truncate_function: false, compression: 4, bad_option: 55, quote_qualifier: false, truncate_function: true}).toString(Fun, new Fun()))
+			.to.equal('function(){...} {__proto__:{a:function(){...},b:function(){...}}}')
 	})
+
+
 })
