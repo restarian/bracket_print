@@ -1,5 +1,5 @@
 # Brackit print 
-### License information
+### License Information
 
 ------
 

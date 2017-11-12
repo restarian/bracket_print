@@ -7,16 +7,12 @@
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
 * [Callback Functionality](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
 * [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
-* [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
+* [License Information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
 * [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
-
-..part of the [bracket suite](https://github.com/restarian/restarian/blob/master/bracket/readme.md)
-![bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
-
 
 It is easy and programmatically efficient to assemble strings using bracket print. The process can be made the most efficient by turning off style formatting via the option member like below. 
 

@@ -8,14 +8,11 @@
 * [Callback Functionality](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
 * [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
 * [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
-* [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
+* [License Information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
-
-..part of the [bracket suite](https://github.com/restarian/restarian/blob/master/bracket/readme.md)
-![bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
 
 The option mechinism uses [Brace Prototype](httpsL//npmjs.org/packages/brace_prototype) for functionality. See the docs therein for usage which will apply to bracket print instances as well.
 

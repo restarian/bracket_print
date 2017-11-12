@@ -6,16 +6,12 @@
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
 * [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
 * [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
-* [License information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
+* [License Information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
 * [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
-
-..part of the [bracket suite](https://github.com/restarian/restarian/blob/master/bracket/readme.md)
-![bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png)
-
 
 Print instances can be used as callbacks in functional programming. The examples and explanation's is a suitable replacement for *console.log.bind(console)* as a callback parameter.
 
