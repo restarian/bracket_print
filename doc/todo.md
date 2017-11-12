@@ -22,11 +22,10 @@
 
 Basic:
 
-* Unit test the style map system
 * Add travis and appveyor remote testing
+* Attempt to optimize regex for faster speeds
 
 Features:
 
 * Add special Object types which can be plugged into the serializer (e.g. custom jquery object serialization).
 * Create benchmark unit tests against json.stringify and other serializers
-* Attempt to optimize regex for faster speeds.

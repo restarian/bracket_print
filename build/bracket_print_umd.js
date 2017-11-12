@@ -207,13 +207,13 @@ SOFTWARE.
                 } else {
                     this._cache[n].push(e);
                 }
-                for (var _ = 0; _ < n; _++) {
-                    for (var d = 0; d < this._cache[_].length; d++) {
-                        if (typeof e === "object" && e === this._cache[_][d]) {
+                for (var d = 0; d < n; d++) {
+                    for (var _ = 0; _ < this._cache[d].length; _++) {
+                        if (typeof e === "object" && e === this._cache[d][_]) {
                             var m = "<..circular duplicate of:";
-                            var g = p(this._cache[_][d]);
+                            var g = p(this._cache[d][_]);
                             g.unshift("");
-                            g = g.join(" " + (this._cache[_ - 1] && this._cache[_ - 1][d] || "<-"));
+                            g = g.join(" " + (this._cache[d - 1] && this._cache[d - 1][_] || "<-"));
                             if (m.length + g.length > 75) g = g.substr(0, 71 - m.length) + "..";
                             this.append_string("namespace", m);
                             this.append_string("function_body", g);
@@ -308,8 +308,8 @@ SOFTWARE.
                     this.append_string(b && "brace" || "bracket", b && "]" || "}");
                     this.append_string("comma", "," + o);
                 }
-                for (var d = 0; d < f.length; d++) {
-                    var S = f[d];
+                for (var _ = 0; _ < f.length; _++) {
+                    var S = f[_];
                     if (this.plain.length >= this.character_limit) return;
                     var E = !!(typeof e[S] === "object" && e[S] !== null && e[S] !== undefined && p(e[S]).length);
                     if (P !== 1 && this.compression < 2) this.append_string("indent", s + i + t);
@@ -482,7 +482,6 @@ SOFTWARE.
             }
         });
         i.add_hidden_qualifier("_log_level");
-        i.add_hidden_qualifier("_internal_error");
         return i.extend({
             _serializer: e,
             _log_level: [ -Infinity, Infinity ],
@@ -582,15 +581,18 @@ SOFTWARE.
             },
             get _chain() {
                 return function() {
-                    var e, t;
-                    if (!(e = this.current_platform) || !(t = this.current_theme)) return this;
-                    var i = this.indentation_string.replace(/\t/g, e.denote_tab || "\t").replace(/\n/g, e.denote_line || "\n").replace(/\ /g, e.denote_space || " ");
-                    for (var n = 0; n < arguments.length; n++) {
+                    var e;
+                    if (!(e = this.current_platform)) return this;
+                    var t = this.indentation_string;
+                    if (e.denote_tab) t = t.replace(/\t/g, e.denote_tab);
+                    if (e.denote_line) t = t.replace(/[\n,\r]/g, e.denote_line);
+                    if (e.denote_space) t = t.replace(/ /g, e.denote_space);
+                    for (var i = 0; i < arguments.length; i++) {
                         if (this.plain.length && typeof e["denote_" + this._last_command] !== "undefined") {
                             this.plain += e["denote_" + this._last_command];
                             this.formated += e["denote_" + this._last_command];
                         }
-                        if (!this._serializer(arguments[n], i)) break;
+                        if (!this._serializer(arguments[i], t)) break;
                     }
                     return this;
                 };
@@ -618,14 +620,8 @@ SOFTWARE.
                         var o, s;
                         if (!(s = this.current_theme) || !(o = this.current_platform)) return this;
                         if (i) {
-                            var a;
-                            if (!(a = "title" in s && s["title"] || s.base)) return new this.parent(this, {
-                                level: this.internal_level || this.level,
-                                log_title: "Bracket Print Error"
-                            }).s("There is not a style value set for").a(".", s, ".", a).s("or a").a(o, ".", s, ".base value.").log_true() && this; else {
-                                n = o.format(a, i, o.format.length >= 3 && r || undefined);
-                                console.log.apply(console, this.apply_arguments.concat(r, [ n + this.toStyleString() ]));
-                            }
+                            n = o.format(s["title"] || s.base || "", i, o.format.length >= 3 && r || undefined);
+                            console.log.apply(console, this.apply_arguments.concat(r, [ n + this.toStyleString() ]));
                         } else {
                             console.log.apply(console, this.apply_arguments.concat(r, [ this.toStyleString() ]));
                         }
@@ -667,8 +663,13 @@ SOFTWARE.
             }
         });
     });
-    s("style_map", [ "require" ], function(e) {
+    s("style_map", [], function() {
         return {
+            none: {
+                denote_line: "\n",
+                denote_tab: "\t",
+                denote_space: " "
+            },
             browser: {
                 denote_line: "\n",
                 denote_tab: "\t;",
@@ -877,40 +878,41 @@ SOFTWARE.
         n.prototype.parent = n;
         t.style_map = i;
         t.__defineGetter__("current_platform", function() {
-            if (typeof this.style_map[this.platform] !== "object") {
-                if (!this._internal_error) return null;
-            }
-            return this.style_map[this.platform];
+            if (typeof this.style_map[this.platform] !== "object") return new this.parent(this, {
+                style: false,
+                platform: "none",
+                level: this.internal_level || this.level,
+                log_title: "Bracket Print Error"
+            }).log_null("The requested platform", this.platform, "is not included in the style mapping."); else return this.style_map[this.platform];
         });
         t.__defineGetter__("current_theme", function() {
             var e, t;
             if (!(e = this.current_platform)) return null;
             if (e.import_theme_from) {
                 if (!e.import_theme_from in this.style_map) {
-                    if (!this._internal_error) return new this.parent(this, {
+                    return new this.parent(this, {
+                        style: false,
                         level: this.internal_level || this.level,
                         log_title: "Bracket Print Error"
-                    }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping."); else return null;
+                    }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping.");
                 }
                 t = this.style_map[e.import_theme_from].theme;
             } else {
                 t = e.theme;
             }
             if (t && this.theme + "_" + this.level in t) t = t[this.theme + "_" + this.level]; else if ("default_theme" in e) {
-                if (!e.default_theme in t) if (!this._internal_error) return this._internal_error = new this.parent(this, {
+                if (!e.default_theme in t) return new this.parent(this, {
                     style: false,
                     level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"
-                }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else return null; else t = t[e.default_theme];
+                }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else t = t[e.default_theme];
             } else {
-                if (this._internal_error) return this._internal_error = new this.parent(this, {
+                return new this.parent(this, {
                     style: false,
                     level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"
                 }).log_null("The theme", this.theme + "_" + this.level, "is not included in the style mapping.");
-                return null;
             }
-            this._internal_error = true;
             return t;
         });
         t.remove_call = function() {

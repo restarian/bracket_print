@@ -89,7 +89,7 @@ define("serializer", [ "require" ], function(e) {
         var o, s = "";
         var a = this.style_map[this.platform].denote_line || "\n";
         var l = this.style_map[this.platform].denote_space || " ";
-        var h = this.style_map[this.platform].denote_tab || "\t";
+        var c = this.style_map[this.platform].denote_tab || "\t";
         if (typeof i !== "number" || !this._cache) this._cache = [];
         t = typeof t === "string" && t || l + l;
         n = n || "";
@@ -117,13 +117,13 @@ define("serializer", [ "require" ], function(e) {
         } else if (e !== e) {
             this.append_string("nan", "NaN");
         } else if (e instanceof Error) {
-            var c = e.stack.split(/[\n,\r]/).slice(1).map(function(e) {
+            var h = e.stack.split(/[\n,\r]/).slice(1).map(function(e) {
                 return e.replace(/^\s*/, this.compression < 4 && n + t || " ");
             }, this);
             this.append_string("namespace", "Error");
             this.append_string("colon", ":" + o);
             this.append_string("string", n + e.message + s);
-            this.append_string("function_body", c.join(s));
+            this.append_string("function_body", h.join(s));
         } else if (typeof e === "undefined") {
             this.append_string("undefined", "undefined");
         } else if ((!this.enumerate_all || this.value_buffer) && typeof Buffer !== "undefined" && e instanceof Buffer) {
@@ -156,12 +156,12 @@ define("serializer", [ "require" ], function(e) {
             }
             var b = e.constructor === Array;
             if (typeof e === "function") {
-                var v = e.toString().match(/function(?: |[\n,\r])*(\S*)\(([^\)]*)\)(?: |[\n,\r,\t])*\{((?:.|[\n,\r])*)\}(?: |[\n,\r])*/i) || [];
-                var y = v[1] || "";
-                var j = v[2] || "";
-                var O = v[3] || "";
-                this.append_string("namespace", "function" + (!y && this.compression < 3 && l || ""));
-                if (y) this.append_string("string", l + y);
+                var y = e.toString().match(/function(?: |[\n,\r])*(\S*)\(([^\)]*)\)(?: |[\n,\r,\t])*\{((?:.|[\n,\r])*)\}(?: |[\n,\r])*/i) || [];
+                var v = y[1] || "";
+                var j = y[2] || "";
+                var O = y[3] || "";
+                this.append_string("namespace", "function" + (!v && this.compression < 3 && l || ""));
+                if (v) this.append_string("string", l + v);
                 var w = j.replace(/\t/g, "").replace(/ *, */g, ",").split(",");
                 this.append_string("parenthesis", "(" + (w[0] && this.compression < 3 && o || ""));
                 w.forEach(function(e) {
@@ -195,14 +195,14 @@ define("serializer", [ "require" ], function(e) {
                         var i = q, r = k;
                         var o = arguments[1].replace(/^([ ,\t]+)(.*)/, function(e, t, n) {
                             return t.replace(/\t/g, function() {
-                                if (--i > -1) return ""; else return h;
+                                if (--i > -1) return ""; else return c;
                             }) + n;
                         }).replace(/^([ ,\t]+)(.*)/, function(e, t, n) {
                             return t.replace(/ /g, function() {
                                 if (--r > -1) return ""; else return l;
                             }) + n;
                         });
-                        if (a !== "\t") o = o.replace(/\t/g, h);
+                        if (a !== "\t") o = o.replace(/\t/g, c);
                         if (l !== " ") o = o.replace(/ /g, l);
                         this.append_string("function_body", o);
                         this.append_string("indent", e);
@@ -428,7 +428,6 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
         }
     });
     n.add_hidden_qualifier("_log_level");
-    n.add_hidden_qualifier("_internal_error");
     return n.extend({
         _serializer: e,
         _log_level: [ -Infinity, Infinity ],
@@ -528,15 +527,18 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
         },
         get _chain() {
             return function() {
-                var e, t;
-                if (!(e = this.current_platform) || !(t = this.current_theme)) return this;
-                var n = this.indentation_string.replace(/\t/g, e.denote_tab || "\t").replace(/\n/g, e.denote_line || "\n").replace(/\ /g, e.denote_space || " ");
-                for (var i = 0; i < arguments.length; i++) {
+                var e;
+                if (!(e = this.current_platform)) return this;
+                var t = this.indentation_string;
+                if (e.denote_tab) t = t.replace(/\t/g, e.denote_tab);
+                if (e.denote_line) t = t.replace(/[\n,\r]/g, e.denote_line);
+                if (e.denote_space) t = t.replace(/ /g, e.denote_space);
+                for (var n = 0; n < arguments.length; n++) {
                     if (this.plain.length && typeof e["denote_" + this._last_command] !== "undefined") {
                         this.plain += e["denote_" + this._last_command];
                         this.formated += e["denote_" + this._last_command];
                     }
-                    if (!this._serializer(arguments[i], n)) break;
+                    if (!this._serializer(arguments[n], t)) break;
                 }
                 return this;
             };
@@ -564,14 +566,8 @@ define("proto_object", [ "./serializer", "brace_prototype" ], function(e, t) {
                     var o, s;
                     if (!(s = this.current_theme) || !(o = this.current_platform)) return this;
                     if (n) {
-                        var a;
-                        if (!(a = "title" in s && s["title"] || s.base)) return new this.parent(this, {
-                            level: this.internal_level || this.level,
-                            log_title: "Bracket Print Error"
-                        }).s("There is not a style value set for").a(".", s, ".", a).s("or a").a(o, ".", s, ".base value.").log_true() && this; else {
-                            i = o.format(a, n, o.format.length >= 3 && r || undefined);
-                            console.log.apply(console, this.apply_arguments.concat(r, [ i + this.toStyleString() ]));
-                        }
+                        i = o.format(s["title"] || s.base || "", n, o.format.length >= 3 && r || undefined);
+                        console.log.apply(console, this.apply_arguments.concat(r, [ i + this.toStyleString() ]));
                     } else {
                         console.log.apply(console, this.apply_arguments.concat(r, [ this.toStyleString() ]));
                     }
@@ -618,8 +614,13 @@ if (typeof define !== "function") {
     var define = require("amdefine")(module);
 }
 
-define("style_map", [ "require" ], function(e) {
+define("style_map", [], function() {
     return {
+        none: {
+            denote_line: "\n",
+            denote_tab: "\t",
+            denote_space: " "
+        },
         browser: {
             denote_line: "\n",
             denote_tab: "\t;",
@@ -833,40 +834,41 @@ define([ "require", "./proto_object", "./style_map" ], function(e, t, n) {
     i.prototype.parent = i;
     t.style_map = n;
     t.__defineGetter__("current_platform", function() {
-        if (typeof this.style_map[this.platform] !== "object") {
-            if (!this._internal_error) return null;
-        }
-        return this.style_map[this.platform];
+        if (typeof this.style_map[this.platform] !== "object") return new this.parent(this, {
+            style: false,
+            platform: "none",
+            level: this.internal_level || this.level,
+            log_title: "Bracket Print Error"
+        }).log_null("The requested platform", this.platform, "is not included in the style mapping."); else return this.style_map[this.platform];
     });
     t.__defineGetter__("current_theme", function() {
         var e, t;
         if (!(e = this.current_platform)) return null;
         if (e.import_theme_from) {
             if (!e.import_theme_from in this.style_map) {
-                if (!this._internal_error) return new this.parent(this, {
+                return new this.parent(this, {
+                    style: false,
                     level: this.internal_level || this.level,
                     log_title: "Bracket Print Error"
-                }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping."); else return null;
+                }).log_null("The requested import theme", current_platform.import_theme_from, "is not included in the style mapping.");
             }
             t = this.style_map[e.import_theme_from].theme;
         } else {
             t = e.theme;
         }
         if (t && this.theme + "_" + this.level in t) t = t[this.theme + "_" + this.level]; else if ("default_theme" in e) {
-            if (!e.default_theme in t) if (!this._internal_error) return this._internal_error = new this.parent(this, {
+            if (!e.default_theme in t) return new this.parent(this, {
                 style: false,
                 level: this.internal_level || this.level,
                 log_title: "Bracket Print Error"
-            }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else return null; else t = t[e.default_theme];
+            }).log_null("The default theme", e.default_theme, "is not included in the style mapping."); else t = t[e.default_theme];
         } else {
-            if (this._internal_error) return this._internal_error = new this.parent(this, {
+            return new this.parent(this, {
                 style: false,
                 level: this.internal_level || this.level,
                 log_title: "Bracket Print Error"
             }).log_null("The theme", this.theme + "_" + this.level, "is not included in the style mapping.");
-            return null;
         }
-        this._internal_error = true;
         return t;
     });
     t.remove_call = function() {
