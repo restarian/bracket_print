@@ -14,5 +14,12 @@
 
 ----
 
-Syntax styling is applied via a JSON object which is mapped according to the platform. A error message is logged if a in-correct platform or theme is set.
 
+**Bracket Print makes a wonderful console logger.** The logger will work in the browser console window or to stdout in nodejs environments. ```
+try {
+	this.will_fail = 2
+} 
+catch(e) { 
+	Print.log(e)
+}
+```

@@ -22,8 +22,9 @@
 
 ### Brackit print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
 
-**Author: Robert Steckroth**  
-**License: LGPL-v3**
+**Author: Robert Steckroth, *Bust0ut* [<RobertSteckroth@gmail.com>](mailto:robertsteckroth@gmail.com)**
+
+**Licenses under: LGPL-v3**
 
 **Bonuses:**
 * Brackit Print can serialize massive ECMA scripts (like the browser *window* property), without hiccups.
@@ -36,3 +37,5 @@
 * Provides configurable syntax mapping with custom individualized styles.
 * Styling can be toggled anywhere in the run-time or call chain with a total overhead discharge.
 * Cross platform for nodejs and browser with Windows or Linux.
+
+

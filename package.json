@@ -1,33 +1,32 @@
 {
   "name": "bracket_print",
-  "main": "build/bracket_print.js",
+  "main": "build/bracket_print_umd.js",
   "author": {
-    "name": "Robert Edward Steckroth",
+    "name": "Robert Steckroth",
     "email": "RobertSteckroth@gmail.com",
     "url": "https://restarian.com"
   },
-  "description": "Comprehensive printing and logging for javascript engineering.",
+  "description": "Comprehensive printing, logging and serialization for ECMA Script.",
   "dependencies": {},
   "devDependencies": {
-    "brace_prototype": "^0.4.0",
+    "brace_prototype": "^0.4.2",
     "brace_umd": "^0.6.1",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "mocha-maybe": "^0.1.0",
     "requirejs": "^2.3.5"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+    "brace_navlink": "*"
+  },
   "directories": {},
   "keywords": [
-    "restarian",
-    "serialize",
-    "log",
+    "bracket",
+    "print",
+    "console",
     "logger",
     "logging",
-    "console",
-    "print",
-    "parse",
-    "serializer"
+    "serialize"
   ],
   "license": "LGPL-3.0",
   "maintainers": [

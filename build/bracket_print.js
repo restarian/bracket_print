@@ -51,10 +51,10 @@ SOFTWARE.
 
  this file is a part of Brackit print
 
- Brackit Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+ Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
- Brackit print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -67,12 +67,12 @@ SOFTWARE.
 
   Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
- this file is a part of Brackit print
+ this file is a part of Bracket print
 
- Brackit Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+ Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
- Brackit print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+ Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -309,62 +309,51 @@ define("serializer", [ "require" ], function(e) {
     };
 });
 
-if (typeof define !== "function") {
-    var define = require("amdefine")(module);
-}
+if ("function" != typeof define) var define = require("amdefine")(module);
 
-define("brace_prototype/brace_prototype", [], function() {
+define("brace_prototype/brace_prototype_umd", [], function() {
     return function(e) {
-        if (typeof e !== "object") return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || e;
+        if ("object" != typeof e) return !!console.warn("Brace prototype must be passed an Object to assign additional members.") || e;
         var t = {}, n = {};
         Object.getOwnPropertyNames(e).forEach(function(e) {
             t[e] = null;
         });
         var i = function(e) {
             if (this.hasOwnProperty(e)) {
-                if (typeof Object.getPrototypeOf === "function") return !!Object.getPrototypeOf(this)[e] && delete this[e] || true; else for (var t = this.__proto__; t; t = t.__proto__) if (e in t) return delete this[e] || true;
+                if ("function" == typeof Object.getPrototypeOf) return !!Object.getPrototypeOf(this)[e] && delete this[e] || !0;
+                for (var t = this.__proto__; t; t = t.__proto__) if (e in t) return delete this[e] || !0;
             }
-            return false;
+            return !1;
         };
-        e.clear = function() {
+        return e.clear = function() {
             if (!arguments.length) {
                 for (var e in t) i.call(this, e);
                 for (var e in n) i.call(this, e);
             }
-            for (var r in arguments) if (arguments[r] in t) i.call(this, arguments[r]); else console.log("The qualifier", arguments[r], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
-        };
-        e.extend = function(e) {
-            Object.getOwnPropertyNames(e).forEach(function(t) {
+            for (var r in arguments) arguments[r] in t ? i.call(this, arguments[r]) : console.log("The qualifier", arguments[r], "was passed to a brace prototype instance which does not have it listed.", "You should either: insert the qualifier to the constructor Object parameter or add the qualifier with the add_qualifier member.");
+        }, e.extend = function(e) {
+            return Object.getOwnPropertyNames(e).forEach(function(t) {
                 var n = Object.getOwnPropertyDescriptor(e, t);
                 Object.defineProperty(this, t, n);
-            }, this);
-            return this;
-        };
-        e.proto_extend = function(t) {
-            Object.getOwnPropertyNames(t).forEach(function(e) {
+            }, this), this;
+        }, e.proto_extend = function(t) {
+            return Object.getOwnPropertyNames(t).forEach(function(e) {
                 var n = Object.getOwnPropertyDescriptor(t, e);
                 Object.defineProperty(this, e, n);
-            }, e);
-            return e;
-        };
-        e.add_qualifier = function(n) {
-            t[n] = null;
-            e[n] = e[n] || null;
-        };
-        e.add_hidden_qualifier = function(t) {
-            n[t] = null;
-            e[t] = e[t] || null;
+            }, e), e;
+        }, e.add_qualifier = function(n) {
+            t[n] = null, e[n] = e[n] || null;
+        }, e.add_hidden_qualifier = function(t) {
+            n[t] = null, e[t] = e[t] || null;
         }, e.remove_qualifier = function(e) {
             delete t[e];
-        };
-        e.list = function() {
+        }, e.list = function() {
             return t;
-        };
-        return e;
+        }, e;
     };
 });
 
-define("brace_prototype", [ "brace_prototype/brace_prototype" ], function(e) {
+define("brace_prototype", [ "brace_prototype/brace_prototype_umd" ], function(e) {
     return e;
 });
 
