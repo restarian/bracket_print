@@ -10,7 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "brace_prototype": "^0.4.2",
-    "brace_umd": "^0.6.1",
+    "brace_umd": "^0.7.1",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "mocha-maybe": "^0.1.0",

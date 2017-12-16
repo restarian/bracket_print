@@ -19,7 +19,7 @@
 
 */// Author: Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
-var Print = require("../build/bracket_print_umd.js")
+var Print = require("../")
 
 var up = Print({log_title: "Example 1", level: 2, compression: 1, theme: "dark"})//.et_option({use_title: false})
 
