@@ -9,8 +9,9 @@
   "description": "Comprehensive printing, logging and serialization for ECMA Script.",
   "dependencies": {},
   "devDependencies": {
-    "brace_prototype": "^0.4.2",
-    "brace_umd": "^0.7.1",
+    "amdefine": "^1.0.1",
+    "brace_prototype": "^0.4.4",
+    "brace_umd": "^0.7.4",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "mocha-maybe": "^0.1.0",

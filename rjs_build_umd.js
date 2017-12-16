@@ -18,7 +18,7 @@
 				nodeRequire("fs").readFileSync(module_path.replace(/_umd\.js$/, ".js")).toString() || content
 	},
 	"optimize": "uglify2",
-	"uglify2": nodeRequire("brace_umd").build_option_extend({compress: {beautify: true}, mangle: {properties: false}}),
+	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: false}),
 	"wrap": {
 		"start": nodeRequire("brace_umd").wrap_start,
 		// Add an anonymous definition.
