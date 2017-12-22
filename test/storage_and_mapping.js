@@ -18,6 +18,7 @@
 var chai = require("chai"),
 	expect = chai.expect,
 	fs = require("fs"),
+	path = require("path")
 	test = require("test_help")
 
 var remove_cache = test.remove_cache.bind(null, "amdefine.js", "r.js", "style_map.js", "bracket_print.js")
@@ -28,8 +29,10 @@ Spinner.prototype.log_stdout = true
 Spinner.prototype.log_stderr = true 
 Spinner.prototype.log_err = true 
 
-var Print = require("../lib/bracket_print.js")
-describe("Internal storage mapping mechinism", function() {
+module.paths.unshift(path.join(__dirname, "/..", "/.."))
+var Print = require("bracket_print")
+
+describe("Internal storage mapping mechinism - " + path.basename(__filename), function() {
 
 	var up, snippet, compare
 	beforeEach(function() {
@@ -56,7 +59,7 @@ describe("Internal storage mapping mechinism", function() {
 		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 		   expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.equal("The requested platform shmeh is not included in the style mapping.\n")
+			expect(this.stdout).to.include("The requested platform shmeh is not included in the style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -76,7 +79,7 @@ describe("Internal storage mapping mechinism", function() {
 		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.equal("The requested platform terminal is not included in the style mapping.\n")
+			expect(this.stdout).to.include("The requested platform terminal is not included in the style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -146,7 +149,7 @@ describe("Internal storage mapping mechinism", function() {
 		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.equal("The theme specified is not found in the terminal style mapping.\n")
+			expect(this.stdout).to.include("The theme specified is not found in the terminal style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -166,7 +169,7 @@ describe("Internal storage mapping mechinism", function() {
 		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.equal("The default theme dark_1 specified is not found in the terminal style mapping.\n")
+			expect(this.stdout).to.include("The default theme dark_1 specified is not found in the terminal style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	

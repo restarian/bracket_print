@@ -1,4 +1,4 @@
-# Brackit Print
+# Bracket Print
 ### Console logging 
 
 ----
@@ -14,5 +14,5 @@
 
 ----
 
-Syntax styling is applied via a JSON object which is mapped according to the platform. A error message is logged if a in-correct platform or theme is set.
+Syntax styling is applied via a ecma object which is mapped according to the platform. A error message is logged if a in-correct platform or theme is set.
 

@@ -18,10 +18,13 @@
 
 
 var chai = require("chai"),
-expect = chai.expect
-var Print = require("../build/bracket_print_umd.js")
+expect = chai.expect,
+path = require("path")
 
-describe("The log_level option", function() {
+module.paths.unshift(path.join(__dirname, "/..", "/.."))
+var Print = require("bracket_print")
+
+describe("The log_level option" + path.basename(__filename), function() {
 
 	var s
 	beforeEach(function() {

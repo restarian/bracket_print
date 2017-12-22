@@ -20,9 +20,10 @@ var chai = require("chai"),
 expect = chai.expect,
 path = require("path")
 
-var Print = require("../build/bracket_print_umd.js")
+module.paths.unshift(path.join(__dirname, "/..", "/.."))
+var Print = require("bracket_print")
 
-describe("Internal storage", function() {
+describe("Internal storage - " + path.basename(__filename), function() {
 
 	var s
 	Print.prototype.log_level = ""
@@ -64,12 +65,12 @@ describe("Internal storage", function() {
 
 		s.shift_function_body = false
 		expect(s.empty().option({compression: 4}).s(Function).toString()).to.equal('function Function(){[native code]}')
-		expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n[native code] }')
+		expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n[native code]}')
 		expect(s.empty().option({compression: 2}).s(String).toString()).to.equal('function String() {\n[native code]\n}')
 		expect(s.empty().option({compression: 2}).s(RegExp).toString()).to.equal('function RegExp() {\n[native code]\n}')
 
 		expect(s.empty().option({compression: 4}).toString(Object).toString()).to.equal('function Object(){[native code]}')
-		expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() {\n[native code] }')
+		expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() {\n[native code]}')
 		expect(s.empty().option({compression: 2}).s(Object).toString()).to.equal('function Object() {\n[native code]\n}')
 		expect(s.empty().option({compression: 1}).toString(Object).toString()).to.equal('function Object() {\n[native code]\n}')
 

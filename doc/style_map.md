@@ -1,4 +1,4 @@
-# Brackit Print
+# Bracket Print
 ### Console logging 
 
 ----

@@ -1,4 +1,4 @@
-# Brackit Print
+# Bracket Print
 ### Callback Functionality
 
 ----
@@ -13,7 +13,7 @@
 
 ----
 
-Print instances can be used as a logging callback in functional programming. The examples and explanation's is a suitable replacement for *console.log.bind(console)* as a callback parameter.
+Print instances can be used as a logging callback in functional programming. The examples/explanations below make for a suitable replacement to the use of *console.log.bind(console)* as a callback parameter.
 
 Objects passed into Bracket print callbacks as arguments will be printed using safe serialization. The log message is more informative and will be generated without need worry about stalling the repl. The example below only prints the first four hundred character of any Object which may happen to be passed into the logger callback. 
 

@@ -17,8 +17,11 @@
   Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
 
 var chai = require("chai"),
-expect = chai.expect
-var Print = require("../build/bracket_print_umd.js")
+expect = chai.expect,
+path = require("path")
+
+module.paths.unshift(path.join(__dirname, "/..", "/.."))
+var Print = require("bracket_print")
 
 describe("Functions", function() {
 

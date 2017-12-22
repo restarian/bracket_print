@@ -1,4 +1,4 @@
-# Brackit Print
+# Bracket Print
 ### Constructing and Using Raw Strings 
 
 ----
@@ -31,7 +31,9 @@ var log_string_a = up.toStyleString()
 ```
 
 
-The *toString* member is cheap to call (it simple returns an instance value if no parameters are provided), so the above example has very little CPU impact. The *toStyleString* call above returns the non-styled text sense the *style* option was set falsey. There is not an increase in performance overhead to use it instead of *toString* when *style* is disabled.
+The *toString* member is cheap to call (it simply returns an instance value if no parameters are provided), so the above example has little system resource impact. 
+
+The *toStyleString* call above returns the non-styled text sense the *style* option was set falsey. There is no increase in resource overhead to use it instead of *toString* when styling is disabled via the *style* option.
 
 
 Any parameters that are passed into *toString* or *toStyleString* will be added to the call chain using the last command used for separation. The default command of *space* will be used when *toString* or *toStyleString* is called before a separation command.

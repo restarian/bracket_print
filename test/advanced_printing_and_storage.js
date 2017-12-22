@@ -1,6 +1,6 @@
 /*Bracket Print resides under the LGPL v3
 
-  Brackit print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
+  Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
   Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
@@ -17,8 +17,11 @@
   Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
 
 var chai = require("chai"),
-expect = chai.expect
-var Print = require("../build/bracket_print_umd.js")
+expect = chai.expect,
+path = require("path") 
+
+module.paths.unshift(path.join(__dirname, "/..", "/.."))
+var Print = require("bracket_print")
 
 describe("Internal storage", function() {
 
