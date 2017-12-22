@@ -1,3 +1,4 @@
 node_modules/
-runme.js
+!test/node_modules/
+npm-debug.*
 *.sw[a-z]
