@@ -2,9 +2,9 @@
 
   Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-  Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+  Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
- this file is a part of Brackit print
+ this file is a part of Bracket print
 
  Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.

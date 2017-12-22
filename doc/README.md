@@ -1,5 +1,7 @@
-# Brackit Print
+# Bracket Print
 ### Synopsis
+
+[![Build status](https://ci.appveyor.com/api/projects/status/ubnsgah9goq3ryfu/branch/master?svg=true)](https://ci.appveyor.com/project/restarian/bracket-print/branch/master) [![Build Status](https://travis-ci.org/restarian/bracket_print.svg?branch=master)](https://travis-ci.org/restarian/bracket_print) [![Downloads](https://img.shields.io/npm/dm/bracket_print.svg?svg=true)](https://npmjs.org/package/bracket_print)
 
 | A part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)| Developed with Windows 10 and Ubuntu 16 
 | ---- | ----
@@ -16,18 +18,21 @@
 * [License Information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
 * [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
+* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/style_map.md)
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
 
-### Brackit print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
+### Bracket print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
 
 **Author: Robert Steckroth, *Bust0ut* [<RobertSteckroth@gmail.com>](mailto:robertsteckroth@gmail.com)**
 
 **Licenses under: LGPL-v3**
 
 **Bonuses:**
-* Brackit Print can serialize massive ECMA scripts (like the browser *window* property), without hiccups.
+* Cross platform for nodejs and browser with windows or linux.
+* Works with requirejs, amdefine, or without any dependencies with the same file.
+* Bracket Print can serialize massive ECMA scripts (like the browser *window* property), without hiccups.
 	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects).
 	* Removes superfluous tabs, spaces, and newlines from function strings.
 	* Output can be configured to be passed into JSON.parse 
@@ -36,6 +41,3 @@
 * Uses a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge.
 * Provides configurable syntax mapping with custom individualized styles.
 * Styling can be toggled anywhere in the run-time or call chain with a total overhead discharge.
-* Cross platform for nodejs and browser with Windows or Linux.
-
-

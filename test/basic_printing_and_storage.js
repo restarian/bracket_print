@@ -2,7 +2,7 @@
 
   Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-  Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+  Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
 
  this file is a part of Bracket print
 

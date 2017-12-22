@@ -9,6 +9,7 @@
 * [License Information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
 * [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
 * [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
+* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/style_map.md)
 * [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
 ----
