@@ -26,10 +26,10 @@
 ### Bracket print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
 
 **Author: Robert Steckroth, *Bust0ut* [<RobertSteckroth@gmail.com>](mailto:robertsteckroth@gmail.com)**
-
 **Licenses under: LGPL-v3**
 
 **Bonuses:**
+* Vast and deep unit tests on Windows 10 and Ubuntu 16
 * Cross platform for nodejs and browser with windows or linux.
 * Works with requirejs, amdefine, or without any dependencies with the same file.
 * Bracket Print can serialize massive ECMA scripts (like the browser *window* property), without hiccups.
@@ -38,6 +38,12 @@
 	* Output can be configured to be passed into JSON.parse 
 * Bracket Print has a collaborative design which sits in the root of large projects to encourage team development.
 * Uses a prototypal return chain to allow for usage as functional programming callbacks.
-* Uses a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge.
+* Contains a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge.
 * Provides configurable syntax mapping with custom individualized styles.
 * Styling can be toggled anywhere in the run-time or call chain with a total overhead discharge.
+
+**Caveats:**
+* Does not do browser unit testing
+
+
+

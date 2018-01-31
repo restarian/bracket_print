@@ -7,6 +7,10 @@
     "url": "https://restarian.com"
   },
   "description": "Comprehensive printing, logging and serialization for ECMA script.",
+  "scripts": {
+    "test": "mocha",
+    "build": "r_js -o ./rjs_build.js && r_js -o ./rjs_build_umd.js"
+  },
   "dependencies": {},
   "devDependencies": {
     "amdefine": "^1.0.1",
@@ -43,9 +47,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/restarian/bracket_print.git"
-  },
-  "scripts": {
-    "test": "mocha"
   },
   "version": "0.9.7"
 }
