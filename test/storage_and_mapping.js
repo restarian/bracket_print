@@ -1,4 +1,5 @@
-/*Bracket Print resides under the LGPL v3 
+/* The LGPL v3 
+
   Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
   Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
@@ -19,21 +20,26 @@ var chai = require("chai"),
 	expect = chai.expect,
 	fs = require("fs"),
 	path = require("path")
-	test = require("test_help")
+	utils = require("bracket_utils"),
+	maybe = require("brace_maybe")
 
-var remove_cache = test.remove_cache.bind(null, "amdefine.js", "r.js", "style_map.js", "bracket_print.js")
-var Spinner = test.Spinner
+var Spawner = utils.Spawner,
+	remove_cache = utils.remove_cache.bind(null, "brace_umd.js", "base_module.js", "amdefine.js", "r.js", "entry.js")
 
-Spinner.prototype.default_command = "node" 
-Spinner.prototype.log_stdout = true 
-Spinner.prototype.log_stderr = true 
-Spinner.prototype.log_err = true 
+Spawner.prototype.log_stdout = false 
+Spawner.prototype.log_stderr = true 
+Spawner.prototype.log_err = true 
 
 module.paths.unshift(path.join(__dirname, "/..", "/.."))
 var Print = require("bracket_print")
 
 describe("Internal storage mapping mechinism - " + path.basename(__filename), function() {
 
+	var it_will = this
+	var it = maybe(it_will)
+	it_will.stop = true	
+	it_will.quiet = true	
+	
 	var up, snippet, compare
 	beforeEach(function() {
 
@@ -56,7 +62,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("var test = Print({platform: 'shmeh'})")
 			.l("test.s({cool:'joes'})")
 
-		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 		   expect(parseInt(exit_code)).to.equal(42)
 			expect(this.stdout).to.include("The requested platform shmeh is not included in the style mapping.\n")
@@ -76,7 +82,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("delete test.style_map.terminal")
 			.l("test.s({cool:'joes'})")
 
-		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(this.stdout).to.include("The requested platform terminal is not included in the style mapping.\n")
@@ -96,7 +102,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("test.style_map.terminal = {}")
 			.l("test.s({cool:'joes'})")
 
-		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(this.stdout).to.equal("The requested platform terminal is not included in the style mapping.\n")
@@ -146,7 +152,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("test.style_map.terminal.theme.dark_1 = undefined")
 			.l("test.s()")
 
-		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(this.stdout).to.include("The theme specified is not found in the terminal style mapping.\n")
@@ -166,7 +172,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("delete test.style_map.terminal.theme.dark_1")
 			.l("test.log()")
 
-		new Spinner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
 			
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(this.stdout).to.include("The default theme dark_1 specified is not found in the terminal style mapping.\n")

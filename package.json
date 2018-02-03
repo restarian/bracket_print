@@ -9,16 +9,16 @@
   "description": "Comprehensive printing, logging and serialization for ECMA script.",
   "scripts": {
     "test": "mocha",
-    "build": "r_js -o ./rjs_build.js && r_js -o ./rjs_build_umd.js"
+    "build": "r_js -o ./rjs_build.js; r_js -o ./rjs_build_umd.js"
   },
   "dependencies": {},
   "devDependencies": {
     "amdefine": "^1.0.1",
     "brace_prototype": "^0.4.4",
-    "brace_umd": "^0.7.9",
-    "chai": "^3.5.0",
+    "brace_umd": "^0.8.4",
     "intercept-stdout": "^0.1.2",
     "mocha": "^3.2.0",
+    "chai": "^3.5.0",
     "requirejs": "^2.3.5"
   },
   "optionalDependencies": {
