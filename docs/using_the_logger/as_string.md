@@ -5,17 +5,15 @@
 ### Document pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/README.md)
 * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/benchmarks.md)
+* [License information](https://github.com/restarian/bracket_print/blob/master/docs/license.md)
 * [The option mechanism](https://github.com/restarian/bracket_print/blob/master/docs/options.md)
-* Image
 * [Screenshots and media](https://github.com/restarian/bracket_print/blob/master/docs/screenshot.md)
 * [Console logging](https://github.com/restarian/bracket_print/blob/master/docs/style_map.md)
-* Specification
-  * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license.md)
 * Using the logger
   * [Callback functionality](https://github.com/restarian/bracket_print/blob/master/docs/using_the_logger/as_callback.md)
-  * **Constructing and using raw strings**
   * [Console logging](https://github.com/restarian/bracket_print/blob/master/docs/using_the_logger/as_logger.md)
-* [Project specification data](https://github.com/restarian/bracket_print/blob/master/docs/specification/specification.md)
+  * **Constructing and using raw strings**
+* [Project specification data](https://github.com/restarian/bracket_print/blob/master/docs/specification.md)
 
 ---
 
