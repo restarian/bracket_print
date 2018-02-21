@@ -1,21 +1,12 @@
 # Bracket Print
 ### The Option Mechanism
 
-----
-
+---
 ### Document pages
-* [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
-* [Callback Functionality](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
-* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
-* [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
-* [License Information](https://github.com/restarian/bracket_print/blob/master/doc/license.md)
-* [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
-* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/style_map.md)
-* [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
 
-----
+---
 
-The option mechinism uses [Brace Prototype](httpsL//npmjs.org/packages/brace_prototype) for functionality. See the docs therein for usage which will apply to bracket print instances as well.
+The option mechanism uses [Brace Prototype](httpsL//npmjs.org/packages/brace_prototype) for functionality. See the docs therein for usage which will apply to bracket print instances as well.
 
 Options can be passed to bracket print using the constructor, the *spawn*, *option*, or *empty* members. The option object passed in can be a literal Object, Bracket Print instance, arguments Object, or a String. The string parameter will be used as the *log_title* value. Any string passed in will take priority over any *log_title* value contained in the Object parameters. And multiple strings will cause the last one in the parameter list to take priority. Passing in multiple Object will override the previous values in Objects passed in.
 

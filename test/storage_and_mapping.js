@@ -1,8 +1,8 @@
-/* The LGPL v3 
+/*Bracket Print resides under the LGPL v3
 
   Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-  Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+  Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
 
  this file is a part of Bracket print
 
@@ -14,32 +14,21 @@
 
  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-  Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
+  Author: Robert Steckroth, Bustout, <RobertSteckroth@gmail.com> */
 
 var chai = require("chai"),
 	expect = chai.expect,
 	fs = require("fs"),
 	path = require("path")
-	utils = require("bracket_utils"),
-	maybe = require("brace_maybe")
+	utils = require("bracket_utils")
 
-var Spawner = utils.Spawner,
-	remove_cache = utils.remove_cache.bind(null, "brace_umd.js", "base_module.js", "amdefine.js", "r.js", "entry.js")
+var remove_cache = utils.remove_cache.bind(null, "brace_umd.js", "base_module.js", "amdefine.js", "r.js", "entry.js")
 
-Spawner.prototype.log_stdout = false 
-Spawner.prototype.log_stderr = true 
-Spawner.prototype.log_err = true 
-
-module.paths.unshift(path.join(__dirname, "/..", "/.."))
+module.paths.unshift(path.join(__dirname, "..", ".."))
 var Print = require("bracket_print")
 
 describe("Internal storage mapping mechinism - " + path.basename(__filename), function() {
 
-	var it_will = this
-	var it = maybe(it_will)
-	it_will.stop = true	
-	it_will.quiet = true	
-	
 	var up, snippet, compare
 	beforeEach(function() {
 
@@ -62,10 +51,10 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("var test = Print({platform: 'shmeh'})")
 			.l("test.s({cool:'joes'})")
 
-		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			
 		   expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.include("The requested platform shmeh is not included in the style mapping.\n")
+			expect(stdout).to.include("The requested platform shmeh is not included in the style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -82,10 +71,10 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("delete test.style_map.terminal")
 			.l("test.s({cool:'joes'})")
 
-		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.include("The requested platform terminal is not included in the style mapping.\n")
+			expect(stdout).to.include("The requested platform terminal is not included in the style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -102,10 +91,10 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("test.style_map.terminal = {}")
 			.l("test.s({cool:'joes'})")
 
-		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.equal("The requested platform terminal is not included in the style mapping.\n")
+			expect(stdout).to.equal("The requested platform terminal is not included in the style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -152,10 +141,10 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("test.style_map.terminal.theme.dark_1 = undefined")
 			.l("test.s()")
 
-		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.include("The theme specified is not found in the terminal style mapping.\n")
+			expect(stdout).to.include("The theme specified is not found in the terminal style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	
@@ -172,10 +161,10 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			.l("delete test.style_map.terminal.theme.dark_1")
 			.l("test.log()")
 
-		new Spawner("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, function(exit_code) {
+		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			
 			expect(parseInt(exit_code)).to.equal(42)
-			expect(this.stdout).to.include("The default theme dark_1 specified is not found in the terminal style mapping.\n")
+			expect(stdout).to.include("The default theme dark_1 specified is not found in the terminal style mapping.\n")
 			done()
 		}, function() {
 			expect(false, "The spinner process failed").to.be.true	

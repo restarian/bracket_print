@@ -2,7 +2,7 @@
 
   Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-  Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+  Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
 
  this file is a part of Bracket print
 
@@ -14,13 +14,14 @@
 
  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-  Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
+  Author: Robert Steckroth, Bustout, <RobertSteckroth@gmail.com> */
 
 var chai = require("chai"),
 expect = chai.expect,
 path = require("path")
 
-module.paths.unshift(path.join(__dirname, "/..", "/.."))
+module.paths.unshift(path.join(__dirname, "..", ".."))
+
 var Print = require("bracket_print")
 
 describe("Internal storage - " + path.basename(__filename), function() {
@@ -112,7 +113,7 @@ describe("Internal storage - " + path.basename(__filename), function() {
 				.to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,"length":2}')
 	})
 
-	it("Clears stored text data with the empty() command", function() {
+	it("clears stored text data with the empty() command", function() {
 
 		s.empty()
 		expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")

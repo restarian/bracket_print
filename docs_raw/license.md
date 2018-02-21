@@ -1,20 +1,10 @@
 # Bracket Print
 ### License Information
 
-------
-
+---
 ### Document pages
 
-* [Synopsis](https://github.com/restarian/bracket_print/blob/master/doc/README.md)
-* [Callback Functionality](https://github.com/restarian/bracket_print/blob/master/doc/as_callback.md)
-* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/as_logger.md)
-* [Constructing and Using Raw Strings ](https://github.com/restarian/bracket_print/blob/master/doc/as_string.md)
-* [The Option Mechanism](https://github.com/restarian/bracket_print/blob/master/doc/options.md)
-* [Screenshots and Media](https://github.com/restarian/bracket_print/blob/master/doc/screenshot.md)
-* [Console logging ](https://github.com/restarian/bracket_print/blob/master/doc/style_map.md)
-* [Todo](https://github.com/restarian/bracket_print/blob/master/doc/todo.md)
-
-----
+---
 
 All of the files contained in this library are under it primary license (LGPL-v3) unless otherwise stated.
 
@@ -22,7 +12,7 @@ All of the files contained in this library are under it primary license (LGPL-v3
 
  Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA serialization.
 
- Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+ Copyright (C) 2018 Robert Steckroth [<RobertSteckroth@gmail.com>](mailto:RobertSteckroth@gmail.com)
 
 	Bracket Dmz is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

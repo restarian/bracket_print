@@ -2,7 +2,7 @@
 
   Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-  Copyright (C) 2018 Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+  Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
 
  this file is a part of Bracket print
 
@@ -14,22 +14,39 @@
 
  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-  Author: Robert Edward Steckroth, Bustout, <RobertSteckroth@gmail.com> */
+  Author: Robert Steckroth, Bustout, <RobertSteckroth@gmail.com> */
 
 var chai = require("chai"),
 	expect = chai.expect,
 	intercept = require("intercept-stdout"),
 	path = require("path")
+	utils = require("bracket_utils")
 
-module.paths.unshift(path.join(__dirname, "/..", "/.."))
+module.paths.unshift(path.join(__dirname, "..", ".."))
+var remove_cache = utils.remove_cache.bind(null, "r.js", "bracket_print_umd.js")
+
 var Print = require("bracket_print")
 
-;([true, false]).forEach(function(value) {
+describe("the options - " + path.basename(__filename), function() {
 
-	describe("Options - " + path.basename(__filename), function() {
+	it("works with the prototype as default options in the expected way", function() {
+
+		expect(Print.prototype.log_level).to.deep.equal([-Infinity, Infinity])	
+
+		var up = Print({title: false}).spawn()
+		expect(up.log_level).to.deep.equal([-Infinity, Infinity])	
+		expect(Print.prototype.log_level).to.deep.equal([-Infinity, Infinity])	
+		Print.prototype.log_level = 0
+		expect(up.log_level).to.deep.equal([0, 0])	
+		up.clear("log_level")
+		Print.prototype.log_level = ""
+		expect(up.log_level).to.deep.equal([-Infinity, Infinity])	
+
+	})
+	
+	;([true, false]).forEach(function(value) {
 
 		var s
-
 		beforeEach(function() {
 			s = Print("Heading one")
 			Print.prototype.log_level = "" 

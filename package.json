@@ -1,33 +1,32 @@
 {
   "name": "bracket_print",
   "main": "build/bracket_print_umd.js",
+  "version": "0.9.10",
   "author": {
     "name": "Robert Steckroth",
     "email": "RobertSteckroth@gmail.com",
     "url": "https://restarian.com"
   },
-  "description": "Comprehensive printing, logging and serialization for ECMA script.",
+  "description": "Comprehensive logging, printing and serialization for ECMA script.",
   "scripts": {
     "test": "mocha",
     "build": "r_js -o ./rjs_build.js; r_js -o ./rjs_build_umd.js"
   },
-  "dependencies": {},
   "devDependencies": {
     "amdefine": "^1.0.1",
-    "brace_prototype": "^0.4.4",
-    "brace_umd": "^0.8.4",
+    "brace_maybe": "^0.1.3",
+    "brace_prototype": "^0.4.7",
+    "brace_umd": "^0.8.5",
+    "bracket_utils": "^0.2.4",
+    "chai": "^4.1.2",
     "intercept-stdout": "^0.1.2",
-    "mocha": "^3.2.0",
-    "chai": "^3.5.0",
+    "mocha": "^5.0.1",
     "requirejs": "^2.3.5"
   },
-  "optionalDependencies": {
-    "brace_navlink": "*"
-  },
+  "optionalDependencies": {},
   "directories": {},
   "keywords": [
-    "bracket",
-    "print",
+    "printing",
     "console",
     "logger",
     "logging",
@@ -42,11 +41,47 @@
   ],
   "readmeFilename": "README.md",
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=0.5.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/restarian/bracket_print.git"
   },
-  "version": "0.9.10"
+  "technologies": [
+    {
+      "name": "VIM",
+      "description": "As an IDE",
+      "url": "https://vim.org"
+    },
+    {
+      "name": "Windows 10",
+      "description": "For unit testing and as the base operating system",
+      "url": "https://www.microsoft.com/en-us/software-download/windows10"
+    },
+    {
+      "name": "Ubuntu on Windows",
+      "description": "As the development operating environment",
+      "url": "https://www.microsoft.com/en-us/store/p/ubuntu/9nblggh4msv6"
+    },
+    {
+      "name": "Git",
+      "description": "For repository management",
+      "url": "https://git-scm.com"
+    },
+    {
+      "name": "Github",
+      "description": "For repository storage",
+      "url": "https://github.com"
+    },
+    {
+      "name": "NPM",
+      "description": "For module storage",
+      "url": "https://npmjs.org"
+    },
+    {
+      "name": "Blender",
+      "description": "For logo design and rendering",
+      "url": "https://blender.org"
+    }
+  ]
 }
