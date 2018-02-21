@@ -48,6 +48,8 @@ describe("the options - " + path.basename(__filename), function() {
 
 		var s
 		beforeEach(function() {
+			remove_cache()
+			Print = require("bracket_print")
 			s = Print("Heading one")
 			Print.prototype.log_level = "" 
 			Print.prototype.style = value 

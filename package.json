@@ -83,5 +83,8 @@
       "description": "For logo design and rendering",
       "url": "https://blender.org"
     }
-  ]
+  ],
+  "dependencies": {
+    "serialize-javascript": "^1.4.0"
+  }
 }

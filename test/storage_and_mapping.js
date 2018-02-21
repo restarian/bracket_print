@@ -22,9 +22,8 @@ var chai = require("chai"),
 	path = require("path")
 	utils = require("bracket_utils")
 
-var remove_cache = utils.remove_cache.bind(null, "brace_umd.js", "base_module.js", "amdefine.js", "r.js", "entry.js")
-
 module.paths.unshift(path.join(__dirname, "..", ".."))
+var remove_cache = utils.remove_cache.bind(null, "r.js", "bracket_print_umd.js")
 var Print = require("bracket_print")
 
 describe("Internal storage mapping mechinism - " + path.basename(__filename), function() {
@@ -33,6 +32,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 	beforeEach(function() {
 
 		remove_cache()
+		Print = require("bracket_print")
 		snippet = Print({platform: "none", style: false}).line("var Print = require('../lib/bracket_print.js')")
 		compare = Print({platform: "none", compression:4, style: false, truncate_function: true})
 		up = Print({compression: 4})
