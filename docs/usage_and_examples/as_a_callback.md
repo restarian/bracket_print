@@ -3,19 +3,21 @@
 
 ----
 ### Document pages
-* [Benchmarks](https://github.com/restarian/bracket_print/blob/master/docs/benchmarks.md)
-* [License](https://github.com/restarian/bracket_print/blob/master/docs/license.md)
-* [Options](https://github.com/restarian/bracket_print/blob/master/docs/options.md)
-* [Screenshot](https://github.com/restarian/bracket_print/blob/master/docs/screenshot.md)
-* [Style map](https://github.com/restarian/bracket_print/blob/master/docs/style_map.md)
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
+* Media and statistics
+  * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
+  * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
 * Specification
+  * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
   * [Package specification](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_specification.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
-* Using the logger
-  * **As callback**
-  * [As logger](https://github.com/restarian/bracket_print/blob/master/docs/using_the_logger/as_logger.md)
-  * [As string](https://github.com/restarian/bracket_print/blob/master/docs/using_the_logger/as_string.md)
+* Usage and examples
+  * **As a callback**
+  * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
+  * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * Advanced usage
+    * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
+    * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
 
 ----
 
