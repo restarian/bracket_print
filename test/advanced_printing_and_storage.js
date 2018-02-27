@@ -22,17 +22,18 @@ path = require("path"),
 utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
-var remove_cache = utils.remove_cache.bind(null, "r.js", "bracket_print_umd.js")
+var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 
 describe("Internal storage - " + path.basename(__filename), function() {
 
 	var up 
 	beforeEach(function() {
-		remove_cache()
+			cache.start()
 		Print = require("bracket_print")
 		print = new Print({compression: 4}).s({cool: "joes"})
 	})
+	afterEach(cache.dump.bind(cache))
 
 	it.skip("serializes the global Object in the node environment and truncated it to 1.01 megabytes", function() {
 

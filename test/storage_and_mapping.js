@@ -23,20 +23,20 @@ var chai = require("chai"),
 	utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
-var remove_cache = utils.remove_cache.bind(null, "r.js", "bracket_print_umd.js")
+var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 
 describe("Internal storage mapping mechinism - " + path.basename(__filename), function() {
 
 	var up, snippet, compare
 	beforeEach(function() {
-
-		remove_cache()
+		cache.start()
 		Print = require("bracket_print")
 		snippet = Print({platform: "none", style: false}).line("var Print = require('../lib/bracket_print.js')")
 		compare = Print({platform: "none", compression:4, style: false, truncate_function: true})
 		up = Print({compression: 4})
 	})
+	afterEach(cache.dump.bind(cache))
 
 	it("has the proper style_map value", function() {
 

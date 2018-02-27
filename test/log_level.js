@@ -18,18 +18,22 @@
 
 var chai = require("chai"),
 expect = chai.expect,
-path = require("path")
+path = require("path"),
+utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "/..", "/.."))
+var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 
 describe("The log_level option" + path.basename(__filename), function() {
 
 	var s
 	beforeEach(function() {
+		cache.start()
 		s = Print()
 		s.compression = 4
 	})
+	afterEach(cache.dump.bind(cache))
 
 	describe("parses the value set to the log_level property and convertes it to the appropriate value.", function() {
 

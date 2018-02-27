@@ -23,14 +23,14 @@ var chai = require("chai"),
 	utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
-var remove_cache = utils.remove_cache.bind(null, "r.js", "bracket_print_umd.js")
-
-var Print = require("bracket_print")
+var cache = utils.cacheManager(require)
 
 describe("the options - " + path.basename(__filename), function() {
 
 	it("works with the prototype as default options in the expected way", function() {
+		cache.start()
 
+		var Print = require("bracket_print")
 		expect(Print.prototype.log_level).to.deep.equal([-Infinity, Infinity])	
 
 		var up = Print({title: false}).spawn()
@@ -41,20 +41,24 @@ describe("the options - " + path.basename(__filename), function() {
 		up.clear("log_level")
 		Print.prototype.log_level = ""
 		expect(up.log_level).to.deep.equal([-Infinity, Infinity])	
-
+		cache.dump()
 	})
 	
+	var s, Print
+	beforeEach(function() {
+		cache.start()
+		Print = require("bracket_print")
+		s = Print("Heading one")
+		Print.prototype.log_level = "" 
+		s.compression = 4
+		s.quote_qualifier = true 
+	})
+	afterEach(cache.dump.bind(cache))
+
 	;([true, false]).forEach(function(value) {
 
-		var s
-		beforeEach(function() {
-			remove_cache()
-			Print = require("bracket_print")
-			s = Print("Heading one")
-			Print.prototype.log_level = "" 
+		it("setting Print prototype value to "+value, function() {
 			Print.prototype.style = value 
-			s.compression = 4
-			s.quote_qualifier = true 
 		})
 
 		it("create the desired prototype chain and utilize redundancy", function() {

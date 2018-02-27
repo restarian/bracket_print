@@ -17,7 +17,7 @@
     "brace_maybe": "^0.1.3",
     "brace_prototype": "^0.4.7",
     "brace_umd": "^0.8.5",
-    "bracket_utils": "^0.2.4",
+    "bracket_utils": "^0.3.0",
     "chai": "^4.1.2",
     "intercept-stdout": "^0.1.2",
     "mocha": "^5.0.1",

@@ -18,18 +18,21 @@
 
 var chai = require("chai"),
 expect = chai.expect,
-path = require("path")
+path = require("path"),
+utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
+var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 
 describe("the constructor", function() {
 
 	var s
 	beforeEach(function() {
-
+		cache.start()
 		s = Print()
 	})
+	afterEach(cache.dump.bind(cache))
 
 	it("makes an instance of itself", function() {
 

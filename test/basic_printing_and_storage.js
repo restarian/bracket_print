@@ -18,10 +18,11 @@
 
 var chai = require("chai"),
 expect = chai.expect,
-path = require("path")
+path = require("path"),
+utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
-
+var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 
 describe("Internal storage - " + path.basename(__filename), function() {
@@ -30,9 +31,10 @@ describe("Internal storage - " + path.basename(__filename), function() {
 	Print.prototype.log_level = ""
 
 	beforeEach(function() {
-
+		cache.start()
 		s = Print({compression: 4, quote_qualifier: true}).s({cool: 'joes'})
 	})
+	afterEach(cache.dump.bind(cache))
 
 	it("serializes the ECMA Object types while also using toString correctly", function() {
 

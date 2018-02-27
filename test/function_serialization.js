@@ -18,13 +18,21 @@
 
 var chai = require("chai"),
 expect = chai.expect,
-path = require("path")
+path = require("path"),
+utils = require("bracket_utils")
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
+var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 
 describe("Functions - " + path.basename(__filename), function() {
 
+	beforeEach(function() {
+		cache.start()
+	})
+	afterEach(cache.dump.bind(cache))
+
+	afterEach(cache.dump.bind(cache))
 	it.skip("serializes functions with many tab characters placed around using all compression levels", function() {
 
 		// keep in mind that there is tabs inserted in the empty lines below for testing purposed which should not be removed.
