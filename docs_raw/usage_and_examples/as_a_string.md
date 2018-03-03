@@ -1,5 +1,4 @@
-# Bracket Print
-### Constructing and Using Raw Strings 
+## Constructing and Using Raw Strings 
 
 ---
 ### Document pages

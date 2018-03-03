@@ -1,4 +1,3 @@
-# Bracket Print
 ## Benchmarking
 
 **The following document is the output of running the *test -> benchmark.js* unit test. It uses Bracket print, JSON.stringify and [serialize-javascript](https://www.npmjs.com/package/serialize-javascript) modules.**

@@ -1,5 +1,4 @@
-# Bracket Print
-### Screenshots and Media
+## Screenshots and Media
 
 ---
 ### Document pages

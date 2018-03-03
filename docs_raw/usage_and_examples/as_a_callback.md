@@ -1,10 +1,9 @@
-# Bracket Print
 ### Callback Functionality
 
-----
+---
 ### Document pages
 
-----
+---
 
 Print instances can be used as a logging callback in functional programming. The examples/explanations below make for a suitable replacement to the use of *console.log.bind(console)* as a callback parameter.
 

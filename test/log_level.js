@@ -21,7 +21,7 @@ expect = chai.expect,
 path = require("path"),
 utils = require("bracket_utils")
 
-module.paths.unshift(path.join(__dirname, "/..", "/.."))
+module.paths.unshift(path.join(__dirname, "..", ".."))
 var cache = utils.cacheManager(require)
 var Print = require("bracket_print")
 

@@ -1,5 +1,4 @@
-# Bracket Print
-### The Option Mechanism
+## The Option Mechanism
 
 ---
 ### Document pages
