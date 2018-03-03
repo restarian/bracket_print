@@ -1,14 +1,14 @@
 {
   "name": "bracket_print",
   "main": "build/bracket_print_umd.js",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "description": "Comprehensive logging, printing and serialization for ECMA script.",
   "license": "LGPL-3.0",
   "scripts": {
     "test": "mocha",
     "build": "r_js -o rjs_build.js; r_js -o rjs_build_umd.js",
-	"make_docs": "brace_document --navlink -r -i docs_raw -b docs --force-title --title 'Bracket print document pages' --sort depth",
-	"make_docs_extra": "npm run make_docs --silent -- --batten-document-specification --batten-document-mocha"
+    "make_docs": "brace_document --navlink -r -i docs_raw -b docs --force-title --title 'Bracket print document pages' --sort depth",
+    "make_docs_extra": "npm run make_docs --silent -- --batten-document-specification --batten-document-mocha"
   },
   "dependencies": {},
   "devDependencies": {
