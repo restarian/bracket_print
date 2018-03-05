@@ -14,5 +14,8 @@
 
 ### A scrolling animated image of the *example.js* file in Ubuntu 16 which operating in Windows 10
 
-![Scrolling Screenshots in Ubuntu](https://raw.githubusercontent.com/restarian/bracket_print/master/doc/image/output_scroll_ubuntu_medium.gif)
+![Scrolling Screenshots in Ubuntu](https://raw.githubusercontent.com/restarian/bracket_print/master/example/image/output_scroll_ubuntu_medium.gif)
+
+### And in a native Ubuntu terminal
+![In ubuntu](https://raw.githubusercontent.com/restarian/bracket_print/master/example/image/terminal_pic_1.jpg)
 
