@@ -2,34 +2,22 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/ubnsgah9goq3ryfu/branch/master?svg=true)](https://ci.appveyor.com/project/restarian/bracket-print/branch/master) [![Build Status](https://travis-ci.org/restarian/bracket_print.svg?branch=master)](https://travis-ci.org/restarian/bracket_print) [![Downloads](https://img.shields.io/npm/dm/bracket_print.svg?svg=true)](https://npmjs.org/package/bracket_print)
 
-| A part of the [Bracket suite](https://github.com/restarian/restarian/blob/master/bracket/README.md)| Developed with Windows 10 and Ubuntu 16 
-| ---- | ----
-| ![Bracket](https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png) | [![Ubuntu on Windows](https://raw.githubusercontent.com/restarian/restarian/master/doc/image/ubuntu_windows_logo.png)](https://github.com/Microsoft/BashOnWindows) | 
+| **The [Bracket Suite]** | **[Ubuntu on Windows]**   |
+|:-----------------------:|:-------------------------:|
+| ![Bracket logo]         | ![Ubuntu on Windows logo] |         |
+
+[Bracket Suite]: https://github.com/restarian/restarian/tree/master/bracket/
+[Ubuntu on Windows]: https://www.microsoft.com/en-us/store/p/ubuntu/9nblggh4msv6?activetab=pivot%3aoverviewtab 
+
+[Ubuntu on Windows logo]: https://raw.githubusercontent.com/restarian/restarian/master/doc/image/ubuntu_windows_logo.png
+[Bracket logo]: https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png
 
 ---
-### Bracket print document pages
-* **Synopsis**
-* Media and statistics
-  * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
-  * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
-* Specification
-  * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
-  * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
-  * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
-* Usage and examples
-  * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
-  * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
-  * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
-  * Advanced usage
-    * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
-    * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
+### Document pages
 
 ---
 
 ### Bracket print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
-
-**Author: Robert Steckroth, *Bust0ut* [<RobertSteckroth@gmail.com>](mailto:robertsteckroth@gmail.com)**
-**Licenses under: LGPL-v3**
 
 **Bonuses:**
 * Works in the Browser, console or terminal
