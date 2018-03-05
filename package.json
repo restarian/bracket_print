@@ -24,8 +24,8 @@
     "requirejs": "^2.3.5"
   },
   "optionalDependencies": {
-    "brace_document": "^1.0.0",
-    "brace_document_navlink": "^1.0.0"
+    "brace_document": "^1.0.2",
+    "brace_document_navlink": "^1.0.2"
   },
   "directories": {},
   "keywords": [

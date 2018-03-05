@@ -18,7 +18,7 @@
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
  
  
-**Version**: 0.9.15
+**Version**: 0.9.17
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
