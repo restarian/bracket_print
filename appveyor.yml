@@ -23,7 +23,7 @@ install:
 
 image:
 - Visual Studio 2015
-- Ubuntu
+- ubuntu
 
 build: off
 
