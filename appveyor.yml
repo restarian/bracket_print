@@ -21,6 +21,10 @@ environment:
 install:
   - npm install
 
+image:
+- Visual Studio 2015
+- Ubuntu
+
 build: off
 
 test_script:
