@@ -22,8 +22,8 @@ install:
   - npm install
 
 image:
-- Visual Studio 2015
-- ubuntu
+  - Visual Studio 2015
+  - Ubuntu
 
 build: off
 
