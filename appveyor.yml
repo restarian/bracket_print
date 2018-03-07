@@ -15,10 +15,20 @@ notifications:
   on_build_failure: true
   on_build_status_changed: false
 
+<<<<<<< HEAD
+
+environment:
+  matrix:
+    - nodejs_version: 6
+    - nodejs_version: 7
+    - nodejs_version: 8
+    - nodejs_version: 9
+=======
 stack:
   - node 7
   - node 8
   - node 9
+>>>>>>> dad8e07a6a83d7273375919da482189bb827491d
 
 install:
   - npm install
