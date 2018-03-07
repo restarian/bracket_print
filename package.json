@@ -7,6 +7,7 @@
   "scripts": {
     "test": "mocha",
     "build": "r_js -o rjs_build.js; r_js -o rjs_build_umd.js",
+    "commit": "git add --all; git commit -m",
     "make_docs": "brace_document --navlink -r -i docs_raw -b docs --force-title --title 'Bracket print document pages' --sort depth",
     "make_docs_extra": "npm run make_docs --silent -- --batten-document-specification --batten-document-mocha"
   },
