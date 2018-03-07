@@ -16,9 +16,9 @@ notifications:
   on_build_status_changed: false
 
 stack:
-  - node: 7
-  - node: 8
-  - node: 9
+  - node 7
+  - node 8
+  - node 9
 
 install:
   - npm install
