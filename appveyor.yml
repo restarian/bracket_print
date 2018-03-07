@@ -11,7 +11,7 @@ clone_depth: 1
 clone_folder: c:\projects\bracket_print
 
 environment:
-  APPVEYOR_YML_DISABLE_PS_LINUX: true
+  APPVEYOR_YML_DISABLE_PS_LINUX: false
 
 notifications:
 - provider: Email
