@@ -10,16 +10,15 @@ notifications:
 - provider: Email
   to:
   - robertsteckroth@gmail.com
-  subject: A Bracket Print build has failed.
+  subject: A Bracket print build has failed.
   on_build_success: false
   on_build_failure: true
   on_build_status_changed: false
 
-environment:
-  matrix:
-    - nodejs_version: 5
-    - nodejs_version: 6
-    - nodejs_version: 7
+stack:
+  - node: 7
+  - node: 8
+  - node: 9
 
 install:
   - npm install
@@ -36,4 +35,3 @@ matrix:
 environment:
   APPVEYOR_YML_DISABLE_PS_LINUX: true
 
-clone_folder: c:\projects\bracket_print
