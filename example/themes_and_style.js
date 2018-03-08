@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.  
 If not, see <http://www.gnu.org/licenses/>. */
 
-var Print = require("../../bracket_print/lib/bracket_print")({title_stamp: false, quote_qualifier: true, compression: 1})
+var Print = require("../../bracket_print")({title_stamp: false, quote_qualifier: true, compression: 1})
 
 var obj = { cool: [undefined, null, 2*"f", 777, true, false, "A string"], joes: function(param, param) { this.man = "here" } }
 

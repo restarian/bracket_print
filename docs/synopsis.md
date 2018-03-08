@@ -59,10 +59,3 @@
 
 ---
 
-| Windows Shell | Ubuntu Terminal |
-|:-------------:|:---------------:|
-| ![Windows Shell Pic] | ![Ubuntu Terminal Pic] |
-
-[Ubuntu Terminal Pic]: https://github.com/restarian/bracket_print/blob/master/example/image/ubuntu_terminal.jpg
-[Windows Shell Pic]: https://github.com/restarian/bracket_print/blob/master/example/image/windows_shell.jpg
-

@@ -104,7 +104,7 @@ describe("the options - " + path.basename(__filename), function() {
 			captured_text = "", unhook_intercept = intercept(function(txt) { captured_text += txt })
 			s.option({title: false, log_title: "cool", title_stamp: function() { return "here"}}).log()
 			unhook_intercept()
-			expect(captured_text).to.include((s.current_theme.open_with||"") + (s.current_theme.close_with||""))
+			expect(captured_text).to.include((s.currentTheme.open_with||"") + (s.currentTheme.close_with||""))
 
 			captured_text = "", unhook_intercept = intercept(function(txt) { captured_text += txt })
 			var a = s.option({title: true, log_title: "cool", title_stamp: function() { return ""}}).log()

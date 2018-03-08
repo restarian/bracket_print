@@ -56,10 +56,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 		   expect(parseInt(exit_code)).to.equal(42)
 			expect(stdout).to.include("The requested platform shmeh is not included in the style mapping.\n")
 			done()
-		}, function() {
-			expect(false, "The spinner process failed").to.be.true	
-			done()
-		})
+		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 	
 	it("returns an error message when incorrect style map values are used", function(done) {
@@ -76,10 +73,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(stdout).to.include("The requested platform terminal is not included in the style mapping.\n")
 			done()
-		}, function() {
-			expect(false, "The spinner process failed").to.be.true	
-			done()
-		})
+		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 
 	it.skip("returns an error message when incorrect style map values are used 2", function(done) {
@@ -96,39 +90,36 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(stdout).to.equal("The requested platform terminal is not included in the style mapping.\n")
 			done()
-		}, function() {
-			expect(false, "The spinner process failed").to.be.true	
-			done()
-		})
+		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 
-	it("returns the proper current_format and current_theme value", function() {
+	it("returns the proper current_format and currentTheme value", function() {
 
 		var style_map_source = require("../lib/style_map.js")
 		up.platform = "terminal"
-		expect(compare.toString(up.current_platform)).to.equal(compare.toString(style_map_source.terminal))
+		expect(compare.toString(up.currentPlatform)).to.equal(compare.toString(style_map_source.terminal))
 
 		up.platform = "html"
 		up.theme = "light"
 		up.level = 2
-		expect(compare.toString(up.current_theme)).to.equal(compare.toString(style_map_source.html.theme.light_2))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.html.theme.light_2))
 		up.clear()
-		expect(compare.toString(up.current_theme)).to.equal(compare.toString(style_map_source.terminal.theme.dark_1))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.terminal.theme.dark_1))
 
 	})
 
-	it("returns the proper current_format and current_theme value with the import_theme_from value set in the style map", function() {
+	it("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
 
 		var compare = Print({compression:4, style: false, truncate_function: true})
 		var style_map_source = require("../lib/style_map.js")
 		up.platform = "browser"
-		expect(compare.toString(up.current_platform)).to.equal(compare.toString(style_map_source.browser))
+		expect(compare.toString(up.currentPlatform)).to.equal(compare.toString(style_map_source.browser))
 
 		up.theme = "light"
 		up.level = 2
-		expect(compare.toString(up.current_theme)).to.equal(compare.toString(style_map_source.html.theme.light_2))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.html.theme.light_2))
 		up.clear()
-		expect(compare.toString(up.current_theme)).to.equal(compare.toString(style_map_source.terminal.theme.dark_1))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.terminal.theme.dark_1))
 
 	})
 
@@ -146,10 +137,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(stdout).to.include("The theme specified is not found in the terminal style mapping.\n")
 			done()
-		}, function() {
-			expect(false, "The spinner process failed").to.be.true	
-			done()
-		})
+		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 
 	it("returns an error message when incorrect style map theme values are used", function(done) {
@@ -166,9 +154,6 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 			expect(parseInt(exit_code)).to.equal(42)
 			expect(stdout).to.include("The default theme dark_1 specified is not found in the terminal style mapping.\n")
 			done()
-		}, function() {
-			expect(false, "The spinner process failed").to.be.true	
-			done()
-		})
+		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 })
