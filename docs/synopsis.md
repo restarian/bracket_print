@@ -38,7 +38,7 @@
 
 **Bonuses:**
 * Works in the browser, console or terminal
-* Easy to configure for custom platforms and use cases
+* Easy to configure for custom platforms and other use cases
 * Uses AMD (asynchronous module definition), syntax
 * Tested in Linux and Windows environments
 * Well commented, thoroughly unit tested and professionally engineered code
@@ -57,4 +57,12 @@
 **Caveats:**
 * Does not have browser unit tests yet
 
+---
+
+| Windows Shell | Ubuntu Terminal |
+|:-------------:|:---------------:|
+| ![Ubuntu Shell Pic] | ![Ubuntu Terminal Pic] |
+
+[Ubuntu Terminal Pic]: https://github.com/restarian/bracket_print/blob/master/example/image/ubuntu_terminal.jpg
+[Windows Shell Pic]: https://github.com/restarian/bracket_print/blob/master/example/image/ubuntu_terminal.jpg
 
