@@ -1,6 +1,5 @@
-## Synopsis
 
-[![Build status](https://ci.appveyor.com/api/projects/status/ubnsgah9goq3ryfu/branch/master?svg=true)](https://ci.appveyor.com/project/restarian/bracket-print/branch/master) 
+[![Build status](https://ci.appveyor.com/api/projects/status/ubnsgah9goq3ryfu/branch/master?svg=true)](https://ci.appveyor.com/project/restarian/bracket-print/branch/master) [![Build Status](https://travis-ci.org/restarian/bracket_print.svg?branch=master)](https://travis-ci.org/restarian/bracket_print) [![Downloads](https://img.shields.io/npm/dm/bracket_print.svg?svg=true)](https://npmjs.org/package/bracket_print)
 
 | **The [Bracket Suite]** | **[Ubuntu on Windows]**   |
 |:-----------------------:|:-------------------------:|
@@ -11,6 +10,8 @@
 
 [Ubuntu on Windows logo]: https://raw.githubusercontent.com/restarian/restarian/master/doc/image/ubuntu_windows_logo.png
 [Bracket logo]: https://raw.githubusercontent.com/restarian/restarian/master/bracket/doc/image/bracket_logo_small.png
+
+## Synopsis
 
 ---
 ### Bracket print document pages
@@ -26,6 +27,7 @@
   * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
   * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
   * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
@@ -35,11 +37,11 @@
 ### Bracket print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
 
 **Bonuses:**
-* Works in the Browser, console or terminal
-* Easy to configure for other platforms and environments
+* Works in the browser, console or terminal
+* Easy to configure for custom platforms and use cases
 * Uses AMD (asynchronous module definition), syntax
-* Tested in Linux and/or Windows environments
-* Well commented, thoroughly unit tested and professional code
+* Tested in Linux and Windows environments
+* Well commented, thoroughly unit tested and professionally engineered code
 * Has full [Brace UMD](https://npmjs.org/packages/brace_umd) integration for complete deployment unit testing coverage
 * Can stringify ECMA script (unlike the *JSON* builtin and other serializers)
 * Bracket Print can serialize massive Objects Objects (like the browser *window* property), without hiccups
@@ -53,7 +55,5 @@
 * Styling can be toggled anywhere in the run-time or call chain with a total overhead discharge
 
 **Caveats:**
-* Does not do browser unit testing
-
-
+* Does not have browser unit tests yet
 

@@ -5,6 +5,8 @@ image:
 
 clone_depth: 1
 
+clone_folder: c:\projects\bracket_print
+
 notifications:
 - provider: Email
   to:
