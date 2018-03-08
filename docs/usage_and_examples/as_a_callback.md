@@ -1,4 +1,4 @@
-## Callback Functionality
+## Callback functionality
 
 ---
 ### Bracket print document pages
