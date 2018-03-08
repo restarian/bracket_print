@@ -7,22 +7,21 @@
   "scripts": {
     "test": "mocha",
     "build": "r_js -o rjs_build.js; r_js -o rjs_build_umd.js",
-    "commit": "git add --all; git commit -m",
-    "make_docs": "brace_document --navlink -r -i docs_raw -b docs --force-title --title 'Bracket print document pages' --sort depth",
+    "make_docs": "brace_document --navlink -r -i docs --force-title --title 'Bracket print document pages' --sort depth",
     "make_docs_extra": "npm run make_docs --silent -- --batten-document-specification --batten-document-mocha"
   },
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^5.0.1",
-    "chai": "^4.1.2",
     "amdefine": "^1.0.1",
     "brace_maybe": "^0.1.3",
     "brace_prototype": "^0.4.7",
     "brace_umd": "^0.8.5",
     "bracket_utils": "^0.3.0",
+    "chai": "^4.1.2",
     "intercept-stdout": "^0.1.2",
-    "serialize-javascript": "^1.4.0",
-    "requirejs": "^2.3.5"
+    "mocha": "^5.0.1",
+    "requirejs": "^2.3.5",
+    "serialize-javascript": "^1.4.0"
   },
   "optionalDependencies": {
     "brace_document": "^1.0.2",
@@ -39,7 +38,7 @@
   "author": {
     "name": "Robert Steckroth",
     "email": "RobertSteckroth@gmail.com",
-    "url": "https://restarian.com"
+    "url": "https://restarian.xyz"
   },
   "maintainers": [
     {

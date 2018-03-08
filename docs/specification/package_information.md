@@ -13,18 +13,19 @@
   * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
   * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
   * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
  
  
-**Version**: 0.9.19
+**Version**: 0.9.20
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
-**Author**: [Robert Steckroth](mailto:RobertSteckroth@gmail.com)[https://restarian.com](https://restarian.com)
+**Author**: [Robert Steckroth](mailto:RobertSteckroth@gmail.com)[https://restarian.xyz](https://restarian.xyz)
 
-**Development dependencies**: [mocha](https://npmjs.org/package/mocha) [chai](https://npmjs.org/package/chai) [amdefine](https://npmjs.org/package/amdefine) [brace_maybe](https://npmjs.org/package/brace_maybe) [brace_prototype](https://npmjs.org/package/brace_prototype) [brace_umd](https://npmjs.org/package/brace_umd) [bracket_utils](https://npmjs.org/package/bracket_utils) [intercept-stdout](https://npmjs.org/package/intercept-stdout) [serialize-javascript](https://npmjs.org/package/serialize-javascript) [requirejs](https://npmjs.org/package/requirejs)
+**Development dependencies**: [amdefine](https://npmjs.org/package/amdefine) [brace_maybe](https://npmjs.org/package/brace_maybe) [brace_prototype](https://npmjs.org/package/brace_prototype) [brace_umd](https://npmjs.org/package/brace_umd) [bracket_utils](https://npmjs.org/package/bracket_utils) [chai](https://npmjs.org/package/chai) [intercept-stdout](https://npmjs.org/package/intercept-stdout) [mocha](https://npmjs.org/package/mocha) [requirejs](https://npmjs.org/package/requirejs) [serialize-javascript](https://npmjs.org/package/serialize-javascript)
 
 **Optional Dependencies**: [brace_document](https://npmjs.org/package/brace_document) [brace_document_navlink](https://npmjs.org/package/brace_document_navlink)
 
@@ -34,7 +35,8 @@
 | ---- | ------ |
  | test | ```mocha``` |
  | build | ```r_js -o rjs_build.js; r_js -o rjs_build_umd.js``` |
- | make_docs | ```brace_document --navlink -r -i docs_raw -b docs --force-title --title 'Bracket print document pages' --sort depth``` |
+ | commit | ```git add --all; git commit -m``` |
+ | make_docs | ```brace_document --navlink -r -i docs --force-title --title 'Bracket print document pages' --sort depth``` |
  | make_docs_extra | ```npm run make_docs --silent -- --batten-document-specification --batten-document-mocha``` |
 
 **Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*
