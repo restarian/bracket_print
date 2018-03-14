@@ -9,6 +9,8 @@
 * Specification
   * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
   * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
+  * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
+  * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
   * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)

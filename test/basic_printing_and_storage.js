@@ -91,13 +91,13 @@ describe("Internal storage - " + path.basename(__filename), function() {
 
 	it("serializes primitve Objects", function() {
 		s.empty()
-		expect(s.spawn({compression: 4}).toString(new Number(43))).to.equal('{[[PrimitiveValue]]:43}')
-		expect(s.spawn({compression: 4}).toString(new String("B"))).to.equal('{[[PrimitiveValue]]:"B","0":"B","length":1}')
-		expect(s.spawn({compression: 4}).toString(new Boolean("BOB"))).to.equal('{[[PrimitiveValue]]:true}')
-		expect(s.spawn({compression: 4}).toString(new Boolean(0))).to.equal('{[[PrimitiveValue]]:false}')
-		expect(s.spawn({compression: 4}).toString(new Number("33"))).to.equal('{[[PrimitiveValue]]:33}')
-		expect(s.spawn({compression: 4}).toString(new Number())).to.equal('{[[PrimitiveValue]]:0}')
-		expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new Object("dd"))).to.equal('{[[PrimitiveValue]]:"dd","0":"d","1":"d","length":2}')
+		expect(s.spawn({compression: 4}).toString(new Number(43))).to.equal('{PRIMITIVE VALUE>43}')
+		expect(s.spawn({compression: 4}).toString(new String("B"))).to.equal('{PRIMITIVE VALUE>"B","0":"B","length":1}')
+		expect(s.spawn({compression: 4}).toString(new Boolean("BOB"))).to.equal('{PRIMITIVE VALUE>true}')
+		expect(s.spawn({compression: 4}).toString(new Boolean(0))).to.equal('{PRIMITIVE VALUE>false}')
+		expect(s.spawn({compression: 4}).toString(new Number("33"))).to.equal('{PRIMITIVE VALUE>33}')
+		expect(s.spawn({compression: 4}).toString(new Number())).to.equal('{PRIMITIVE VALUE>0}')
+		expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new Object("dd"))).to.equal('{PRIMITIVE VALUE>"dd","0":"d","1":"d","length":2}')
 		expect(s.spawn({compression: 4}).toString(new Object({"aa": 4}))).to.equal('{"aa":4}')
 		expect(s.spawn({compression: 4}).toString(new Object())).to.equal('{}')
 		expect(s.spawn({compression: 4}).toString(new Object(undefined))).to.equal('{}')
@@ -110,9 +110,9 @@ describe("Internal storage - " + path.basename(__filename), function() {
 		obj.one = 1
 		var obj_a = new Object("aa")
 		obj_a.prop_a = true
-		expect(Print().option({compression: 4}).toString(obj)).to.equal('{[[PrimitiveValue]]:0,one:1}')
+		expect(Print().option({compression: 4}).toString(obj)).to.equal('{PRIMITIVE VALUE>0,one:1}')
 		expect(Print().option({compression: 4, quote_qualifier: true}).toString(obj_a))
-				.to.equal('{[[PrimitiveValue]]:"aa","0":"a","1":"a","prop_a":true,"length":2}')
+				.to.equal('{PRIMITIVE VALUE>"aa","0":"a","1":"a","prop_a":true,"length":2}')
 	})
 
 	it("clears stored text data with the empty() command", function() {

@@ -7,7 +7,9 @@
   * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
 * Specification
   * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
+  * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
   * **Package information**
+  * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
   * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
@@ -19,7 +21,7 @@
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
  
  
-**Version**: 0.9.20
+**Version**: 0.9.23
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -35,7 +37,6 @@
 | ---- | ------ |
  | test | ```mocha``` |
  | build | ```r_js -o rjs_build.js; r_js -o rjs_build_umd.js``` |
- | commit | ```git add --all; git commit -m``` |
  | make_docs | ```brace_document --navlink -r -i docs --force-title --title 'Bracket print document pages' --sort depth``` |
  | make_docs_extra | ```npm run make_docs --silent -- --batten-document-specification --batten-document-mocha``` |
 
@@ -48,4 +49,4 @@
   * [Git](https://git-scm.com) For repository management
   * [Github](https://github.com) For repository storage
   * [NPM](https://npmjs.org) For module storage
-  * [Blender](https://blender.org) For logo design and rendering
+  * [Blender](https://blender.org) For logo design and renderingttps://blender.org) For logo design and rendering

@@ -38,7 +38,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 	})
 	afterEach(cache.dump.bind(cache))
 
-	it.skip("has the proper style_map value", function() {
+	it("has the proper style_map value", function() {
 
 		var style_map_source = require("../lib/style_map.js")
 		expect(compare.spawn().toString(up.style_map)).to.equal(compare.spawn().toString(style_map_source))
@@ -93,7 +93,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 
-	it("returns the proper current_format and currentTheme value", function() {
+	it.skip("returns the proper current_format and currentTheme value", function() {
 
 		var style_map_source = require("../lib/style_map.js")
 		up.platform = "terminal"
@@ -108,7 +108,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 
 	})
 
-	it("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
+	it.skip("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
 
 		var compare = Print({compression:4, style: false, truncate_function: true})
 		var style_map_source = require("../lib/style_map.js")

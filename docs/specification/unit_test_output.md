@@ -8,6 +8,8 @@
 * Specification
   * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
   * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
+  * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
+  * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
   * **Unit test output**
 * Usage and examples
   * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
@@ -20,6 +22,7 @@
 ## Output of the unit testing
 
   * Internal storage - advanced_printing_and_storage.js
+    * ✓ serializes the global Object in the node environment and truncated it to 1.01 megabytes
     * ✓ serializes objects with manually added __proto__ chains
     * ✓ serializes objects with manually added empty __proto__ Objects
 
@@ -80,10 +83,12 @@
     * ✓ has the proper style_map value
     * ✓ returns a null error message when incorrect style map values are used
     * ✓ returns an error message when incorrect style map values are used
-    * ✓ returns the proper current_format and current_theme value
-    * ✓ returns the proper current_format and current_theme value with the import_theme_from value set in the style map
     * ✓ returns an error message when incorrect style map theme values are used
     * ✓ returns an error message when incorrect style map theme values are used
+
+  * 47 passing
+
+�� returns an error message when incorrect style map theme values are used
 
   * 48 passing
 
