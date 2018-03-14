@@ -21,9 +21,8 @@ expect = chai.expect,
 path = require("path"),
 utils = require("bracket_utils")
 
-module.paths.unshift(path.join(__dirname, "..", ".."))
+module.paths.unshift(path.join(__dirname, ".."))
 var cache = utils.cacheManager(require)
-var Print = require("bracket_print")
 
 describe("Internal storage - " + path.basename(__filename), function() {
 
@@ -31,12 +30,11 @@ describe("Internal storage - " + path.basename(__filename), function() {
 	beforeEach(function() {
 			cache.start()
 		Print = require("bracket_print")
-		print = new Print({compression: 4}).s({cool: "joes"})
+		print = new Print({compression: 4, level: 1}).s({cool: "joes"})
 	})
 	afterEach(cache.dump.bind(cache))
 
-	it.skip("serializes the global Object in the node environment and truncated it to 1.01 megabytes", function() {
-
+	it("serializes the global Object in the node environment and truncated it to 1.01 megabytes", function() {
 		expect(print.spawn({enumerate_all: true, compression: 3, character_limit: 101000}).s(global).toString().length).to.equal(101000)
 	})
 
