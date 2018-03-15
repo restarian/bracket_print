@@ -32,7 +32,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 	beforeEach(function() {
 		cache.start()
 		Print = require("bracket_print")
-		snippet = Print({platform: "none", style: false}).line("var Print = require('../lib/bracket_print.js')")
+		snippet = Print({platform: "none", style: false}).line("var Print = require('bracket_print');")
 		compare = Print({platform: "none", compression: 4, style: false, truncate_function: true})
 		up = Print({compression: 4})
 	})
@@ -49,12 +49,12 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 	
 		snippet
 			.l("var test = Print({platform: 'shmeh'})")
-			.l("test.s({cool:'joes'})")
+			.l("test.s({cool:'joes'});")
 
 		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			
 		   expect(parseInt(exit_code)).to.equal(42)
-			expect(stdout).to.include("The requested platform shmeh is not included in the style mapping.\n")
+			expect(stdout).to.include("The requested platform shmeh is not included in the style mapping.")
 			done()
 		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
@@ -93,7 +93,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 		}, function(error) { expect(false, error).to.be.true;	done() })
 	})
 
-	it.skip("returns the proper current_format and currentTheme value", function() {
+	it("returns the proper current_format and currentTheme value", function() {
 
 		var style_map_source = require("../lib/style_map.js")
 		up.platform = "terminal"
@@ -104,22 +104,22 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 		up.level = 2
 		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.html.theme.light_2))
 		up.clear()
-		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.terminal.theme.dark_1))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.terminal.theme.light_1))
 
 	})
 
-	it.skip("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
+	it("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
 
 		var compare = Print({compression:4, style: false, truncate_function: true})
 		var style_map_source = require("../lib/style_map.js")
 		up.platform = "browser"
 		expect(compare.toString(up.currentPlatform)).to.equal(compare.toString(style_map_source.browser))
 
-		up.theme = "light"
+		up.theme = "dark"
 		up.level = 2
-		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.html.theme.light_2))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.html.theme.dark_2))
 		up.clear()
-		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.terminal.theme.dark_1))
+		expect(compare.toString(up.currentTheme)).to.equal(compare.toString(style_map_source.terminal.theme.light_1))
 
 	})
 
@@ -147,7 +147,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 		snippet
 			.l("var test = Print({platform: 'terminal', theme: 'dark', level: 1, log_level: 1})")
 			.l("delete test.style_map.terminal.theme.dark_1")
-			.l("test.log()")
+	.l("test.log()")
 
 		utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
 			

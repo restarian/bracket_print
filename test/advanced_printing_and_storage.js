@@ -70,7 +70,7 @@ describe("Internal storage - " + path.basename(__filename), function() {
 		expect(up.toString({__proto__:{__proto__:{}}})).to.equal('{}')
 	})
 
-	it.skip("serializes objects Object.prototype __proto__ chains", function() {
+	it("serializes objects Object.prototype __proto__ chains", function() {
 		
 		var up = print.spawn({compression: 4})
 		var F = function() {
@@ -83,7 +83,9 @@ describe("Internal storage - " + path.basename(__filename), function() {
 			}
 		}
 
-		expect(up.toString(new F())).to.equal('{cool:"joes",__proto__:{see:function(){Print().log("me")}}}')
+
+		up.log(new F())
+		expect(up.toString(new F())).to.equal('{cool:"joes",__proto__:{see:function(){Print().log("me")\n}}}')
 
 		F.prototype = {
 			see: function() {
@@ -93,10 +95,10 @@ describe("Internal storage - " + path.basename(__filename), function() {
 				Print().log("there")
 			}
 		}
-		expect(up.empty({quote_qualifier: true}).toString(new F())).to.equal('{"cool":"joes","__proto__":{"see":function(){Print().log("me")},"here":function(){Print().log("there")}}}')
+		expect(up.empty({quote_qualifier: true}).toString(new F())).to.equal('{"cool":"joes","__proto__":{"see":function(){Print().log("me")\n},"here":function(){Print().log("there")\n}}}')
 		var a = new F()
 		a.more = "stuff"
-		expect(up.spawn({quote_qualifier: true}).toString(a)).to.equal('{"cool":"joes","more":"stuff","__proto__":{"see":function(){Print().log("me")},"here":function(){Print().log("there")}}}')
+		expect(up.spawn({quote_qualifier: true}).toString(a)).to.equal('{"cool":"joes","more":"stuff","__proto__":{"see":function(){Print().log("me")\n},"here":function(){Print().log("there")\n}}}')
 
 	})
 })

@@ -25,6 +25,7 @@
     * ✓ serializes the global Object in the node environment and truncated it to 1.01 megabytes
     * ✓ serializes objects with manually added __proto__ chains
     * ✓ serializes objects with manually added empty __proto__ Objects
+    * ✓ serializes objects Object.prototype __proto__ chains
 
   * Internal storage - basic_printing_and_storage.js
     * ✓ serializes the ECMA Object types while also using toString correctly
@@ -83,12 +84,10 @@
     * ✓ has the proper style_map value
     * ✓ returns a null error message when incorrect style map values are used
     * ✓ returns an error message when incorrect style map values are used
+    * ✓ returns the proper current_format and currentTheme value
+    * ✓ returns the proper current_format and currentTheme value with the import_theme_from value set in the style map
     * ✓ returns an error message when incorrect style map theme values are used
     * ✓ returns an error message when incorrect style map theme values are used
 
-  * 47 passing
-
-�� returns an error message when incorrect style map theme values are used
-
-  * 48 passing
+  * 50 passing
 
