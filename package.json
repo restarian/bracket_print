@@ -7,8 +7,8 @@
   "scripts": {
     "test": "mocha",
     "build": "r_js -o rjs_build.js; r_js -o rjs_build_umd.js",
-    "make_docs": "brace_document --navlink -r -i docs --force-title --title 'Bracket print document pages' --sort depth",
-    "make_docs_extra": "npm run make_docs --silent -- --batten-document-specification --batten-document-mocha"
+    "make_docs": "brace_document --navlink -r -i docs --force-title --title 'Bracket Print document pages' --sort depth",
+    "make_docs_extra": "npm run make_docs --silent -- --specification --mocha"
   },
   "dependencies": {},
   "devDependencies": {
@@ -23,10 +23,7 @@
     "requirejs": "^2.3.5",
     "serialize-javascript": "^1.4.0"
   },
-  "optionalDependencies": {
-    "brace_document": "^1.0.2",
-    "brace_document_navlink": "^1.0.2"
-  },
+  "optionalDependencies": {},
   "directories": {},
   "keywords": [
     "printing",

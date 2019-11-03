@@ -1,6 +1,9 @@
+# Bracket Print
+### Package Specifications
 
----
-### Bracket print document pages
+----
+
+### 'Bracket
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
@@ -12,16 +15,16 @@
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
-  * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
-  * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
-  * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
+  * [As a_logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
+  * [As a_string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
   * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
- 
- 
-**Version**: 0.9.24
+----
+
+**Version**: 0.9.25
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -29,16 +32,14 @@
 
 **Development dependencies**: [amdefine](https://npmjs.org/package/amdefine) [brace_maybe](https://npmjs.org/package/brace_maybe) [brace_prototype](https://npmjs.org/package/brace_prototype) [brace_umd](https://npmjs.org/package/brace_umd) [bracket_utils](https://npmjs.org/package/bracket_utils) [chai](https://npmjs.org/package/chai) [intercept-stdout](https://npmjs.org/package/intercept-stdout) [mocha](https://npmjs.org/package/mocha) [requirejs](https://npmjs.org/package/requirejs) [serialize-javascript](https://npmjs.org/package/serialize-javascript)
 
-**Optional Dependencies**: [brace_document](https://npmjs.org/package/brace_document) [brace_document_navlink](https://npmjs.org/package/brace_document_navlink)
-
 **Package scripts**:
 
 | Name | Action |
 | ---- | ------ |
  | test | ```mocha``` |
  | build | ```r_js -o rjs_build.js; r_js -o rjs_build_umd.js``` |
- | make_docs | ```brace_document --navlink -r -i docs --force-title --title 'Bracket print document pages' --sort depth``` |
- | make_docs_extra | ```npm run make_docs --silent -- --batten-document-specification --batten-document-mocha``` |
+ | make_docs | ```brace_document --navlink -r -i docs --force-title --title 'Bracket Print document pages' --sort depth``` |
+ | make_docs_extra | ```npm run make_docs --silent -- --specification --mocha``` |
 
 **Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*
 
@@ -48,5 +49,7 @@
   * [Ubuntu on Windows](https://www.microsoft.com/en-us/store/p/ubuntu/9nblggh4msv6) As the development operating environment
   * [Git](https://git-scm.com) For repository management
   * [Github](https://github.com) For repository storage
+  * [NPM](https://npmjs.org) For module storage
+  * [Blender](https://blender.org) For logo design and renderinghub.com) For repository storage
   * [NPM](https://npmjs.org) For module storage
   * [Blender](https://blender.org) For logo design and renderingttps://blender.org) For logo design and rendering

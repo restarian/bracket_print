@@ -1,20 +1,21 @@
-/*Bracket Print resides under the LGPL v3
+/* Bracket print resides under the LGPL v3
 
-  Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
+ Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
 
-  Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
+ Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA serialization.
 
  this file is a part of Bracket print
 
- Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
- the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+Bracket Print is free software: you can redistribute it and/or modify it under the terms of the 
+GNU LESSER GENERAL PUBLIC LICENSE as published by the Free Software Foundation, either version 3 
+of the License, or (at your option) any later version.
 
- Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  Author: Robert Steckroth, Bustout, <RobertSteckroth@gmail.com> */
+You should have received a copy of the GNU General Public License along with this program.  
+If not, see <http://www.gnu.org/licenses/>. */
 
 var chai = require("chai"),
 	expect = chai.expect,
@@ -24,11 +25,10 @@ var chai = require("chai"),
 
 module.paths.unshift(path.join(__dirname, "..", ".."))
 var cache = utils.cacheManager(require)
-var Print
 
 describe("Internal storage mapping mechinism - " + path.basename(__filename), function() {
 
-	var up, snippet, compare
+	var up, snippet, compare, Print
 	beforeEach(function() {
 		cache.start()
 		Print = require("bracket_print")
@@ -40,7 +40,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 
 	it("has the proper style_map value", function() {
 
-		var style_map_source = require("../lib/style_map.js")
+		var style_map_source = require("bracket_print/lib/style_map.js")
 		expect(compare.spawn().toString(up.style_map)).to.equal(compare.spawn().toString(style_map_source))
 
 	})
@@ -95,7 +95,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 
 	it("returns the proper current_format and currentTheme value", function() {
 
-		var style_map_source = require("../lib/style_map.js")
+		var style_map_source = require("bracket_print/lib/style_map.js")
 		up.platform = "terminal"
 		expect(compare.toString(up.currentPlatform)).to.equal(compare.toString(style_map_source.terminal))
 
@@ -111,7 +111,7 @@ describe("Internal storage mapping mechinism - " + path.basename(__filename), fu
 	it("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
 
 		var compare = Print({compression:4, style: false, truncate_function: true})
-		var style_map_source = require("../lib/style_map.js")
+		var style_map_source = require("bracket_print/lib/style_map.js")
 		up.platform = "browser"
 		expect(compare.toString(up.currentPlatform)).to.equal(compare.toString(style_map_source.browser))
 
