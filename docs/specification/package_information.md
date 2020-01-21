@@ -3,16 +3,15 @@
 
 ----
 
-### 'Bracket
+### Bracket Print help pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
+* [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/unit_test_output.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
   * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
 * Specification
   * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
-  * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
   * **Package information**
-  * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
   * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
@@ -24,7 +23,7 @@
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
 ----
 
-**Version**: 0.9.25
+**Version**: 0.9.26
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -32,13 +31,15 @@
 
 **Development dependencies**: [amdefine](https://npmjs.org/package/amdefine) [brace_maybe](https://npmjs.org/package/brace_maybe) [brace_prototype](https://npmjs.org/package/brace_prototype) [brace_umd](https://npmjs.org/package/brace_umd) [bracket_utils](https://npmjs.org/package/bracket_utils) [chai](https://npmjs.org/package/chai) [intercept-stdout](https://npmjs.org/package/intercept-stdout) [mocha](https://npmjs.org/package/mocha) [requirejs](https://npmjs.org/package/requirejs) [serialize-javascript](https://npmjs.org/package/serialize-javascript)
 
+**Optional Dependencies**: [brace_document](https://npmjs.org/package/brace_document) [brace_document_navlink](https://npmjs.org/package/brace_document_navlink) [brace_document_link](https://npmjs.org/package/brace_document_link) [brace_document_specification](https://npmjs.org/package/brace_document_specification) [batten_document_mocha](https://npmjs.org/package/batten_document_mocha)
+
 **Package scripts**:
 
 | Name | Action |
 | ---- | ------ |
  | test | ```mocha``` |
  | build | ```r_js -o rjs_build.js; r_js -o rjs_build_umd.js``` |
- | make_docs | ```brace_document --navlink -r -i docs --force-title --title 'Bracket Print document pages' --sort depth``` |
+ | make_docs | ```brace_document --navlink --link --link-dest ../README.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth``` |
  | make_docs_extra | ```npm run make_docs --silent -- --specification --mocha``` |
 
 **Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*
@@ -50,6 +51,4 @@
   * [Git](https://git-scm.com) For repository management
   * [Github](https://github.com) For repository storage
   * [NPM](https://npmjs.org) For module storage
-  * [Blender](https://blender.org) For logo design and renderinghub.com) For repository storage
-  * [NPM](https://npmjs.org) For module storage
-  * [Blender](https://blender.org) For logo design and renderingttps://blender.org) For logo design and rendering
+  * [Blender](https://blender.org) For logo design and rendering

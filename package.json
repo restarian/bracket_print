@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha",
     "build": "r_js -o rjs_build.js; r_js -o rjs_build_umd.js",
-    "make_docs": "brace_document --navlink -r -i docs --force-title --title 'Bracket Print document pages' --sort depth",
+    "make_docs": "brace_document --navlink --link --link-dest ../README.md --link-path ../docs/synopsis.md -r -i docs --force-title --title \"Bracket Print help pages\" --sort depth",
     "make_docs_extra": "npm run make_docs --silent -- --specification --mocha"
   },
   "dependencies": {},
@@ -21,9 +21,15 @@
     "intercept-stdout": "^0.1.2",
     "mocha": "^5.0.1",
     "requirejs": "^2.3.5",
-    "serialize-javascript": "^1.4.0"
+    "serialize-javascript": "^2.1.1"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+    "brace_document": "^1.0.2",
+    "brace_document_navlink": "^1.0.2",
+    "brace_document_link": "^1.0.1",
+    "brace_document_specification": "^1.0.1",
+    "batten_document_mocha": "https://github.com/restarian/batten_document_mocha.git"
+  },
   "directories": {},
   "keywords": [
     "printing",

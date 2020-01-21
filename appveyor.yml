@@ -1,37 +1,51 @@
 version: 1.0.{build}
-
-image:
-  - Visual Studio 2015
-
 clone_depth: 1
-
-clone_folder: c:\projects\bracket_print
-
 notifications:
 - provider: Email
   to:
   - robertsteckroth@gmail.com
-  subject: A Bracket print build has failed.
+  subject: A Bracket Print build has failed.
   on_build_success: false
   on_build_failure: true
   on_build_status_changed: false
-
 environment:
   matrix:
     - nodejs_version: 6
-    - nodejs_version: 7
-    - nodejs_version: 8
+      appveyor_build_worker_image: Visual Studio 2015
     - nodejs_version: 9
-
+      appveyor_build_worker_image: Visual Studio 2015
+    - nodejs_version: 10
+      appveyor_build_worker_image: Visual Studio 2015
+    - nodejs_version: 11
+      appveyor_build_worker_image: Visual Studio 2015
+    - nodejs_version: 12
+      appveyor_build_worker_image: Visual Studio 2015
+    - nodejs_version: 6
+      appveyor_build_worker_image: Ubuntu
+    - nodejs_version: 9
+      appveyor_build_worker_image: Ubuntu
+    - nodejs_version: 10
+      appveyor_build_worker_image: Ubuntu
+    - nodejs_version: 11
+      appveyor_build_worker_image: Ubuntu
+    - nodejs_version: 12
+      appveyor_build_worker_image: Ubuntu
 install:
   - npm install
-
 build: off
-
 test_script:
   - node --version && npm --version
   - npm test
-
 matrix:
   fast_finish: false
-
+for:
+-
+  matrix:
+    only:
+      - appveyor_build_worker_image: Ubuntu
+  clone_folder: /home/appveyor/bracket_print
+-
+  matrix:
+    only:
+      - appveyor_build_worker_image: Visual Studio 2015
+  clone_folder: C:\projects\bracket_print

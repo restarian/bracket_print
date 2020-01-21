@@ -1,16 +1,15 @@
 ## Callback functionality
 
 ---
-### 'Bracket
+### Bracket Print help pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
+* [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/unit_test_output.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
   * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
 * Specification
   * [License information](https://github.com/restarian/bracket_print/blob/master/docs/specification/license_information.md)
   * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
-  * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
-  * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
   * **As a_callback**
@@ -23,11 +22,11 @@
 
 ---
 
-### Bracket print instances can be used as a logging callback in functional programming. 
+### Bracket print instances can be used as a logging callback in functional programming.
 The examples/explanations below make for a suitable replacement for the use of *console.log.bind(console)* as a callback parameter.
 
-### Objects passed into Bracket print callbacks as arguments will be printed using safe serialization. 
-The log message is more informative and will be generated without need worry about stalling the repl or process. The example below only prints the first four hundred character of any Object which may happen to be passed into the logger callback. 
+### Objects passed into Bracket print callbacks as arguments will be printed using safe serialization.
+The log message is more informative and will be generated without need worry about stalling the repl or process. The example below only prints the first four hundred character of any Object which may happen to be passed into the logger callback.
 
 ```javascript
 var do_this = function(cb, err) {
@@ -50,5 +49,3 @@ var send_error = function(cb, err) {
 
 do_this(cb.line("success callback was called").log, cb.log)
 ```
-
-
