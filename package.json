@@ -1,6 +1,6 @@
 {
   "name": "bracket_print",
-  "main": "build/bracket_print_umd.js",
+  "main": "lib/bracket_print.js",
   "version": "0.9.26",
   "description": "Comprehensive logging, printing and serialization for ECMA script.",
   "license": "LGPL-3.0",
@@ -10,11 +10,12 @@
     "make_docs": "brace_document --navlink --link --link-dest ../README.md --link-path ../docs/synopsis.md -r -i docs --force-title --title \"Bracket Print help pages\" --sort depth",
     "make_docs_extra": "npm run make_docs --silent -- --specification --mocha"
   },
-  "dependencies": {},
+  "dependencies": {
+    "brace_prototype": "^0.4.7"
+  },
   "devDependencies": {
     "amdefine": "^1.0.1",
     "brace_maybe": "^0.1.3",
-    "brace_prototype": "^0.4.7",
     "brace_umd": "^0.8.5",
     "bracket_utils": "^0.3.0",
     "chai": "^4.1.2",

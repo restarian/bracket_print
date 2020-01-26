@@ -15,7 +15,6 @@
 ---
 ### Bracket Print help pages
 * **Synopsis**
-* [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/unit_test_output.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
   * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
@@ -40,7 +39,6 @@
 * Works in the browser, console or terminal
 * Easy to configure for custom platforms and other use cases
 * Uses AMD (asynchronous module definition), syntax
-* Tested in Linux and Windows environments
 * Well commented, thoroughly unit tested and professionally engineered code
 * Has full [Brace UMD](https://npmjs.org/packages/brace_umd) integration for complete deployment unit testing coverage
 * Can stringify ECMA script (unlike the *JSON* builtin and other serializers)
@@ -48,13 +46,12 @@
 	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects)
 	* Removes superfluous tabs, spaces, and newlines from function strings
 	* Output can be configured to be passed into JSON.parse
-* Bracket Print has a collaborative design which sits in the root of large projects to encourage team development
-* Uses a prototypal return chain to allow for usage as functional programming callbacks
+* Uses a instance return chain to allow for usage as functional programming callbacks
 * Contains a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge
 * Provides configurable syntax mapping with custom individualized styles
 * Styling can be toggled anywhere in the run-time or call chain with a total overhead discharge
 
 **Caveats:**
-* Does not have browser unit tests yet
+* Does not have browser unit tests
 
 ---

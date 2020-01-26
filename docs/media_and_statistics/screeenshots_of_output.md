@@ -3,7 +3,6 @@
 ---
 ### Bracket Print help pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
-* [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/unit_test_output.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
   * **Screeenshots of output**

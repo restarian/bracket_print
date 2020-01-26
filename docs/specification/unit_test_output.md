@@ -4,7 +4,6 @@
 ----
 ### Bracket Print help pages
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
-* [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/unit_test_output.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
   * [Screeenshots of output](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/screeenshots_of_output.md)
@@ -24,33 +23,43 @@
  
 ### ---------- Start of unit testing ----------
 
-  * Internal storage - advanced_printing_and_storage.js
+  * Using stop further progression methodology for dependencies in: advanced_printing_and_storage.js
 
-    * √ serializes the global Object in the node environment and truncated it to 1.01 megabytes
+    * Checking for dependencies..
 
-    * √ serializes objects with manually added __proto__ chains
+      * √ r_js in the system as a program
 
-    * √ serializes objects with manually added empty __proto__ Objects
+    * Internal storage
 
-    * √ serializes objects Object.prototype __proto__ chains
+      * √ serializes the global Object in the node environment and truncated it to 1.01 megabytes
 
-  * Internal storage - basic_printing_and_storage.js
+      * √ serializes objects with manually added __proto__ chains
 
-    * √ serializes the ECMA Object types while also using toString correctly
+      * √ serializes objects with manually added empty __proto__ Objects
 
-    * √ serializes the ECMA arguments object
+  * Using stop further progression methodology for dependencies in: basic_printing_and_storage.js
 
-    * √ serializes Error instances and Objects
+    * Checking for dependencies..
 
-    * √ serializes native ECMA Objects
+      * √ r_js in the system as a program
 
-    * √ serializes objects with odd property qualifiers
+    * Internal storage
 
-    * √ serializes primitve Objects
+      * √ serializes the ECMA Object types while also using toString correctly
 
-    * √ serializes primitve Objects with added properties
+      * √ serializes the ECMA arguments object
 
-    * √ clears stored text data with the empty() command
+      * √ serializes Error instances and Objects
+
+      * √ serializes native ECMA Objects
+
+      * √ serializes objects with odd property qualifiers
+
+      * √ serializes primitve Objects
+
+      * √ serializes primitve Objects with added properties
+
+      * √ clears stored text data with the empty() command
 
   * Performing benchmarks which do not have a failing condition
 
@@ -70,84 +79,148 @@
 
       * √ when parsing the nodejs path module
 
-  * the constructor
+  * Using stop further progression methodology for dependencies in: function_serialization.js
 
-    * √ makes an instance of itself
+    * Checking for dependencies..
 
-    * √ makes an instance of itself after command calls
+      * √ r_js in the system as a program
 
-    * √ makes a new instances of itself when chained to a rooted print object
+    * Serializes functions
 
-  * The log_level optionlog_level.js
+      * √ serializes functions correctly using compression level 5
 
-    * parses the value set to the log_level property and convertes it to the appropriate value.
+      * √ serializes functions correctly using compression level 5 and the shift_function_body option
 
-      * √ when set with a string of dashes and commas
+      * √ serializes functions correctly using compression level 4
 
-      * √ when set with an Array value
+      * √ serializes functions correctly using compression level 4 with the shift_function_body option set
 
-    * parses the value set to the log_level property and convertes it to the appropriate value
+      * √ serializes functions correctly using compression level 3
 
-      * √ log_level controls the print commands
+      * √ serializes functions correctly using compression level 3 with the shift_function_body option set
 
-  * the options - option_handling.js
+      * √ serializes functions correctly using compression level 2
 
-    * √ works with the prototype as default options in the expected way
+      * √ serializes functions correctly using compression level 2 with the shift_function_body option set
 
-    * √ setting Print prototype value to true
+      * √ serializes functions correctly using compression level 1
 
-    * √ create the desired prototype chain and utilize redundancy
+      * √ serializes functions correctly using compression level 1 with the shift_function_body option set
 
-    * √ the log_title, log_title_stamp and auto_hyphen_title options operate together as expected
+      * √ serializes functions within prototypes with various compression levels and options
 
-    * √ store and transfers the log_title in many ways
+      * √ serializes objects Object.prototype __proto__ chains
 
-    * √ The log level property is parsed and assigned the proper value
+  * Using stop further progression methodology for dependencies in: initialization.js
 
-    * √ quoting can be changed and is used properly
+    * Checking for dependencies..
 
-    * √ enumerate_all option has desire effect
+      * √ r_js in the system as a program
 
-    * √ max_character setting is adhered to
+    * the constructor
 
-    * √ utilize the depth_limit
+      * √ makes an instance of itself
 
-    * √ setting Print prototype value to false
+      * √ makes an instance of itself after command calls
 
-    * √ create the desired prototype chain and utilize redundancy
+      * √ makes a new instances of itself when chained to a rooted print object
 
-    * √ the log_title, log_title_stamp and auto_hyphen_title options operate together as expected
+  * Using stop further progression methodology for dependencies in: log_level.js
 
-    * √ store and transfers the log_title in many ways
+    * Checking for dependencies..
 
-    * √ The log level property is parsed and assigned the proper value
+      * √ r_js in the system as a program
 
-    * √ quoting can be changed and is used properly
+    * The log_level option
 
-    * √ enumerate_all option has desire effect
+      * parses the value set to the log_level property and convertes it to the appropriate value.
 
-    * √ max_character setting is adhered to
+        * √ when set with a string of dashes and commas
 
-    * √ utilize the depth_limit
+        * √ when set with an Array value
 
-  * Internal storage mapping mechinism - storage_and_mapping.js
+      * parses the value set to the log_level property and convertes it to the appropriate value
 
-    * √ has the proper style_map value
+        * √ log_level controls the print commands
 
-    * √ returns a null error message when incorrect style map values are used
+  * Using stop further progression methodology for dependencies in: option_handling.js
 
-    * √ returns an error message when incorrect style map values are used
+    * Checking for dependencies..
 
-    * √ returns the proper current_format and currentTheme value
+      * √ r_js in the system as a program
 
-    * √ returns the proper current_format and currentTheme value with the import_theme_from value set in the style map
+    * the options mechanism
 
-    * √ returns an error message when incorrect style map theme values are used
+      * √ works with the prototype as default options in the expected way
 
-    * √ returns an error message when incorrect style map theme values are used
+      * √ setting Print prototype value to true
+
+      * √ create the desired prototype chain and utilize redundancy
+
+      * √ the log_title, log_title_stamp and auto_hyphen_title options operate together as expected
+
+      * √ store and transfers the log_title in many ways
+
+      * √ The log level property is parsed and assigned the proper value
+
+      * √ quoting can be changed and is used properly
+
+      * √ enumerate_all option has desire effect
+
+      * √ max_character setting is adhered to
+
+      * √ utilize the depth_limit
+
+      * √ setting Print prototype value to false
+
+      * √ create the desired prototype chain and utilize redundancy
+
+      * √ the log_title, log_title_stamp and auto_hyphen_title options operate together as expected
+
+      * √ store and transfers the log_title in many ways
+
+      * √ The log level property is parsed and assigned the proper value
+
+      * √ quoting can be changed and is used properly
+
+      * √ enumerate_all option has desire effect
+
+      * √ max_character setting is adhered to
+
+      * √ utilize the depth_limit
+
+  * Using stop further progression methodology for dependencies in: storage_and_mapping.js
+
+    * Checking for dependencies..
+
+      * √ requirejs in the system as a program
+
+      * √ r_js in the system as a command line program
+
+      * √ r_js will build the program
+
+      * √ r_js will build the program using the UMD rjs build
+
+    * Internal storage mapping mechinism
+
+      * √ has the proper style_map value
+
+      * √ returns a null error message when incorrect style map values are used
+
+      * √ returns an error message when incorrect style map values are used
+
+      * √ returns an error message when incorrect style map values are used 2
+
+      * √ returns the proper current_format and currentTheme value
+
+      * √ returns the proper current_format and currentTheme value with the import_theme_from value set in the style map
+
+      * √ returns an error message when incorrect style map theme values are used
+
+      * √ returns an error message when incorrect style map theme values are used
 
 
-  * 50 passing
+  * 72 passing
 
 
 ### ---------- End of unit testing ----------
