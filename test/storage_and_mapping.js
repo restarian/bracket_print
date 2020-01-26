@@ -78,7 +78,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			cache.start()
 			requirejs = require("requirejs")
 			requirejs.config({baseUrl: path.join(__dirname, "..", "lib"), nodeRequire: require})
-			Print = requirejs("bracket_print")
+			Print = require("bracket_print")
 			snippet = Print({platform: "none", style: false}).line("var Print = require('bracket_print');")
 			compare = Print({platform: "none", compression: 4, style: false, truncate_function: !true})
 			up = Print({compression: 4})
