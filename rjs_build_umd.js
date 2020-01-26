@@ -1,8 +1,8 @@
 {
-	// This will add the directory of this build file as a path to the NODE_PATH list so that any module dependencies can be loaded via nodeRequire.
-	// It is therefore a good idea to put this build config in the same directory as the package.json file.
-	"_init": !!module.paths.unshift(nodeRequire("path").join(config.baseUrl, "/node_modules")),
-	"baseUrl": "./lib",
+	// This will add the directory of this build file as a path to the NODE_PATHS list so that any module dependencies can be loaded via nodeRequire.
+	// It is therefor a good idea to put this build config in the same directory as the package.json file.
+	"_init": !!module.paths.unshift(nodeRequire("path").join(config.baseUrl, "node_modules")),
+	"baseUrl": "lib",
 	"name": "bracket_print",
 	"out": "build/bracket_print_umd.js",
 	"paths": {
@@ -18,7 +18,7 @@
 				nodeRequire("fs").readFileSync(module_path.replace(/_umd\.js$/, ".js")).toString() || content
 	},
 	"optimize": "uglify2",
-	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: false}),
+	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: {properties: false}}),
 	"wrap": {
 		"start": nodeRequire("brace_umd").wrap_start,
 		// Add an anonymous definition.

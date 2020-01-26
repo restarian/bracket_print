@@ -30,7 +30,7 @@ describe("Performing benchmarks which do not have a failing condition", function
 
 	var random_small = { }
 	Array(100).fill().forEach(() => {
-		random_large["aa"+Math.random()] = "bb"+Math.random()
+		random_small["aa"+Math.random()] = "bb"+Math.random()
 	})
 
 	Print.prototype.title_stamp = false	
