@@ -80,7 +80,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			requirejs = require("requirejs")
 			requirejs.config({baseUrl: path.join(root, "lib"), nodeRequire: require})
 			Print = requirejs("bracket_print")
-			snippet = Print({platform: "none", style: false}).line("var Print = require('./bracket_print');")
+			snippet = Print({platform: "none", style: false}).line("var Print = require('../bracket_print');")
 			compare = Print({platform: "none", compression: 4, style: false, truncate_function: false})
 			up = Print({compression: 4})
 		})
