@@ -73,21 +73,22 @@ describe("Using stop further progression methodology for dependencies in: "+path
 	describe("Internal storage mapping mechinism", function() {
 
 		var Print, s, up
+		var root = path.join(__dirname, "..")
 
 		beforeEach(function() {
 			cache.start()
 			requirejs = require("requirejs")
-			requirejs.config({baseUrl: path.join(__dirname, "..", "lib"), nodeRequire: require})
+			requirejs.config({baseUrl: path.join(root, "lib"), nodeRequire: require})
 			Print = requirejs("bracket_print")
 			snippet = Print({platform: "none", style: false}).line("var Print = require('bracket_print');")
-			compare = Print({platform: "none", compression: 4, style: false, truncate_function: !true})
+			compare = Print({platform: "none", compression: 4, style: false, truncate_function: false})
 			up = Print({compression: 4})
 		})
 		afterEach(cache.dump.bind(cache))
 
 		it("has the proper style_map value", function() {
 
-			var style_map_source = require("bracket_print/lib/style_map.js")
+			var style_map_source = requirejs("style_map")
 			expect(compare.spawn({platform: "terminal"}).toString(up.style_map)).to.equal(compare.spawn({platform: "terminal"}).toString(style_map_source))
 
 		})
@@ -98,7 +99,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				.l("var test = Print({platform: 'shmeh'})")
 				.l("test.s({cool:'joes'});")
 
-			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
+			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: root}, (exit_code, stdout, stderr) => {
 				
 				expect(!stderr, stderr).to.be.true
 				expect(parseInt(exit_code)).to.equal(42)
@@ -116,7 +117,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				.l("delete test.style_map.terminal")
 				.l("test.s({cool:'joes'})")
 
-			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
+			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: root}, (exit_code, stdout, stderr) => {
 				
 				expect(!stderr, stderr).to.be.true
 				expect(parseInt(exit_code)).to.equal(42)
@@ -134,7 +135,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				.l("test.style_map.terminal = null")
 				.l("test.s({cool:'joes'})")
 
-			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
+			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: root}, (exit_code, stdout, stderr) => {
 				
 				expect(!stderr, stderr).to.be.true
 				expect(parseInt(exit_code)).to.equal(42)
@@ -145,7 +146,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 
 		it("returns the proper current_format and currentTheme value", function() {
 
-			var style_map_source = require("bracket_print/lib/style_map.js")
+			var style_map_source = requirejs("style_map")
 			compare.platform = "terminal"
 			expect(compare.toString(compare.currentPlatform)).to.equal(compare.toString(style_map_source.terminal))
 
@@ -161,7 +162,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		it("returns the proper current_format and currentTheme value with the import_theme_from value set in the style map", function() {
 
 			var compare = Print({compression: 4, style: false, truncate_function: true})
-			var style_map_source = require("bracket_print/lib/style_map.js")
+			var style_map_source = requirejs("style_map")
 			up.platform = "browser"
 			expect(compare.toString(up.currentPlatform)).to.equal(compare.toString(style_map_source.browser))
 
@@ -181,7 +182,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				.l("test.style_map.terminal.theme.dark_1 = undefined")
 				.l("test.s()")
 
-			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
+			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: root}, (exit_code, stdout, stderr) => {
 				
 				expect(!stderr, stderr).to.be.true
 				expect(parseInt(exit_code)).to.equal(42)
@@ -199,7 +200,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				.l("delete test.style_map.terminal.theme.dark_1")
 				.l("test.log()")
 
-			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
+			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: root}, (exit_code, stdout, stderr) => {
 				
 				expect(!stderr, stderr).to.be.true
 				expect(parseInt(exit_code)).to.equal(42)

@@ -206,9 +206,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				for ( var a = 0; a < 100; a++ )
 					b[Math.random()] = Math.random()
 
-				//expect(s.spawn().option({compression: 1, character_limit: 1742}).s(Buffer).toString().length).to.equal(1742)
-				//try { s.spawn().option({compression: 1, character_limit: 1742}).s(Buffer)} catch(e){}
-				/*
+				expect(s.spawn().option({compression: 1, character_limit: 1742}).s(Buffer).toString().length).to.equal(1742)
 				expect(s.spawn().option({compression: 1, character_limit: 123}).s(b).toString().length).to.equal(123)
 				expect(s.spawn().option({compression: 2, character_limit: 101}).s(b).toString().length).to.equal(101)
 				expect(s.spawn().option({compression: 3, character_limit: 189}).s(b).toString().length).to.equal(189)
@@ -217,7 +215,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				expect(s.spawn().option({compression: 2, character_limit: 1}).s(b).toString().length).to.equal(1)
 				expect(s.spawn().option({compression: 3, character_limit: 1}).s(b).toString().length).to.equal(1)
 				expect(s.spawn().option({compression: 4, character_limit: 1}).s(b).toString().length).to.equal(1)
-				*/
 			})
 
 			it("utilize the depth_limit", function() {
