@@ -17,7 +17,7 @@ var chai = require("chai"),
 	utils = require("bracket_utils"),
 	maybe = require("brace_maybe")
 
-module.paths.unshift(path.join(__dirname, ".."))
+module.paths.unshift(path.join(__dirname, "..", ".."))
 var cache = utils.cacheManager(require)
 var it_will = global
 global.module = module
@@ -78,7 +78,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			cache.start()
 			requirejs = require("requirejs")
 			requirejs.config({baseUrl: path.join(__dirname, "..", "lib"), nodeRequire: require})
-			Print = require("bracket_print")
+			Print = requirejs("bracket_print")
 			snippet = Print({platform: "none", style: false}).line("var Print = require('bracket_print');")
 			compare = Print({platform: "none", compression: 4, style: false, truncate_function: !true})
 			up = Print({compression: 4})
@@ -95,7 +95,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		it("returns a null error message when incorrect style map values are used", function(done) {
 		
 			snippet
-			.l("var test = Print({platform: 'shmeh'})")
+				.l("var test = Print({platform: 'shmeh'})")
 				.l("test.s({cool:'joes'});")
 
 			utils.Spawn("node", ["-p", snippet.toString("process.exit(42)")], {cwd: __dirname}, (exit_code, stdout, stderr) => {
