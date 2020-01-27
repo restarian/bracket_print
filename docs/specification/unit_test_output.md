@@ -79,6 +79,40 @@
 
       * √ when parsing the nodejs path module
 
+  * Using stop further progression methodology for dependencies in: builtin_checking.js
+
+    * Checking for dependencies..
+
+      * √ r_js in the system as a program
+
+    * Built in objects will serialize correctly
+
+      * √ serializes functions correctly using compression level 5
+
+  * Using stop further progression methodology for dependencies in: es6_function_serialization.js
+
+    * Checking for dependencies..
+
+      * √ r_js in the system as a program
+
+    * Serializes functions
+
+      * √ serializes functions correctly using compression level 5
+
+      * √ serializes functions correctly using compression level 5 and the shift_function_body option
+
+      * √ serializes functions correctly using compression level 4 with the shift_function_body option set
+
+      * √ serializes functions correctly using compression level 3 with the shift_function_body option set
+
+      * √ serializes functions correctly using compression level 2
+
+      * √ serializes functions correctly using compression level 2 with the shift_function_body option set
+
+      * √ serializes functions correctly using compression level 1
+
+      * √ serializes functions correctly using compression level 1 with the shift_function_body option set
+
   * Using stop further progression methodology for dependencies in: function_serialization.js
 
     * Checking for dependencies..
@@ -220,7 +254,7 @@
       * √ returns an error message when incorrect style map theme values are used
 
 
-  * 72 passing
+  * 83 passing
 
 
 ### ---------- End of unit testing ----------

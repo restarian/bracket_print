@@ -36,22 +36,22 @@
 ### Bracket print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
 
 **Bonuses:**
-* Works in the browser, console or terminal
-* Easy to configure for custom platforms and other use cases
-* Uses AMD (asynchronous module definition), syntax
-* Well commented, thoroughly unit tested and professionally engineered code
-* Has full [Brace UMD](https://npmjs.org/packages/brace_umd) integration for complete deployment unit testing coverage
+
+* Now supports the ES6 arrow functions.
+* Works in the browser, console or terminal with the default styles which can be extended to other special uses.
+* Can ouput ECMA Objects in html syntax.
+* Uses AMD (asynchronous module definition), syntax.
+* Well commented, thoroughly unit tested and professionally engineered code.
+* Has full [Brace UMD](https://npmjs.org/packages/brace_umd) integration for complete deployment unit testing coverage.
 * Can stringify ECMA script (unlike the *JSON* builtin and other serializers)
-* Bracket Print can serialize massive Objects Objects (like the browser *window* property), without hiccups
-	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects)
-	* Removes superfluous tabs, spaces, and newlines from function strings
-	* Output can be configured to be passed into JSON.parse
-* Uses a instance return chain to allow for usage as functional programming callbacks
-* Contains a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge
-* Provides configurable syntax mapping with custom individualized styles
-* Styling can be toggled anywhere in the run-time or call chain with a total overhead discharge
+* Bracket Print can serialize massive Objects (like the browser *window* property), without hiccups.
+	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects).
+	* Output can be configured to be passed into JSON.parse or eval() methods.
+* Uses a instance return chain to allow for usage as functional programming callbacks.
+* Contains a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge.
+* Provides configurable syntax mapping with custom individualized styles.
 
 **Caveats:**
-* Does not have browser unit tests
 
----
+* Does not have browser unit tests.
+
