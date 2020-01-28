@@ -26,6 +26,7 @@
 	},
 	// The amdefine loading mechanism must be removed in the umd build.
 	"keepAmdefine": false,
+	"keepBuildDir": true,
 	"writeBuildTxt": false
 }
 

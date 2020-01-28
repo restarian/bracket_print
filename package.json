@@ -28,8 +28,7 @@
     "brace_document": "^1.0.2",
     "brace_document_navlink": "^1.0.2",
     "brace_document_link": "^1.0.1",
-    "brace_document_specification": "^1.0.1",
-    "batten_document_mocha": "https://github.com/restarian/batten_document_mocha.git"
+    "brace_document_specification": "^1.0.1"
   },
   "directories": {},
   "keywords": [
