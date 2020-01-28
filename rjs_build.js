@@ -5,11 +5,6 @@
 	"baseUrl": "lib",
 	"name": "bracket_print",
 	"out": "build/bracket_print.js",
-	"paths": {
-		// The distributable has the brace_prototype module included so it is mapped to its nearest location. The .js is removed because it is omitted 
-		// in the library definition as well.
-		"brace_prototype": nodeRequire.resolve("brace_prototype").slice(0, -3)
-	},
 	"onBuildRead": function (module_name, module_path, content) { 
 		// This is how a module is built which has dependency modules which use brace_umd. The non-brace_umd module version is used instead when a module is 
 		// loaded which was a brace_umd built module (it will contain a _umd.js suffix). It is assumed that any module which contains a _umd.js suffix is 
@@ -21,6 +16,6 @@
 	"uglify2": nodeRequire("brace_umd").build_option_extend({mangle: {properties: false}}),
 	// There is no reason not to include this in the library build sense it will be optimized again in distribution of whatever module uses it.
 	"keepAmdefine": true,
-	"writeBuildTxt": false
+	"writeBuildTxt": false,
 }
 

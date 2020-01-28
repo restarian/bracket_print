@@ -8,7 +8,7 @@
 	"paths": {
 		// The distributable has the brace_prototype module included so it is mapped to its nearest location. The .js is removed because it is omitted 
 		// in the library definition as well.
-		"brace_prototype": nodeRequire.resolve("brace_prototype").slice(0, -3)
+		//"brace_prototype": nodeRequire.resolve("brace_prototype").slice(0, -3)
 	},
 	"onBuildRead": function (module_name, module_path, content) { 
 		// This is how a module is built which has dependency modules which use brace_umd. The non-brace_umd module version is used instead when a module is 
