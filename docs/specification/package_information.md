@@ -22,26 +22,22 @@
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
 ----
 
-**Version**: 0.9.29
+**Version**: 0.10.3
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
 **Author**: [Robert Steckroth](mailto:RobertSteckroth@gmail.com)[https://restarian.xyz](https://restarian.xyz)
 
-**Dependencies**: [brace_prototype](https://npmjs.org/package/brace_prototype)
-
 **Development dependencies**: [amdefine](https://npmjs.org/package/amdefine) [brace_maybe](https://npmjs.org/package/brace_maybe) [brace_umd](https://npmjs.org/package/brace_umd) [bracket_utils](https://npmjs.org/package/bracket_utils) [chai](https://npmjs.org/package/chai) [intercept-stdout](https://npmjs.org/package/intercept-stdout) [mocha](https://npmjs.org/package/mocha) [requirejs](https://npmjs.org/package/requirejs) [serialize-javascript](https://npmjs.org/package/serialize-javascript)
-
-**Optional Dependencies**: [brace_document](https://npmjs.org/package/brace_document) [brace_document_navlink](https://npmjs.org/package/brace_document_navlink) [brace_document_link](https://npmjs.org/package/brace_document_link) [brace_document_specification](https://npmjs.org/package/brace_document_specification) [batten_document_mocha](https://npmjs.org/package/batten_document_mocha)
 
 **Package scripts**:
 
 | Name | Action |
 | ---- | ------ |
  | test | ```mocha``` |
- | build | ```r_js -o rjs_build.js; r_js -o rjs_build_umd.js``` |
- | make_docs | ```brace_document --navlink --link --link-dest ../README.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth``` |
- | make_docs_extra | ```npm run make_docs --silent -- --specification --mocha``` |
+ | build | ```node ./node_modules/brace_umd/bin/build_umd.js --compress unused,unsafe --mangle toplevel``` |
+ | make_docs | ```brace_document --navlink --link --link-dest ../README.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth --specification``` |
+ | make_docs_extra | ```npm run make_docs --silent -- --mocha``` |
 
 **Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*
 
