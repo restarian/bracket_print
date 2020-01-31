@@ -49,7 +49,7 @@
       * √ serializes primitve Objects with added properties
       * √ clears stored text data with the empty() command
 
-  * Performing benchmarks which do not have a failing condition
+  * Performing benchmarks against the Yahoo serialize-json module and internal JSON.stringify.
     * with the style option set to true
       * √ using a large random assigned object
       * √ using a small random assigned object

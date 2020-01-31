@@ -22,7 +22,7 @@
     * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
 ----
 
-**Version**: 0.10.4
+**Version**: 0.11.0
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -40,10 +40,10 @@
 | ---- | ------ |
  | test | ```mocha``` |
  | build_config | ```node ./node_modules/brace_umd/bin/build_umd.js --config-file uglify_option.json``` |
- | build_umd | ```r_js -o ./rjs_build_umd.js && r_js -o ./rjs_build_final.js``` |
+ | build_umd | ```r_js -o ./rjs_build.js suffix="_umd" && r_js -o ./rjs_build_final.js suffix="_umd"``` |
  | build_amd | ```r_js -o ./rjs_build.js && r_js -o ./rjs_build_final.js``` |
- | build | ```npm run build_config && npm run build_umd && npm run build_amd``` |
- | make_docs | ```brace_document --navlink --link --link-dest ../Readme.md --link-path synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth --specification --mocha``` |
+ | build | ```npm run build_config && npm run build_amd && npm run build_umd``` |
+ | make_docs | ```brace_document --navlink --link --link-dest ../Readme.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth --specification --mocha``` |
 
 **Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*
 

@@ -1,3 +1,4 @@
+# Bracket Print
 ## Benchmarking
 
 ---
@@ -21,57 +22,162 @@
 
 ---
 
-**The following document was created using the output of running the unit *test -> benchmark.js* unit test. It uses Bracket print, JSON.stringify and [serialize-javascript](https://www.npmjs.com/package/serialize-javascript) modules.**
 
-## Performing benchmarks which do not have a failing condition
+### Performing benchmarks against the Yahoo serialize-json module and internal JSON.stringify.
 
-## With the style option set to true
-### Using a large random assigned object
+* With the style option set to true
+	* Using a large random assigned object (687ms)
+		* Bracket print: 119.114ms
+		* Bracket print: 99.861ms
+		* Bracket print: 92.244ms
+		* Bracket print: 73.575ms
+		* Bracket print: 69.352ms
+		* Bracket print: 77.389ms
+		-----------------------------
+		* Yahoo stringify: 11.698ms
+		* Yahoo stringify: 12.574ms
+		* Yahoo stringify: 12.397ms
+		* Yahoo stringify: 18.911ms
+		* Yahoo stringify: 13.873ms
+		* Yahoo stringify: 14.368ms
+		-----------------------------
+		* JSON.stringify: 10.183ms
+		* JSON.stringify: 7.583ms
+		* JSON.stringify: 9.187ms
+		* JSON.stringify: 6.130ms
+		* JSON.stringify: 6.191ms
+		* JSON.stringify: 11.417ms
+	* Using a small random assigned object
+		* Bracket print: 2.399ms
+		* Bracket print: 1.655ms
+		* Bracket print: 6.294ms
+		* Bracket print: 1.743ms
+		* Bracket print: 2.064ms
+		* Bracket print: 4.666ms
+		-----------------------------
+		* Yahoo stringify: 0.361ms
+		* Yahoo stringify: 0.217ms
+		* Yahoo stringify: 0.230ms
+		* Yahoo stringify: 0.204ms
+		* Yahoo stringify: 0.221ms
+		* Yahoo stringify: 0.204ms
+		-----------------------------
+		* JSON.stringify: 0.153ms
+		* JSON.stringify: 0.109ms
+		* JSON.stringify: 0.117ms
+		* JSON.stringify: 0.126ms
+		* JSON.stringify: 0.107ms
+		* JSON.stringify: 0.107ms
+	* When parsing the nodejs path module (107ms)
+		* Bracket print: 22.432ms
+		* Bracket print: 13.101ms
+		* Bracket print: 8.613ms
+		* Bracket print: 13.744ms
+		* Bracket print: 18.096ms
+		* Bracket print: 13.649ms
+		-----------------------------
+		* Yahoo stringify: unable to do this
+		* Yahoo stringify: 5.776ms
+		-----------------------------
+		* JSON.stringify: unable to do this
+		* JSON.stringify: 0.270ms
+	* When parsing a large populated byte array buffer (499ms)
+		* Bracket print: 93.742ms
+		* Bracket print: 52.574ms
+		* Bracket print: 59.222ms
+		* Bracket print: 49.483ms
+		* Bracket print: 57.161ms
+		* Bracket print: 47.934ms
+		-----------------------------
+		* Yahoo stringify: 13.687ms
+		* Yahoo stringify: 8.791ms
+		* Yahoo stringify: 7.470ms
+		* Yahoo stringify: 11.401ms
+		* Yahoo stringify: 9.841ms
+		* Yahoo stringify: 10.005ms
+		-----------------------------
+		* JSON.stringify: 7.904ms
+		* JSON.stringify: 6.619ms
+		* JSON.stringify: 5.789ms
+		* JSON.stringify: 6.592ms
+		* JSON.stringify: 7.336ms
+		* JSON.stringify: 5.900ms
+* With the style option set to false
+	* Using a large random assigned object (543ms)
+		* Bracket print: 81.991ms
+		* Bracket print: 58.943ms
+		* Bracket print: 60.754ms
+		* Bracket print: 58.494ms
+		* Bracket print: 57.883ms
+		* Bracket print: 63.389ms
+		-----------------------------
+		* Yahoo stringify: 9.063ms
+		* Yahoo stringify: 9.275ms
+		* Yahoo stringify: 12.428ms
+		* Yahoo stringify: 18.309ms
+		* Yahoo stringify: 13.776ms
+		* Yahoo stringify: 21.237ms
+		-----------------------------
+		* JSON.stringify: 5.141ms
+		* JSON.stringify: 12.339ms
+		* JSON.stringify: 8.702ms
+		* JSON.stringify: 8.949ms
+		* JSON.stringify: 6.027ms
+		* JSON.stringify: 10.085ms
+	* Using a small random assigned object (46ms)
+		* Bracket print: 8.259ms
+		* Bracket print: 2.902ms
+		* Bracket print: 1.227ms
+		* Bracket print: 2.064ms
+		* Bracket print: 3.571ms
+		* Bracket print: 2.565ms
+		-----------------------------
+		* Yahoo stringify: 0.438ms
+		* Yahoo stringify: 0.343ms
+		* Yahoo stringify: 0.275ms
+		* Yahoo stringify: 0.298ms
+		* Yahoo stringify: 0.233ms
+		* Yahoo stringify: 0.230ms
+		-----------------------------
+		* JSON.stringify: 0.112ms
+		* JSON.stringify: 0.108ms
+		* JSON.stringify: 0.151ms
+		* JSON.stringify: 0.282ms
+		* JSON.stringify: 0.180ms
+		* JSON.stringify: 0.171ms
+	* When parsing the nodejs path module (70ms)
+		* Bracket print: 11.207ms
+		* Bracket print: 8.227ms
+		* Bracket print: 8.090ms
+		* Bracket print: 6.679ms
+		* Bracket print: 9.406ms
+		* Bracket print: 8.830ms
+		-----------------------------
+		* Yahoo stringify: unable to do this
+		* Yahoo stringify: 0.705ms
+		-----------------------------
+		* JSON.stringify: unable to do this
+		* JSON.stringify: 0.386ms
+	* When parsing a large populated byte array buffer (398ms)
+		* Bracket print: 54.598ms
+		* Bracket print: 41.187ms
+		* Bracket print: 47.932ms
+		* Bracket print: 39.737ms
+		* Bracket print: 49.944ms
+		* Bracket print: 39.841ms
+		-----------------------------
+		* Yahoo stringify: 12.592ms
+		* Yahoo stringify: 12.762ms
+		* Yahoo stringify: 9.633ms
+		* Yahoo stringify: 8.536ms
+		* Yahoo stringify: 10.294ms
+		* Yahoo stringify: 8.306ms
+		-----------------------------
+		* JSON.stringify: 5.649ms
+		* JSON.stringify: 5.570ms
+		* JSON.stringify: 7.017ms
+		* JSON.stringify: 6.051ms
+		* JSON.stringify: 6.548ms
+		* JSON.stringify: 5.414ms
 
-Bracket print: 125.026ms, 104.044ms, 77.880ms, 65.827ms, 66.925ms
-
-JSON.stringify: 6.126ms, 5.630ms, 10.881ms, 2.463ms, 2.269ms
-
-Yahoo stringify: 8.673ms, 11.784ms, 4.285ms, 5.406ms, 5.243ms
-
-### Using a small random assigned object
-
-Bracket print: 0.160ms, 0.093ms, 0.084ms, 0.067ms, 0.082ms
-
-Yahoo stringify: 0.081ms, 0.027ms, 0.011ms, 0.013ms, 0.016ms
-
-JSON.stringify: 0.011ms, 0.010ms, 0.009ms, 0.007ms, 0.006ms
-
-### When parsing the nodejs path module
-
-Bracket print: 20.235ms, 13.946ms, 13.934ms, 14.210ms, 11.874ms
-
-Yahoo stringify: unable to do this
-
-JSON.stringify: unable to do this
-
-## With the style option set to false
-### Using a large random assigned object
-
-Bracket print: 51.808ms, 25.228ms, 35.969ms, 33.154ms, 33.085ms
-
-JSON.stringify: 2.637ms, 3.941ms, 6.260ms, 2.468ms, 2.582ms
-
-Yahoo stringify: 10.873ms, 4.629ms, 10.596ms, 3.863ms, 7.172ms
-
-### Using a small random assigned object
-
-Bracket print: 0.086ms, 0.063ms, 0.061ms, 0.055ms, 0.064ms
-
-Yahoo stringify: 0.023ms, 0.014ms, 0.014ms, 0.026ms, 0.015ms
-
-JSON.stringify: 0.009ms, 0.006ms, 0.006ms, 0.006ms, 0.005ms
-
-### When parsing the nodejs path module
-
-Bracket print: 8.673ms, 10.199ms, 7.042ms, 13.189ms, 9.997ms
-
-Yahoo stringify: unable to do this
-
-JSON.stringify: unable to do this
 
