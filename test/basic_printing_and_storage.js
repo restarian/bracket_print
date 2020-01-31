@@ -29,16 +29,14 @@ describe("Using stop further progression methodology for dependencies in: "+path
 	describe("Checking for dependencies..", function() { 
 
 		it("r_js in the system as a program", function(done) {
+
 			it_will.stop = true 
 			expect((function() {try { require("requirejs"); return true; } catch(e) { return e; }})()).to.be.true 
 			it_will.stop = false 
 			done()
 		})
-
 	})
-
 	describe("Internal storage", function() {
-
 
 		var requirejs, Print, up, ind = "+->"
 		beforeEach(function() {
@@ -50,7 +48,94 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		})
 		afterEach(cache.dump.bind(cache))
 
+		it("Escapes double quotes in strings which are encapsulated with single quotes", function() {
 
+			var i, o = {cool: 'jo\"es'}
+			s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+			//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
+			i = {cool: 'jo"es'}
+			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			i = {cool: 'jo\"es'}
+			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			i = {cool: 'jo\\"es'}
+			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			i = {cool: 'jo\\\"es'}
+			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
+			i = {cool: 'jo\\\\\\"es'}
+			o = {cool: 'jo\\\"es'}
+			expect(s.toString(i)).to.equal('{"cool":"jo\\\\\\"es"}')
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+		})
+		it("The denote_quoting option works with an empty value set", function() {
+
+			expect(s.spawn({quote_qualifier: true, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+			expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+		})
+		it("Escapes single quotes in strings which are encapsulated with double quotes", function() {
+
+			var i, o = {cool: "jo\'es"}
+			s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+			//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
+			i = {cool: "jo'es"}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			i = {cool: "jo\'es"}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			i = {cool: "jo\\'es"}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\'es\"}")
+
+			i = {cool: "jo\\\'es"}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\'es\"}")
+
+			//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
+			i = {cool: "jo\\\\\'es"}
+			o = {cool: "jo\\\'es"}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\\\'es\"}")
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+		})
+		it("Escapes single or double quotes which are encapsulated in single or double quotes", function() {
+
+			var i, o
+			s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+			//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
+			i = {cool: 'jo\'es'}
+			o = {cool: "jo'es"}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			i = {cool: 'jo"es'}
+			o = {cool: 'jo\"es'}
+			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\"es\"}")
+			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+
+			s = s.spawn({quote_qualifier: true, denote_quoting: "\'"})
+			i = {cool: 'jo"es'}
+			o = {cool: 'jo\"es'}
+			expect(s.toString(i)).to.equal("{\'cool\':\'jo\"es\'}")
+
+			s = s.spawn({quote_qualifier: true, denote_quoting: "'"})
+			i = {cool: 'jo\'es'}
+			o = {cool: 'jo\'es'}
+			expect(s.toString(i)).to.equal("{\'cool\':\'jo\\'es\'}")
+		})
+		it("Properly inserts newlines into strings", function() {
+
+			s = s.spawn({quote_qualifier: false})
+			expect(s.toString(true, {cool: 'jo\nes'})).to.equal('true {cool:"jo\nes"}')
+			expect(s.toString(true, {cool: 'jo\\nes'})).to.equal('true {cool:"jo\\nes"}')
+		})
 		it("serializes the ECMA Object types while also using toString correctly", function() {
 
 			s = s.option({quote_qualifier: true, denote_quoting: "^^"})
@@ -63,22 +148,20 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(s.spawn().toString(undefined)).to.equal('undefined')
 			expect(s.spawn().toString(5*"f")).to.equal('NaN')
 		})
-
 		it("serializes the ECMA arguments object", function() {
 
 			void function() {
 				expect(s.empty({quote_qualifier: true}).toString(arguments)).to.to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
 				expect(s.empty().spawn({quote_qualifier: false}).toString(arguments)).equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
+
 				expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
 			}(null, 1,true, "A string", "", undefined)
 		})
-
 		it("serializes Error instances and Objects", function() {
 
 			expect(s.empty().toString(new Error("Cool error"))).to.include("Cool error")
 			expect(s.empty().toString(new Error("more error"))).to.include(__filename)
 		})
-
 		it("serializes native ECMA Objects", function() {
 
 			s.shift_function_body = false
@@ -95,7 +178,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(s.empty().s(Buffer("Bracket")).toString()).to.equal('Bracket')
 			expect(s.empty().option({truncate_function: true}).s(Buffer("Bracket")).toString()).to.equal('Bracket')
 		})
-
 		it("serializes objects with odd property qualifiers", function() {
 
 			expect(s.toString()).to.equal('{cool:"joes"}')
@@ -103,8 +185,8 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(s.option({quote_qualifier: true}).s({undefined: undefined, null: null, a: "f"*2}).toString())
 				.to.equal('{cool:"joes"} {"undefined":undefined,"null":null,"a":NaN}')
 		})
-
 		it("serializes primitve Objects", function() {
+
 			s.empty()
 			expect(s.spawn({compression: 4}).toString(new Number(43))).to.equal('{PRIMITIVE VALUE>43}')
 			expect(s.spawn({compression: 4, quote_qualifier: false }).toString(new String("B"))).to.equal('{PRIMITIVE VALUE>"B",0:"B",length:1}')
@@ -119,7 +201,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(s.spawn({compression: 4}).toString(new Object(undefined))).to.equal('{}')
 			expect(s.spawn({compression: 4}).toString(new Object(null))).to.equal('{}')
 		})
-
 		it("serializes primitve Objects with added properties", function() {
 
 			var obj = new Number()
@@ -130,7 +211,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(Print().option({compression: 4, quote_qualifier: true}).toString(obj_a))
 					.to.equal('{PRIMITIVE VALUE>"aa","0":"a","1":"a","prop_a":true,"length":2}')
 		})
-
 		it("clears stored text data with the empty() command", function() {
 
 			s.empty()

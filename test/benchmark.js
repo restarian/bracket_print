@@ -21,15 +21,15 @@ var Print = require("bracket_print")
 
 describe("Performing benchmarks which do not have a failing condition", function() {
 
-	var cycle = 5 
+	var cycle = 6
 
 	var random_large = { }
-	Array(10000).fill().forEach(() => {
+	Array(15000).fill().forEach(() => {
 		random_large["aa"+Math.random()] = "bb"+Math.random()
 	})
 
 	var random_small = { }
-	Array(100).fill().forEach(() => {
+	Array(500).fill().forEach(() => {
 		random_small["aa"+Math.random()] = "bb"+Math.random()
 	})
 
@@ -45,101 +45,148 @@ describe("Performing benchmarks which do not have a failing condition", function
 			it("using a large random assigned object", function() {
 
 				Array(cycle).fill().forEach(() => {	
+
 					console.time("Bracket print")
 					up.s(random_large)
 					console.timeEnd("Bracket print")
 				})
-
 				console.log("-----------------------------")
 
 				Array(cycle).fill().forEach(() => {	
-					console.time("JSON.stringify")
-					JSON.stringify(random_large)
-					console.timeEnd("JSON.stringify")
-				})
 
-				Array(cycle).fill().forEach(() => {	
 					console.time("Yahoo stringify")
 					serialize(random_large)
 					console.timeEnd("Yahoo stringify")
 				})
-
 				console.log("-----------------------------")
 
-			})
+				Array(cycle).fill().forEach(() => {	
 
+					console.time("JSON.stringify")
+					JSON.stringify(random_large)
+					console.timeEnd("JSON.stringify")
+				})
+			})
 			it("using a small random assigned object", function() {
 
 				Array(cycle).fill().forEach(() => {	
+
 					console.time("Bracket print")
 					up.s(random_small)
 					console.timeEnd("Bracket print")
 				})
-
 				console.log("-----------------------------")
 
 				Array(cycle).fill().forEach(() => {	
+
 					console.time("Yahoo stringify")
 					serialize(random_small)
 					console.timeEnd("Yahoo stringify")
 				})
-
 				console.log("-----------------------------")
 
 				Array(cycle).fill().forEach(() => {	
+
 					console.time("JSON.stringify")
 					JSON.stringify(random_small)
 					console.timeEnd("JSON.stringify")
 				})
-
 			})
-
 			this.timeout(8000)
 			it("when parsing the nodejs path module", function(done) {
 
 				try {
 					Array(cycle).fill().forEach(() => {	
-					console.time("Bracket print")
-					up.s(path)
-					console.timeEnd("Bracket print")
+
+						console.time("Bracket print")
+						up.s(path)
+						console.timeEnd("Bracket print")
 					})
 				} catch(error) {
+
 					console.log("Bracket print: unable to do this")
 					console.timeEnd("Bracket print")
 				}
-
 				console.log("-----------------------------")
 
 				try {
 					Array(cycle).fill().forEach(() => {	
+
 						console.time("Yahoo stringify")
 						serialize(path)
 						console.timeEnd("Yahoo stringify")
 					})
 				} catch(error) {
+					
 					console.log("Yahoo stringify: unable to do this")
 					console.timeEnd("Yahoo stringify")
 				}
-
 				console.log("-----------------------------")
 
 				try {
 					Array(cycle).fill().forEach(() => {	
+						
 						console.time("JSON.stringify")
 						JSON.stringify(path)
 						console.timeEnd("JSON.stringify")
 					})
 				} catch(error) {
+
 					console.log("JSON.stringify: unable to do this")
 					console.timeEnd("JSON.stringify")
 				}
-
 				done()
-
 			})
+			it("when parsing a large populated byte array buffer", function(done) {
 
-			this.timeout(2000)
+				var len = 15000
+				var float32 = new Float32Array(len)
+				while ( --len )
+					float32[len] = Math.random()
 
+				try {
+					Array(cycle).fill().forEach(() => {	
+
+						console.time("Bracket print")
+						up.s(float32)
+						console.timeEnd("Bracket print")
+					})
+				} catch(error) {
+
+					console.log("Bracket print: unable to do this")
+					console.timeEnd("Bracket print")
+				}
+				console.log("-----------------------------")
+
+				try {
+					Array(cycle).fill().forEach(() => {	
+
+						console.time("Yahoo stringify")
+						serialize(float32)
+						console.timeEnd("Yahoo stringify")
+					})
+				} catch(error) {
+
+					console.log("Yahoo stringify: unable to do this")
+					console.timeEnd("Yahoo stringify")
+				}
+				console.log("-----------------------------")
+
+				try {
+					Array(cycle).fill().forEach(() => {	
+
+						console.time("JSON.stringify")
+						JSON.stringify(float32)
+						console.timeEnd("JSON.stringify")
+					})
+				} catch(error) {
+
+					console.log("JSON.stringify: unable to do this")
+					console.timeEnd("JSON.stringify")
+				}
+				done()
+			})
+			this.timeout(3000)
 		})
 	})
 

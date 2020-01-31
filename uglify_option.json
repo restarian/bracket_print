@@ -1,0 +1,13 @@
+{
+	"output": {
+		"beautify": false,
+		"quote_keys": false,
+		"quote_style": 1,
+		"preamble": true,
+		"comments": false
+	},
+	"compress": true,
+	"mangle": { 
+		"properties": false 
+	}
+}

@@ -42,7 +42,7 @@
 * Can ouput ECMA Objects in html syntax.
 * Uses AMD (asynchronous module definition), syntax.
 * Well commented, thoroughly unit tested and professionally engineered code.
-* Has full [Brace UMD](https://npmjs.org/packages/brace_umd) integration for complete deployment unit testing coverage.
+* Has full [Brace UMD](https://npmjs.org/packages/brace_umd) integration for ideal and deterministic deployment builds.
 * Can stringify ECMA script (unlike the *JSON* builtin and other serializers)
 * Bracket Print can serialize massive Objects (like the browser *window* property), without hiccups.
 	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects).
