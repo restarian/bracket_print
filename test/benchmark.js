@@ -46,104 +46,104 @@ describe("Performing benchmarks against the Yahoo serialize-json module and inte
 		
 			it("using a large random assigned object", function() {
 
-				console.log("Bracket Print:")
+				console.log("* Bracket Print:")
 				Array(cycle).fill().forEach(() => {	
 
-					console.time("-")
+					console.time("  * ")
 					up.s(random_large)
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				})
 				console.log("---------------------")
 
-				console.log("Yahoo stringify:")
+				console.log("* Yahoo stringify:")
 				Array(cycle).fill().forEach(() => {	
 
-					console.time("-")
+					console.time("  * ")
 					serialize(random_large)
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				})
 				console.log("---------------------")
 
-				console.log("JSON.stringify:")
+				console.log("* JSON.stringify:")
 				Array(cycle).fill().forEach(() => {	
 
-					console.time("-")
+					console.time("  * ")
 					JSON.stringify(random_large)
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				})
 			})
 			it("using a small random assigned object", function() {
 
-				console.log("Bracket Print:")
+				console.log("* Bracket Print:")
 				Array(cycle).fill().forEach(() => {	
 
-					console.time("-")
+					console.time("  * ")
 					up.s(random_small)
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				})
 				console.log("---------------------")
 
-				console.log("Yahoo stringify:")
+				console.log("* Yahoo stringify:")
 				Array(cycle).fill().forEach(() => {	
 
-					console.time("-")
+					console.time("  * ")
 					serialize(random_small)
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				})
 				console.log("---------------------")
 
-				console.log("JSON.stringify:")
+				console.log("* JSON.stringify:")
 				Array(cycle).fill().forEach(() => {	
 
-					console.time("-")
+					console.time("  * ")
 					JSON.stringify(random_small)
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				})
 			})
 			it("when parsing the nodejs path module", function() {
 
-				console.log("Bracket Print:")
+				console.log("* Bracket Print:")
 				try {
 					Array(cycle).fill().forEach(() => {	
 
-						console.time("-")
+						console.time("  * ")
 						up.s(path)
-						console.timeEnd("-")
+						console.timeEnd("  * ")
 					})
 				} catch(error) {
 
 					console.log("..unable to do this")
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				}
 				console.log("---------------------")
 
-				console.log("Yahoo stringify:")
+				console.log("* Yahoo stringify:")
 				try {
 					Array(cycle).fill().forEach(() => {	
 
-						console.time("-")
+						console.time("  * ")
 						serialize(path)
-						console.timeEnd("-")
+						console.timeEnd("  * ")
 					})
 				} catch(error) {
 					
 					console.log("..unable to do this")
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				}
 				console.log("---------------------")
 
-				console.log("JSON.stringify:")
+				console.log("* JSON.stringify:")
 				try {
 					Array(cycle).fill().forEach(() => {	
 						
-						console.time("-")
+						console.time("  * ")
 						JSON.stringify(path)
-						console.timeEnd("-")
+						console.timeEnd("  * ")
 					})
 				} catch(error) {
 
 					console.log("..unable to do this")
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				}
 			})
 			it("when parsing a large populated byte array buffer", function() {
@@ -153,48 +153,48 @@ describe("Performing benchmarks against the Yahoo serialize-json module and inte
 				while ( --len )
 					float32[len] = Math.random()
 
-				console.log("Bracket Print:")
+				console.log("* Bracket Print:")
 				try {
 					Array(cycle).fill().forEach(() => {	
 
-						console.time("-")
+						console.time("  * ")
 						up.s(float32)
-						console.timeEnd("-")
+						console.timeEnd("  * ")
 					})
 				} catch(error) {
 
 					console.log("..unable to do this")
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				}
 				console.log("---------------------")
 
-				console.log("Yahoo stringify:")
+				console.log("* Yahoo stringify:")
 				try {
 					Array(cycle).fill().forEach(() => {	
 
-						console.time("-")
+						console.time("  * ")
 						serialize(float32)
-						console.timeEnd("-")
+						console.timeEnd("  * ")
 					})
 				} catch(error) {
 
 					console.log("..unable to do this")
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				}
 				console.log("---------------------")
 
-				console.log("JSON.stringify:")
+				console.log("* JSON.stringify:")
 				try {
 					Array(cycle).fill().forEach(() => {	
 
-						console.time("-")
+						console.time("  * ")
 						JSON.stringify(float32)
-						console.timeEnd("-")
+						console.timeEnd("  * ")
 					})
 				} catch(error) {
 
 					console.log("..unable to do this")
-					console.timeEnd("-")
+					console.timeEnd("  * ")
 				}
 			})
 		})

@@ -1,4 +1,4 @@
-## Constructing and Using Raw Strings 
+## Constructing and Using Raw Strings
 
 ---
 ### Bracket Print help pages
@@ -21,7 +21,8 @@
 
 ---
 
-It is easy and programmatically efficient to assemble strings using bracket print. The process can be made the most efficient by turning off style formatting via the option member like below. 
+### Concatenation:
+It is easy and programmatically efficient to assemble strings using bracket print. The process can be made the most efficient by turning off style formatting via the option member like below.
 
 ```javascript
 var up = require("bracket_print")({style: false})
@@ -38,7 +39,7 @@ var log_string_a = up.toStyleString()
 ```
 
 
-The *toString* member is cheap to call (it simply returns an instance value if no parameters are provided), so the above example has little system resource impact. 
+The *toString* member is cheap to call (it simply returns an instance value if no parameters are provided), so the above example has little system resource impact.
 
 The *toStyleString* call above returns the non-styled text sense the *style* option was set falsey. There is no increase in resource overhead to use it instead of *toString* when styling is disabled via the *style* option.
 
@@ -56,3 +57,19 @@ var str2 = up.s("This is Bracket Print", str1).toString()
 console.log(str2) // <- Logs  This is Bracket Print Hello world!
 
 ```
+
+#### Members:
+
+Below are the members which concatenate strings. All of them return complete and bound instances with any string data from the previous calls.
+* *space()* or *s()*:
+  * adds a space between string parameters and member calls.
+* *line()* or *l()*:
+  * adds a newline between string parameters and member calls.
+* *tab()* or *t()*:
+  * adds a tab between string parameters and member calls.
+* *add()* or *a()*:
+  * does not add any characters between string parameters and member calls.
+
+
+
+  

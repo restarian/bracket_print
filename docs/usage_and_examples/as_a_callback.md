@@ -21,11 +21,13 @@
 
 ---
 
-### Bracket print instances can be used as a logging callback in functional programming.
-The examples/explanations below make for a suitable replacement for the use of *console.log.bind(console)* as a callback parameter.
+### Bracket Print instances can be used as a logging callback in functional programming.
+A "bound and return" methodology is used with Bracket Print. This means that data is kept within almost all the members to be appended or used again. Even the log() member returns itself and can be called multiple times. Therefore, member like *spawn* and *empty* are used to create new instances or remove internally stored data. Note: this enables a suitable replacement for the use of *console.log.bind(console)* as a callback parameter.
 
 ### Objects passed into Bracket print callbacks as arguments will be printed using safe serialization.
-The log message is more informative and will be generated without need worry about stalling the repl or process. The example below only prints the first four hundred character of any Object which may happen to be passed into the logger callback.
+The created log message is more informative than console logging and will be generated without worry of stalling the repl or run process. The example below only prints the first four hundred characters of any Object which may happen to be passed into the logger callback.
+
+Note: the *depth_limit* option is also useful in reducing Object print out. Setting this two one will only print the top level Objects.
 
 ```javascript
 var do_this = function(cb, err) {
@@ -35,7 +37,7 @@ var do_this = function(cb, err) {
 }
 
 // Clone the original settings and create the copy with the settings passed in.
-var cb = bracket_print.spawn({max_characters: 400})
+var cb = bracket_print.spawn({characters_limit: 400})
 do_this(cb.line("success callback was called").log, cb.line("error callback was called").log)
 
 // Errors will automatically print as well.

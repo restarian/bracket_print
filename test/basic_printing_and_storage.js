@@ -38,188 +38,223 @@ describe("Using stop further progression methodology for dependencies in: "+path
 	})
 	describe("Internal storage", function() {
 
-		var requirejs, Print, up, ind = "+->"
-		beforeEach(function() {
-			cache.start()
-			requirejs = require("requirejs")
-			requirejs.config({baseUrl: path.join(__dirname, "..", "lib"), nodeRequire: require})
-			Print = requirejs("bracket_print")//({compression: 4, level: 1})
-			s = requirejs("bracket_print")({compression: 4, level: 1}).s({cool: "joes"})
-		})
-		afterEach(cache.dump.bind(cache))
 
-		it("Escapes double quotes in strings which are encapsulated with single quotes", function() {
+		var msg = ""
+		;([0,1,2,3]).forEach(function(value) {
 
-			var i, o = {cool: 'jo\"es'}
-			s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
-			//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
-			i = {cool: 'jo"es'}
-			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+			var s, ind = "+->"
+			beforeEach(function() {
 
-			i = {cool: 'jo\"es'}
-			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+				cache.start()
+				var r
+				if ( value === 0 ) {
+					r = require("requirejs")
+					r.config({baseUrl: path.join(__dirname, "..", "lib"), nodeRequire: require})
+					s = r("bracket_print")({compression: 4, level: 1}).s({cool: "joes"})
+				}
+				else if ( value === 1 ) {
+					r = require("requirejs")
+					r.config({baseUrl: path.join(__dirname, "..", "build"), nodeRequire: require})
+					s = r("bracket_print_umd")({compression: 4, level: 1}).s({cool: "joes"})
+				}
+				else if ( value === 2 ) {
+					r = require("requirejs")
+					r.config({baseUrl: path.join(__dirname, "..", "build"), nodeRequire: require})
+					s = r("bracket_print")({compression: 4, level: 1}).s({cool: "joes"})
+				}
+				else if ( value === 3 )
+					s = require("bracket_print")({compression: 4, level: 1}).s({cool: "joes"})
 
-			i = {cool: 'jo\\"es'}
-			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+			})
+			afterEach(cache.dump.bind(cache))
 
-			i = {cool: 'jo\\\"es'}
-			expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+			if ( value === 0 )
+				msg = "Testing using requirejs and the lib directory"
+			else if ( value === 1 )
+				msg = "Testing using requirejs and the build directory with the umd version"
+			else if ( value === 2 )
+				msg = "Testing using requirejs and the build directory"
+			else if ( value === 3 ) {
+				var p_path = require.resolve("bracket_print")
+				msg = "Testing using commonjs which and the package.json entry of " + path.basename(path.dirname(p_path)) + "/"+ path.basename(p_path)
+			}
+			
+			describe(msg, function() {
 
-			//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
-			i = {cool: 'jo\\\\\\"es'}
-			o = {cool: 'jo\\\"es'}
-			expect(s.toString(i)).to.equal('{"cool":"jo\\\\\\"es"}')
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
-		})
-		it("The denote_quoting option works with an empty value set", function() {
+				it("Escapes double quotes in strings which are encapsulated with single quotes", function() {
 
-			expect(s.spawn({quote_qualifier: true, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
-			expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
-		})
-		it("Escapes single quotes in strings which are encapsulated with double quotes", function() {
+					var i, o = {cool: 'jo\"es'}
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+					//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
+					i = {cool: 'jo"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			var i, o = {cool: "jo\'es"}
-			s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
-			//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
-			i = {cool: "jo'es"}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+					i = {cool: 'jo\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			i = {cool: "jo\'es"}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+					i = {cool: 'jo\\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			i = {cool: "jo\\'es"}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\'es\"}")
+					i = {cool: 'jo\\\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			i = {cool: "jo\\\'es"}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\'es\"}")
+					//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
+					i = {cool: 'jo\\\\\\"es'}
+					o = {cool: 'jo\\\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\\\\\"es"}')
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+				})
+				it("The denote_quoting option works with an empty value set", function() {
 
-			//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
-			i = {cool: "jo\\\\\'es"}
-			o = {cool: "jo\\\'es"}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\\\'es\"}")
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
-		})
-		it("Escapes single or double quotes which are encapsulated in single or double quotes", function() {
+					expect(s.spawn({quote_qualifier: true, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+					expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+				})
+				it("Escapes single quotes in strings which are encapsulated with double quotes", function() {
 
-			var i, o
-			s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
-			//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
-			i = {cool: 'jo\'es'}
-			o = {cool: "jo'es"}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+					var i, o = {cool: "jo\'es"}
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+					//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
+					i = {cool: "jo'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			i = {cool: 'jo"es'}
-			o = {cool: 'jo\"es'}
-			expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\"es\"}")
-			expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+					i = {cool: "jo\'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			s = s.spawn({quote_qualifier: true, denote_quoting: "\'"})
-			i = {cool: 'jo"es'}
-			o = {cool: 'jo\"es'}
-			expect(s.toString(i)).to.equal("{\'cool\':\'jo\"es\'}")
+					i = {cool: "jo\\'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo\\'es\"}")
 
-			s = s.spawn({quote_qualifier: true, denote_quoting: "'"})
-			i = {cool: 'jo\'es'}
-			o = {cool: 'jo\'es'}
-			expect(s.toString(i)).to.equal("{\'cool\':\'jo\\'es\'}")
-		})
-		it("Properly inserts newlines into strings", function() {
+					i = {cool: "jo\\\'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo\\'es\"}")
 
-			s = s.spawn({quote_qualifier: false})
-			expect(s.toString(true, {cool: 'jo\nes'})).to.equal('true {cool:"jo\nes"}')
-			expect(s.toString(true, {cool: 'jo\\nes'})).to.equal('true {cool:"jo\\nes"}')
-		})
-		it("serializes the ECMA Object types while also using toString correctly", function() {
+					//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
+					i = {cool: "jo\\\\\'es"}
+					o = {cool: "jo\\\'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\\\'es\"}")
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+				})
+				it("Escapes single or double quotes which are encapsulated in single or double quotes", function() {
 
-			s = s.option({quote_qualifier: true, denote_quoting: "^^"})
-			expect(s.toString(true, {cool: "joes"})).to.equal('{cool:"joes"} true {^^cool^^:^^joes^^}')
-			expect(s.spawn().toString(0)).to.equal('0')
-			expect(s.spawn().toString(-0)).to.equal('0')
-			expect(s.toString(1)).to.equal('{cool:"joes"} true {^^cool^^:^^joes^^} 1')
-			expect(s.empty().toString(-99)).to.equal('-99')
-			expect(s.spawn().toString(null)).to.equal('null')
-			expect(s.spawn().toString(undefined)).to.equal('undefined')
-			expect(s.spawn().toString(5*"f")).to.equal('NaN')
-		})
-		it("serializes the ECMA arguments object", function() {
+					var i, o
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+					//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
+					i = {cool: 'jo\'es'}
+					o = {cool: "jo'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-			void function() {
-				expect(s.empty({quote_qualifier: true}).toString(arguments)).to.to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
-				expect(s.empty().spawn({quote_qualifier: false}).toString(arguments)).equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
+					i = {cool: 'jo"es'}
+					o = {cool: 'jo\"es'}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\"es\"}")
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
-				expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
-			}(null, 1,true, "A string", "", undefined)
-		})
-		it("serializes Error instances and Objects", function() {
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\'"})
+					i = {cool: 'jo"es'}
+					o = {cool: 'jo\"es'}
+					expect(s.toString(i)).to.equal("{\'cool\':\'jo\"es\'}")
 
-			expect(s.empty().toString(new Error("Cool error"))).to.include("Cool error")
-			expect(s.empty().toString(new Error("more error"))).to.include(__filename)
-		})
-		it("serializes native ECMA Objects", function() {
+					s = s.spawn({quote_qualifier: true, denote_quoting: "'"})
+					i = {cool: 'jo\'es'}
+					o = {cool: 'jo\'es'}
+					expect(s.toString(i)).to.equal("{\'cool\':\'jo\\'es\'}")
+				})
+				it("Properly inserts newlines into strings", function() {
 
-			s.shift_function_body = false
-			expect(s.empty().option({compression: 4}).s(Function).toString()).to.equal('function Function() { [native code] }')
-			expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n[native code]\n}')
-			expect(s.empty().option({compression: 2}).s(String).toString()).to.equal('function String() {\n [native code]\n}')
-			//expect(s.empty().option({compression: 2}).s(RegExp).toString()).to.equal('function RegExp() {\n[native code]\n}')
+					s = s.spawn({quote_qualifier: false})
+					expect(s.toString(true, {cool: 'jo\nes'})).to.equal('true {cool:"jo\nes"}')
+					expect(s.toString(true, {cool: 'jo\\nes'})).to.equal('true {cool:"jo\\nes"}')
+				})
+				it("serializes the ECMA Object types while also using toString correctly", function() {
 
-			expect(s.empty().option({compression: 4}).toString(Object).toString()).to.equal('function Object() { [native code] }')
-			expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() {\n[native code]\n}')
-			expect(s.empty().option({compression: 2}).s(Object).toString()).to.equal('function Object() {\n [native code]\n}')
-			expect(s.empty().option({compression: 1}).toString(Object).toString()).to.equal('function Object() {\n [native code]\n}')
+					s = s.option({quote_qualifier: true, denote_quoting: "^^"})
+					expect(s.toString(true, {cool: "joes"})).to.equal('{cool:"joes"} true {^^cool^^:^^joes^^}')
+					expect(s.spawn().toString(0)).to.equal('0')
+					expect(s.spawn().toString(-0)).to.equal('0')
+					expect(s.toString(1)).to.equal('{cool:"joes"} true {^^cool^^:^^joes^^} 1')
+					expect(s.empty().toString(-99)).to.equal('-99')
+					expect(s.spawn().toString(null)).to.equal('null')
+					expect(s.spawn().toString(undefined)).to.equal('undefined')
+					expect(s.spawn().toString(5*"f")).to.equal('NaN')
+				})
+				it("serializes the ECMA arguments object", function() {
 
-			expect(s.empty().s(Buffer("Bracket")).toString()).to.equal('Bracket')
-			expect(s.empty().option({truncate_function: true}).s(Buffer("Bracket")).toString()).to.equal('Bracket')
-		})
-		it("serializes objects with odd property qualifiers", function() {
+					void function() {
+						expect(s.empty({quote_qualifier: true}).toString(arguments)).to.to.equal('{"0":null,"1":1,"2":true,"3":"A string","4":"","5":undefined}')
+						expect(s.empty().spawn({quote_qualifier: false}).toString(arguments)).equal('{0:null,1:1,2:true,3:"A string",4:"",5:undefined}')
 
-			expect(s.toString()).to.equal('{cool:"joes"}')
-			// TODO: add comma before an Object if the last print command was to serialize.
-			expect(s.option({quote_qualifier: true}).s({undefined: undefined, null: null, a: "f"*2}).toString())
-				.to.equal('{cool:"joes"} {"undefined":undefined,"null":null,"a":NaN}')
-		})
-		it("serializes primitve Objects", function() {
+						expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString(arguments)).to.equal('{0:null,1:1,2:true,3:A string,4:,5:undefined}')
+					}(null, 1,true, "A string", "", undefined)
+				})
+				it("serializes Error instances and Objects", function() {
 
-			s.empty()
-			expect(s.spawn({compression: 4}).toString(new Number(43))).to.equal('{PRIMITIVE VALUE>43}')
-			expect(s.spawn({compression: 4, quote_qualifier: false }).toString(new String("B"))).to.equal('{PRIMITIVE VALUE>"B",0:"B",length:1}')
-			expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new String("B"))).to.equal('{PRIMITIVE VALUE>"B","0":"B","length":1}')
-			expect(s.spawn({compression: 4}).toString(new Boolean("BOB"))).to.equal('{PRIMITIVE VALUE>true}')
-			expect(s.spawn({compression: 4}).toString(new Boolean(0))).to.equal('{PRIMITIVE VALUE>false}')
-			expect(s.spawn({compression: 4}).toString(new Number("33"))).to.equal('{PRIMITIVE VALUE>33}')
-			expect(s.spawn({compression: 4}).toString(new Number())).to.equal('{PRIMITIVE VALUE>0}')
-			expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new Object("dd"))).to.equal('{PRIMITIVE VALUE>"dd","0":"d","1":"d","length":2}')
-			expect(s.spawn({compression: 4}).toString(new Object({"aa": 4}))).to.equal('{aa:4}')
-			expect(s.spawn({compression: 4}).toString(new Object())).to.equal('{}')
-			expect(s.spawn({compression: 4}).toString(new Object(undefined))).to.equal('{}')
-			expect(s.spawn({compression: 4}).toString(new Object(null))).to.equal('{}')
-		})
-		it("serializes primitve Objects with added properties", function() {
+					expect(s.empty().toString(new Error("Cool error"))).to.include("Cool error")
+					expect(s.empty().toString(new Error("more error"))).to.include(__filename)
+				})
+				it("serializes native ECMA Objects", function() {
 
-			var obj = new Number()
-			obj.one = 1
-			var obj_a = new Object("aa")
-			obj_a.prop_a = true
-			expect(Print().option({compression: 4}).toString(obj)).to.equal('{PRIMITIVE VALUE>0,one:1}')
-			expect(Print().option({compression: 4, quote_qualifier: true}).toString(obj_a))
-					.to.equal('{PRIMITIVE VALUE>"aa","0":"a","1":"a","prop_a":true,"length":2}')
-		})
-		it("clears stored text data with the empty() command", function() {
+					s.shift_function_body = false
+					expect(s.empty().option({compression: 4}).s(Function).toString()).to.equal('function Function() { [native code] }')
+					expect(s.empty().option({compression: 3}).s(Number).toString()).to.equal('function Number() {\n[native code]\n}')
+					expect(s.empty().option({compression: 2}).s(String).toString()).to.equal('function String() {\n [native code]\n}')
+					//expect(s.empty().option({compression: 2}).s(RegExp).toString()).to.equal('function RegExp() {\n[native code]\n}')
 
-			s.empty()
-			expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
-			s.empty()
-			expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
-			expect(s.s("Go!").toString()).to.equal("Bracket Print Go!")
-			expect(s.empty().s("Fub").toString()).to.equal("Fub")
-			expect(s.empty().toString()).to.equal("")
+					expect(s.empty().option({compression: 4}).toString(Object).toString()).to.equal('function Object() { [native code] }')
+					expect(s.empty().option({compression: 3}).s(Object).toString()).to.equal('function Object() {\n[native code]\n}')
+					expect(s.empty().option({compression: 2}).s(Object).toString()).to.equal('function Object() {\n [native code]\n}')
+					expect(s.empty().option({compression: 1}).toString(Object).toString()).to.equal('function Object() {\n [native code]\n}')
+
+					expect(s.empty().s(Buffer("Bracket")).toString()).to.equal('Bracket')
+					expect(s.empty().option({truncate_function: true}).s(Buffer("Bracket")).toString()).to.equal('Bracket')
+				})
+				it("serializes objects with odd property qualifiers", function() {
+
+					expect(s.toString()).to.equal('{cool:"joes"}')
+					// TODO: add comma before an Object if the last print command was to serialize.
+					expect(s.option({quote_qualifier: true}).s({undefined: undefined, null: null, a: "f"*2}).toString())
+						.to.equal('{cool:"joes"} {"undefined":undefined,"null":null,"a":NaN}')
+				})
+				it("serializes primitve Objects", function() {
+
+					s.empty()
+					expect(s.spawn({compression: 4}).toString(new Number(43))).to.equal('{PRIMITIVE VALUE>43}')
+					expect(s.spawn({compression: 4, quote_qualifier: false }).toString(new String("B"))).to.equal('{PRIMITIVE VALUE>"B",0:"B",length:1}')
+					expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new String("B"))).to.equal('{PRIMITIVE VALUE>"B","0":"B","length":1}')
+					expect(s.spawn({compression: 4}).toString(new Boolean("BOB"))).to.equal('{PRIMITIVE VALUE>true}')
+					expect(s.spawn({compression: 4}).toString(new Boolean(0))).to.equal('{PRIMITIVE VALUE>false}')
+					expect(s.spawn({compression: 4}).toString(new Number("33"))).to.equal('{PRIMITIVE VALUE>33}')
+					expect(s.spawn({compression: 4}).toString(new Number())).to.equal('{PRIMITIVE VALUE>0}')
+					expect(s.spawn({compression: 4, quote_qualifier: true}).toString(new Object("dd"))).to.equal('{PRIMITIVE VALUE>"dd","0":"d","1":"d","length":2}')
+					expect(s.spawn({compression: 4}).toString(new Object({"aa": 4}))).to.equal('{aa:4}')
+					expect(s.spawn({compression: 4}).toString(new Object())).to.equal('{}')
+					expect(s.spawn({compression: 4}).toString(new Object(undefined))).to.equal('{}')
+					expect(s.spawn({compression: 4}).toString(new Object(null))).to.equal('{}')
+				})
+				it("serializes primitve Objects with added properties", function() {
+
+					var obj = new Number()
+					obj.one = 1
+					var obj_a = new Object("aa")
+					obj_a.prop_a = true
+					expect(s.empty({compression: 4}).toString(obj)).to.equal('{PRIMITIVE VALUE>0,one:1}')
+					expect(s.empty({compression: 4, quote_qualifier: true}).toString(obj_a))
+							.to.equal('{PRIMITIVE VALUE>"aa","0":"a","1":"a","prop_a":true,"length":2}')
+				})
+				it("clears stored text data with the empty() command", function() {
+
+					s.empty()
+					expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
+					s.empty()
+					expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
+					expect(s.s("Go!").toString()).to.equal("Bracket Print Go!")
+					expect(s.empty().s("Fub").toString()).to.equal("Fub")
+					expect(s.empty().toString()).to.equal("")
+				})
+			})
 		})
 	})
 })
