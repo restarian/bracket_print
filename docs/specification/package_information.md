@@ -4,6 +4,8 @@
 ----
 
 ### Bracket Print help pages
+* [Contributor code of conduct](https://github.com/restarian/bracket_print/blob/master/docs/contributor_code_of_conduct.md)
+* [Guidelines for contributing](https://github.com/restarian/bracket_print/blob/master/docs/guidelines_for_contributing.md)
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
@@ -16,13 +18,13 @@
   * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
   * [As a_logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
   * [As a_string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/controlling_the_behaviour_via_option_data.md)
   * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
-    * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
 ----
 
-**Version**: 0.11.0
+**Version**: 0.11.1
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -40,9 +42,9 @@
 | ---- | ------ |
  | test | ```mocha``` |
  | build_config | ```node ./node_modules/brace_umd/bin/build_umd.js --config-file uglify_option.json``` |
- | build_umd | ```r_js -o ./rjs_build.js suffix="_umd" && r_js -o ./rjs_build_final.js suffix="_umd"``` |
+ | build_umd | ```r_js -o ./rjs_build.js && r_js -o ./rjs_build_final.js suffix="_umd"``` |
  | build_amd | ```r_js -o ./rjs_build.js && r_js -o ./rjs_build_final.js``` |
- | build | ```npm run build_config && npm run build_amd && npm run build_umd``` |
+ | build | ```npm run build_config && npm run build_umd && npm run build_amd``` |
  | make_docs | ```brace_document --navlink --link --link-dest ../Readme.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth --specification --mocha``` |
 
 **Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*

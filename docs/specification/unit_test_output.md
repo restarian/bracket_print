@@ -3,6 +3,8 @@
  
 ----
 ### Bracket Print help pages
+* [Contributor code of conduct](https://github.com/restarian/bracket_print/blob/master/docs/contributor_code_of_conduct.md)
+* [Guidelines for contributing](https://github.com/restarian/bracket_print/blob/master/docs/guidelines_for_contributing.md)
 * [Synopsis](https://github.com/restarian/bracket_print/blob/master/docs/synopsis.md)
 * Media and statistics
   * [Benchmarking](https://github.com/restarian/bracket_print/blob/master/docs/media_and_statistics/benchmarking.md)
@@ -15,10 +17,10 @@
   * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
   * [As a_logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
   * [As a_string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/controlling_the_behaviour_via_option_data.md)
   * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
-    * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/controlling_the_behaviour_via_option_data.md)
 ----
  
 ### ---------- Start of unit testing ----------
@@ -35,19 +37,62 @@
     * Checking for dependencies..
       * √ r_js in the system as a program
     * Internal storage
-      * √ Escapes double quotes in strings which are encapsulated with single quotes
-      * √ The denote_quoting option works with an empty value set
-      * √ Escapes single quotes in strings which are encapsulated with double quotes
-      * √ Escapes single or double quotes which are encapsulated in single or double quotes
-      * √ Properly inserts newlines into strings
-      * √ serializes the ECMA Object types while also using toString correctly
-      * √ serializes the ECMA arguments object
-      * √ serializes Error instances and Objects
-      * √ serializes native ECMA Objects
-      * √ serializes objects with odd property qualifiers
-      * √ serializes primitve Objects
-      * √ serializes primitve Objects with added properties
-      * √ clears stored text data with the empty() command
+      * Testing using requirejs and the lib directory
+        * √ Escapes double quotes in strings which are encapsulated with single quotes
+        * √ The denote_quoting option works with an empty value set
+        * √ Escapes single quotes in strings which are encapsulated with double quotes
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes
+        * √ Properly inserts newlines into strings
+        * √ serializes the ECMA Object types while also using toString correctly
+        * √ serializes the ECMA arguments object
+        * √ serializes Error instances and Objects
+        * √ serializes native ECMA Objects
+        * √ serializes objects with odd property qualifiers
+        * √ serializes primitve Objects
+        * √ serializes primitve Objects with added properties
+        * √ clears stored text data with the empty() command
+      * Testing using requirejs and the build directory with the umd version
+        * √ Escapes double quotes in strings which are encapsulated with single quotes
+        * √ The denote_quoting option works with an empty value set
+        * √ Escapes single quotes in strings which are encapsulated with double quotes
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes
+        * √ Properly inserts newlines into strings
+        * √ serializes the ECMA Object types while also using toString correctly
+        * √ serializes the ECMA arguments object
+        * √ serializes Error instances and Objects
+        * √ serializes native ECMA Objects
+        * √ serializes objects with odd property qualifiers
+        * √ serializes primitve Objects
+        * √ serializes primitve Objects with added properties
+        * √ clears stored text data with the empty() command
+      * Testing using requirejs and the build directory
+        * √ Escapes double quotes in strings which are encapsulated with single quotes
+        * √ The denote_quoting option works with an empty value set
+        * √ Escapes single quotes in strings which are encapsulated with double quotes
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes
+        * √ Properly inserts newlines into strings
+        * √ serializes the ECMA Object types while also using toString correctly
+        * √ serializes the ECMA arguments object
+        * √ serializes Error instances and Objects
+        * √ serializes native ECMA Objects
+        * √ serializes objects with odd property qualifiers
+        * √ serializes primitve Objects
+        * √ serializes primitve Objects with added properties
+        * √ clears stored text data with the empty() command
+      * Testing using commonjs which and the package.json entry of build/bracket_print_umd.js
+        * √ Escapes double quotes in strings which are encapsulated with single quotes
+        * √ The denote_quoting option works with an empty value set
+        * √ Escapes single quotes in strings which are encapsulated with double quotes
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes
+        * √ Properly inserts newlines into strings
+        * √ serializes the ECMA Object types while also using toString correctly
+        * √ serializes the ECMA arguments object
+        * √ serializes Error instances and Objects
+        * √ serializes native ECMA Objects
+        * √ serializes objects with odd property qualifiers
+        * √ serializes primitve Objects
+        * √ serializes primitve Objects with added properties
+        * √ clears stored text data with the empty() command
 
   * Performing benchmarks against the Yahoo serialize-json module and internal JSON.stringify.
     * with the style option set to true
@@ -155,7 +200,7 @@
       * √ returns an error message when incorrect style map theme values are used
       * √ returns an error message when incorrect style map theme values are used
 
-  * 90 passing
+  * 129 passing
 
 
 ### ---------- End of unit testing ----------
