@@ -32,7 +32,7 @@ All works, media and writings contained within this project are licensed the sam
 
 A project which is labeled with the Bracket Suite is open-sourced under the **LGPL Version 3** license. However, the license for the Bracket Suite may not pertain to all content used within a Bracket Suite project. Any (*and all*), content which is not explicitly licensed shall be used under the *Bracket Suite* license. Please make sure to verify all content licensing before using the works within the *Bracket Suite*.  
 
-___
+---
 
 **Author**: Robert Steckroth, *Bust0ut* [<RobertSteckroth@gmail.com>](mailto:robertsteckroth@gmail.com)
 
@@ -41,7 +41,6 @@ ___
 ---
 
 Copyright (c) 2020 Robert Steckroth [<RobertSteckroth@gmail.com>](mailto:RobertSteckroth@gmail.com)
-Copyright (C) 2018 Robert Steckroth [<RobertSteckroth@gmail.com>](mailto:RobertSteckroth@gmail.com)
 
 Bracket Print resides under the LGPL-v3 license
 
