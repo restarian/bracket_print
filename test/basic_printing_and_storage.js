@@ -38,7 +38,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 	})
 	describe("Internal storage", function() {
 
-
 		var msg = ""
 		;([0,1,2,3]).forEach(function(value) {
 
@@ -82,25 +81,21 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			describe(msg, function() {
 
 				it("Escapes double quotes in strings which are encapsulated with single quotes", function() {
-
-					var i, o = {cool: 'jo\"es'}
+					
+					var i, o = {cool: 'jo\\"es'}
 					s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
 					//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
 					i = {cool: 'jo"es'}
 					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
 					i = {cool: 'jo\"es'}
 					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
 					i = {cool: 'jo\\"es'}
 					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
 					i = {cool: 'jo\\\"es'}
 					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
-					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 
 					//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
 					i = {cool: 'jo\\\\\\"es'}
@@ -108,15 +103,41 @@ describe("Using stop further progression methodology for dependencies in: "+path
 					expect(s.toString(i)).to.equal('{"cool":"jo\\\\\\"es"}')
 					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 				})
-				it("The denote_quoting option works with an empty value set", function() {
+				it("Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false", function() {
 
-					expect(s.spawn({quote_qualifier: true, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
-					expect(s.spawn({quote_qualifier: false, denote_quoting: ""}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+					var i
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\"", ensure_escape: false})
+					i = {cool: 'jo"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\"es"}')
+
+					i = {cool: 'jo\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\"es"}')
+
+					i = {cool: 'jo\\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+
+					i = {cool: 'jo\\\"es'}
+					expect(s.toString(i)).to.equal('{"cool":"jo\\"es"}')
+
+					//Note: double backslashes will start to negate each other in pairs which is why the next time JSON.parse will return a valid object is with six backslashes.
+					i = {cool: 'jo\\\\\\"es'}
+					o = {cool: 'jo\\\"es'}
+					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 				})
-				it("Escapes single quotes in strings which are encapsulated with double quotes", function() {
+				it("The denote_quoting option works with an empty value set with the ensure_escape option set to true", function() {
+
+					expect(s.spawn({quote_qualifier: true, denote_quoting: "", ensure_escape: true}).toString({cool: "jo'es"})).to.equal("{cool:jo\'es}")
+					expect(s.spawn({quote_qualifier: false, denote_quoting: "", ensure_escape: true}).toString({cool: "jo'es"})).to.equal("{cool:jo\'es}")
+				})
+				it("The denote_quoting option works with an empty value set with the ensure_escape option set to false", function() {
+
+					expect(s.spawn({quote_qualifier: true, denote_quoting: "", ensure_escape: false}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+					expect(s.spawn({quote_qualifier: false, denote_quoting: "", ensure_escape: false}).toString({cool: "jo'es"})).to.equal('{cool:jo\'es}')
+				})
+				it("Escapes single quotes in strings which are encapsulated with double quotes with the ensure_escape option set to false", function() {
 
 					var i, o = {cool: "jo\'es"}
-					s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\"", ensure_escape: false})
 					//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
 					i = {cool: "jo'es"}
 					expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
@@ -138,10 +159,10 @@ describe("Using stop further progression methodology for dependencies in: "+path
 					expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\\\'es\"}")
 					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
 				})
-				it("Escapes single or double quotes which are encapsulated in single or double quotes", function() {
+				it("Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to true", function() {
 
 					var i, o
-					s = s.spawn({quote_qualifier: true, denote_quoting: "\""})
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\"", ensure_escape: true})
 					//expect(s.toString({cool: 'jo"es'})).to.equal('true {"cool":"jo\\"es"}')
 					i = {cool: 'jo\'es'}
 					o = {cool: "jo'es"}
@@ -150,8 +171,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 
 					i = {cool: 'jo"es'}
 					o = {cool: 'jo\"es'}
-					expect(s.toString(i)).to.equal("{\"cool\":\"jo\\\"es\"}")
-					expect(JSON.parse(s.toString(i))).to.be.an("object").that.deep.equal(o)
+					expect(s.toString(i)).to.equal('{\"cool\":\"jo\\"es\"}')
 
 					s = s.spawn({quote_qualifier: true, denote_quoting: "\'"})
 					i = {cool: 'jo"es'}
@@ -163,9 +183,31 @@ describe("Using stop further progression methodology for dependencies in: "+path
 					o = {cool: 'jo\'es'}
 					expect(s.toString(i)).to.equal("{\'cool\':\'jo\\'es\'}")
 				})
-				it("Properly inserts newlines into strings", function() {
+				it("Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to false", function() {
 
-					s = s.spawn({quote_qualifier: false})
+					var i, o
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\"", ensure_escape: false})
+					i = {cool: 'jo\'es'}
+					o = {cool: "jo'es"}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo'es\"}")
+
+					i = {cool: 'jo"es'}
+					o = {cool: 'jo\"es'}
+					expect(s.toString(i)).to.equal("{\"cool\":\"jo\"es\"}")
+
+					s = s.spawn({quote_qualifier: true, denote_quoting: "\'"})
+					i = {cool: 'jo"es'}
+					o = {cool: 'jo\"es'}
+					expect(s.toString(i)).to.equal("{\'cool\':\'jo\"es\'}")
+
+					s = s.spawn({quote_qualifier: true, denote_quoting: "'"})
+					i = {cool: 'jo\'es'}
+					o = {cool: 'jo\'es'}
+					expect(s.toString(i)).to.equal("{\'cool\':\'jo\'es\'}")
+				})
+				it("Properly inserts newlines into strings with the ensure_escape option set to false", function() {
+
+					s = s.spawn({quote_qualifier: false, ensure_escape: false})
 					expect(s.toString(true, {cool: 'jo\nes'})).to.equal('true {cool:"jo\nes"}')
 					expect(s.toString(true, {cool: 'jo\\nes'})).to.equal('true {cool:"jo\\nes"}')
 				})

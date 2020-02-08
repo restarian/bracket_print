@@ -15,16 +15,16 @@
   * **Package information**
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
-  * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
-  * [As a_logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
-  * [As a_string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
+  * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
+  * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
   * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/controlling_the_behaviour_via_option_data.md)
   * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
 ----
 
-**Version**: 0.11.1
+**Version**: 0.11.2
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -42,8 +42,8 @@
 | ---- | ------ |
  | test | ```mocha``` |
  | build_config | ```node ./node_modules/brace_umd/bin/build_umd.js --config-file uglify_option.json``` |
- | build_umd | ```r_js -o ./rjs_build.js && r_js -o ./rjs_build_final.js suffix="_umd"``` |
- | build_amd | ```r_js -o ./rjs_build.js && r_js -o ./rjs_build_final.js``` |
+ | build_umd | ```r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js suffix="_umd"``` |
+ | build_amd | ```r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js``` |
  | build | ```npm run build_config && npm run build_umd && npm run build_amd``` |
  | make_docs | ```brace_document --navlink --link --link-dest ../Readme.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth --specification --mocha``` |
 

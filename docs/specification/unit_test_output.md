@@ -14,9 +14,9 @@
   * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
   * **Unit test output**
 * Usage and examples
-  * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
-  * [As a_logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
-  * [As a_string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
+  * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
+  * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
   * [Controlling the behaviour via option data](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/controlling_the_behaviour_via_option_data.md)
   * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
@@ -39,10 +39,13 @@
     * Internal storage
       * Testing using requirejs and the lib directory
         * √ Escapes double quotes in strings which are encapsulated with single quotes
-        * √ The denote_quoting option works with an empty value set
-        * √ Escapes single quotes in strings which are encapsulated with double quotes
-        * √ Escapes single or double quotes which are encapsulated in single or double quotes
-        * √ Properly inserts newlines into strings
+        * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to true
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to false
+        * √ Escapes single quotes in strings which are encapsulated with double quotes with the ensure_escape option set to false
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to true
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to false
+        * √ Properly inserts newlines into strings with the ensure_escape option set to false
         * √ serializes the ECMA Object types while also using toString correctly
         * √ serializes the ECMA arguments object
         * √ serializes Error instances and Objects
@@ -53,10 +56,13 @@
         * √ clears stored text data with the empty() command
       * Testing using requirejs and the build directory with the umd version
         * √ Escapes double quotes in strings which are encapsulated with single quotes
-        * √ The denote_quoting option works with an empty value set
-        * √ Escapes single quotes in strings which are encapsulated with double quotes
-        * √ Escapes single or double quotes which are encapsulated in single or double quotes
-        * √ Properly inserts newlines into strings
+        * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to true
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to false
+        * √ Escapes single quotes in strings which are encapsulated with double quotes with the ensure_escape option set to false
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to true
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to false
+        * √ Properly inserts newlines into strings with the ensure_escape option set to false
         * √ serializes the ECMA Object types while also using toString correctly
         * √ serializes the ECMA arguments object
         * √ serializes Error instances and Objects
@@ -67,10 +73,13 @@
         * √ clears stored text data with the empty() command
       * Testing using requirejs and the build directory
         * √ Escapes double quotes in strings which are encapsulated with single quotes
-        * √ The denote_quoting option works with an empty value set
-        * √ Escapes single quotes in strings which are encapsulated with double quotes
-        * √ Escapes single or double quotes which are encapsulated in single or double quotes
-        * √ Properly inserts newlines into strings
+        * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to true
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to false
+        * √ Escapes single quotes in strings which are encapsulated with double quotes with the ensure_escape option set to false
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to true
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to false
+        * √ Properly inserts newlines into strings with the ensure_escape option set to false
         * √ serializes the ECMA Object types while also using toString correctly
         * √ serializes the ECMA arguments object
         * √ serializes Error instances and Objects
@@ -79,12 +88,15 @@
         * √ serializes primitve Objects
         * √ serializes primitve Objects with added properties
         * √ clears stored text data with the empty() command
-      * Testing using commonjs which and the package.json entry of build/bracket_print_umd.js
+      * Testing using commonjs which and the package.json entry of lib/bracket_print.js
         * √ Escapes double quotes in strings which are encapsulated with single quotes
-        * √ The denote_quoting option works with an empty value set
-        * √ Escapes single quotes in strings which are encapsulated with double quotes
-        * √ Escapes single or double quotes which are encapsulated in single or double quotes
-        * √ Properly inserts newlines into strings
+        * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to true
+        * √ The denote_quoting option works with an empty value set with the ensure_escape option set to false
+        * √ Escapes single quotes in strings which are encapsulated with double quotes with the ensure_escape option set to false
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to true
+        * √ Escapes single or double quotes which are encapsulated in single or double quotes with the ensure_escape option set to false
+        * √ Properly inserts newlines into strings with the ensure_escape option set to false
         * √ serializes the ECMA Object types while also using toString correctly
         * √ serializes the ECMA arguments object
         * √ serializes Error instances and Objects
@@ -200,7 +212,7 @@
       * √ returns an error message when incorrect style map theme values are used
       * √ returns an error message when incorrect style map theme values are used
 
-  * 129 passing
+  * 141 passing
 
 
 ### ---------- End of unit testing ----------

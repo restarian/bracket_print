@@ -13,9 +13,9 @@
   * [Package information](https://github.com/restarian/bracket_print/blob/master/docs/specification/package_information.md)
   * [Unit test output](https://github.com/restarian/bracket_print/blob/master/docs/specification/unit_test_output.md)
 * Usage and examples
-  * [As a_callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
-  * [As a_logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
-  * [As a_string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
+  * [As a callback](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_callback.md)
+  * [As a logger](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_logger.md)
+  * [As a string](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/as_a_string.md)
   * **Controlling the behaviour via option data**
   * [How the level correlates to styling](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/how_the_level_correlates_to_styling.md)
   * Advanced usage
@@ -109,6 +109,10 @@ Do not print function body text. Instead print just the function declaration and
 **shift_function_body** - [*Boolean*], default: **true**
 
 Replaces the natural indent of the function body string with an indent which matches the current object parsing indent.
+
+**ensure_escape** - [*Boolean*], default: **true**
+
+When a quote is found inside a string which uses the same quotes, at least two backslashes will be printed to ensure that the string is parsable as json data. If more than one backslash was included in a string than no additional backslashes will be added. Otherwise when set to false, a quote can be printed without a backslash which is not valid json data but may have the desired appearance. This mechanism works when using the *denote_quote* option as well.
 
 **enumerate_all** - [*Boolean*], default: **false**
 
