@@ -35,23 +35,23 @@
 
 ---
 
-### Bracket Print is an ECMA serialization and logging tool with colorful and plain text output for the terminal and browser consoles.
+### Bracket Print is an ECMA serialization and logging tool with colorful and plain text output for terminal, browser, html or custom platforms.
 
 **Bonuses:**
 
-* Now supports the ES6 arrow functions.
 * Works in the browser, console or terminal with the default styles which can be extended to other special uses.
 * Can output ECMA Objects in html syntax or any other custom created platforms.
+* Supports the ES6 arrow functions.
 * Uses AMD (asynchronous module definition), syntax.
-* Well commented, thoroughly unit tested and professionally engineered code.
 * Has full [Brace Umd](https://npmjs.org/packages/brace_umd) integration for ideal and deterministic deployment builds.
 * Can stringify ECMA script (unlike the *JSON* builtin and other serializers)
-* Bracket Print can serialize massive Objects (like the browser *window* property), without hiccups.
+* Bracket Print can safely serialize massive Objects (like the browser *window* property), without hiccups.
 	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects).
 	* Output can be configured to be passed into JSON.parse or eval() methods.
 * Uses a instance return chain to allow for usage as functional programming callbacks.
 * Contains a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge.
 * Provides configurable syntax mapping with custom individualized styles.
+* Well commented, thoroughly unit tested and professionally engineered code.
 
 **Caveats:**
 

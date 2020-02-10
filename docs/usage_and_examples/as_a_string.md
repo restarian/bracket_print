@@ -24,7 +24,7 @@
 ---
 
 ### Concatenation:
-It is easy and programmatically efficient to assemble strings using bracket print. The process can be made the most efficient by turning off style formatting via the option member like below.
+It is easy and programmatically efficient to assemble strings using Bracket Print. The process is made more efficient by setting the *style* option to false via the option member like in the example below. 
 
 ```javascript
 var up = require("bracket_print")({style: false})
@@ -40,11 +40,9 @@ var log_string_a = up.toStyleString()
 
 ```
 
-
 The *toString* member is cheap to call (it simply returns an instance value if no parameters are provided), so the above example has little system resource impact.
 
-The *toStyleString* call above returns the non-styled text sense the *style* option was set falsey. There is no increase in resource overhead to use it instead of *toString* when styling is disabled via the *style* option.
-
+The *toStyleString* call above returns the non-styled text sense the *style* option was set false. There is no increase in resource overhead to use it instead of *toString* when styling is disabled via the *style* option.
 
 Any parameters that are passed into *toString* or *toStyleString* will be added to the call chain using the last command used for separation. The default command of *space* will be used when *toString* or *toStyleString* is called before a separation command.
 
@@ -60,18 +58,40 @@ console.log(str2) // <- Logs  This is Bracket Print Hello world!
 
 ```
 
-#### Members:
+#### String concatenation members
 
-Below are the members which concatenate strings. All of them return complete and bound instances with any string data from the previous calls.
-* *space()* or *s()*:
-  * adds a space between string parameters and member calls.
-* *line()* or *l()*:
-  * adds a newline between string parameters and member calls.
-* *tab()* or *t()*:
-  * adds a tab between string parameters and member calls.
-* *add()* or *a()*:
-  * does not add any characters between string parameters and member calls.
+Below are the members which concatenate strings into the stored instance data. 
 
+For members that do not return the instance, the last member called which specifies a separater will be used for its separater. The *space* member is used if no separater member was called before it. E.g. .line("cool").log("joes", "man") will put all of those words on seperate lines.
 
+* All the members below return complete and bound instances with any string data from the previous calls.
+	* *space()* or *s()*:
+		* adds a space between string parameters and member calls and returns the instance.
+	* *line()* or *l()*:
+		* adds a newline between string parameters and member calls and returns the instance.
+	* *tab()* or *t()*:
+		* adds a tab between string parameters and member calls and returns the instance.
+	* *add()* or *a()*:
+		* does not add any characters between string parameters and member calls and returns the instance.
+	* *log()*
+		* runs the *log_output* option function and returns the instance.
 
-  
+* The members below also concatenate the stored instance string data (like the above), but will not return the instance. 
+	* *log_true()*
+		* runs the *log_output* option function and returns true.
+	* *log_false()*
+		* runs the *log_output* option function and returns false.
+	* *log_undefined()*
+		* runs the *log_output* option function and returns undefined.
+	* *log_null()*
+		* runs the *log_output* option function and returns null.
+	* *log_empty()*
+		* runs the *log_output* option function and returns an empty string.
+	* *log_**[0-9]**()*
+		* runs the *log_output* option function and returns the specifed number Example *.log_4()* returns the number 4 after calling the *log_output* function.
+	* *log_N**[0-9]**()*
+		* runs the *log_output* option function and returns the specifed number Example *.log_N4()* returns the number -4 after calling the *log_output* function.
+	* *toString()*
+		* adds the last command separater (or space if none), and returns the stored string. 
+	* *toStyleString()*
+		* adds the last command separater (or space if none), and returns the stored styled string. 

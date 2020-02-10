@@ -1,6 +1,6 @@
 {
   "name": "bracket_print",
-  "main": "build/bracket_print_umd.js",
+  "main": "lib/bracket_print.js",
   "version": "0.11.5",
   "description": "Comprehensive logging, printing and serialization for ECMA script.",
   "license": "LGPL-3.0",
@@ -9,11 +9,12 @@
     "build_config": "build_umd --config-file uglify_option.json",
     "build_umd": "r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js suffix=\"_umd\"",
     "build_amd": "r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js",
-    "build": "npm run build_config && npm run build_umd && npm run build_amd",
+    "build_example": "r_js -o ./example/rjs_build_example.js",
+    "build": "npm run build_config && npm run build_umd && npm run build_amd && npm run build_example",
     "make_docs": "brace_document --navlink --link --link-dest ../Readme.md --link-path ../docs/synopsis.md -r -i docs --force-title --title \"Bracket Print help pages\" --sort depth --specification --mocha"
   },
   "dependencies": {
-    "brace_option": "^0.5.1"
+    "brace_option": "^0.5.4"
   },
   "devDependencies": {
     "amdefine": "^1.0.1",

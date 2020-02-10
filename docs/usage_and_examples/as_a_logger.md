@@ -23,11 +23,22 @@
 
 ---
 
-### Bracket print makes for a wonderful console logger
-#### The logger will output to the browser console or to stdout in nodejs environments.
+### Logging the stored strings
+The output mechanism itelf is controlled with the *log_output* option value. The default value of the function simply applies the passed in array of strings to a console.log call. Note: The defualt value of *log_output* can be found in the options documentation. Any function which is set to the *log_output* option will need to join the argumemt array together or ouput it with a loop. See the example below for usage of a *log_output* function. Note: The array will only be of length 1 unless the browser platform is used or a custom plaftorm style was added that uses format array complementing.
 
-### Practice:
-The greatest strength of logging lies with tracing back steps to diagnose problems. This can be boosted when using a logger which passes down into other scrips and functions with the initial options and data intact. The example below demonstrates this simple methodology by using a function inside of another function. The logger is able to keep all of the initial settings while altering the *title* and *level* for use in the secondary function.
+```javascript
+function(output) {
+	//Method 1:
+	document.write.apply(document, output)
+	//Method 2: (which is the default)
+	console.log.apply(console, output)
+	//Method 3:
+	document.body.innerHtml += output.join()
+}
+```
+
+### Practice
+The greatest strength of software logging lies within tracing steps to diagnose problems. This can be boosted when using a logger which passes down into other scrips and functions with the initial options and data intact. The example below demonstrates this simple methodology by using a function inside of another function. The logger is able to keep all of the initial settings while altering the *title* and *level* for use in the secondary function.
 
 Note: passing in incorrect option keys will result in an message printed with the currently available option listed. This may not show depending if the *internal_level* option value as well.
 

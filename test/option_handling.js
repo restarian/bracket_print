@@ -50,10 +50,11 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(up.log_level).to.deep.equal([-Infinity, Infinity])	
 			expect(Print.prototype.log_level).to.deep.equal([-Infinity, Infinity])	
 			Print.prototype.log_level = 0
-			expect(up.log_level).to.deep.equal([0, 0])	
+			expect(up.log_level).to.deep.equal([-Infinity, Infinity])
 			up.clear("log_level")
-			Print.prototype.log_level = ""
-			expect(up.log_level).to.deep.equal([-Infinity, Infinity])	
+			expect(up.log_level).to.deep.equal([0, 0])
+			Print.prototype.log_level = "1"
+			expect(up.log_level).to.deep.equal([1, 1])
 			cache.dump()
 		})
 		
@@ -170,8 +171,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				expect(Print("Cool", {log_title: "Heading two"}, "Joe", {log_title: "nope"}, s).log_title).to.equal("Joe")
 
 			})
-
-			it("The log level property is parsed and assigned the proper value", function() {
+			it("The log_level property is parsed and assigned the proper value", function() {
 				
 				var p = Print(s)	
 
@@ -182,7 +182,29 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				expect(s.option({log_level: "0"}).log_level).to.deep.equal([0,0])
 				
 			})
+			it("The log_output property errors if a non-function is passed in", function() {
+				var captured_text = "", unhook_intercept = intercept(function(txt) { captured_text += txt })
+				var p = Print(s, {log_output: null}).log_false("cool")
+				expect(captured_text).to.include("The value set to log_option is not of the type function")
+				unhook_intercept()
+				expect(p).to.be.false
+			})
+			it("The log_output property is accepted and used appropriately", function() {
 
+				var p = Print(s, {style: false, title: false})	
+				var text = ""
+				var output = function(str) {
+					text += str.join()
+				}
+
+				expect(p.spawn({}).log_output).to.be.a("function").that.not.deep.equals(output)
+				expect(p.spawn({log_output: output}).s("cool").log_undefined()).to.be.undefined
+				expect(text).to.equal("cool")
+				expect(p.spawn({log_output: output}).log_true("joes")).to.be.true
+				expect(text).to.equal("cooljoes")
+
+
+			})
 			it("quoting can be changed and is used properly", function() {
 
 				expect(s.option({denote_quoting: "\'"}).s({15: 44,here: "there"}).toString()) .to.equal("{'15':44,'here':'there'}")
@@ -193,7 +215,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				s.denote_quoting = "\""
 				expect(s.s({1:44,here: "there"}).toString()) .to.equal("{\"1\":44,\"here\":\"there\"}")
 			})
-
 			it("enumerate_all option has desire effect", function() {
 
 				expect(s.empty().option({denote_quoting: "~"}).s({1:44,here: "there"}).toString()) .to.equal("{~1~:44,~here~:~there~}")

@@ -1,48 +1,35 @@
-/* Bracket print resides under the LGPL v3
-
- Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
-
- Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA serialization.
-
- this file is a part of Bracket print
-
-Bracket Print is free software: you can redistribute it and/or modify it under the terms of the 
-GNU LESSER GENERAL PUBLIC LICENSE as published by the Free Software Foundation, either version 3 
-of the License, or (at your option) any later version.
-
-Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
-even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program.  
-If not, see <http://www.gnu.org/licenses/>. */
-
-var Print
+var Print, browser = false
 try {
 	Print = require("../../bracket_print")
 }
 catch(e) {
-	Print = null
+	Print = this["bracket_print"]
+	browser = true
 }
 
-if ( !Print ) {
-	try {
-		Print = this["bracket_print"]
-	}
-	catch(e) {
-		// This should never happen.
-		console.log("Something is wrong with the example file setup.")
-	}
+var up = Print({log_title: "Example 1", level: 2, compression: 1, theme: "light"}), up_html
+if ( browser ) {
+	document.body.style.backgroundColor = "#bdcacc"
+	var ele = document.getElementById("example")
+	up_html = Print({log_title: "Example 1", level: 2, compression: 1, theme: "light", platform: "html", 
+		log_output: function(str) { ele.innerHTML += str.join() + "\n" }})
 }
+else
+	up_html = Print({style: false, title: false, log_level: 0, level: 1})
 
-
-var up = Print({log_title: "Example 1", level: 2, compression: 1, theme: "light"})
 
 up.s("The first instance of Print will store the default settings for the others.")
-  .line("Here are the configurable settings:", up._mutable_options).log()
+  .l("Here are the configurable settings:", Object.keys(up.list())).log()
+
+up_html.s("The first instance of Print will store the default settings for the others.")
+  .l("Here are the configurable settings:", Object.keys(up.list())).log()
 
 var complex_object = {a: {b: 34, __proto__: {cool: "joes", make: false}, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) {
+
 	this.var = "joes man"
+
+	// Some more function text here.
+	
 }
 ], depth: 1, nested: {depth: 2, nested: {depth: 3, nested: {depth: 4}}}}}
 
@@ -50,14 +37,18 @@ var complex_object = {a: {b: 34, __proto__: {cool: "joes", make: false}, is_null
 up.compression = 4
 up.denote_quoting = "'"
 
+up.option({level: 1}).log("The level option is used to prioritize loging and serializations it must be within the range", 
+	"log_level option of the instance")
 
-up.option({level: 1}).log("The level option is used to prioritize loging and serializations. It must be lower than the log_level of the instance. The global log_level")
-	.s("can be set with the prototype of any Print instance").log()
+up_html.option({level: 1}).log("The level option is used to prioritize loging and serializations it must be within the range", 
+	"log_level option of the instance")
 
 var log_them = function() {
 
 	up.option({level: 1}).log("This is at level 1", complex_object)
 	up.option({level: 2}).log("This is at level 2", complex_object)
+	up_html.option({level: 1}).log("This is at level 1", complex_object)
+	up_html.option({level: 2}).log("This is at level 2", complex_object)
 }
 
 Print.prototype.log_level = 1
@@ -71,7 +62,7 @@ Print.prototype.log_level = "0-3"
 log_them()
 up.compression = 1
 
-up.option({compression: 4}).log("Compress the object to level", 4, complex_object)
+up.option({compression: 5}).log("Compress the object to level", 5, complex_object)
 up.option({compression: 4}).log("Compress the object to level", 4, complex_object)
 up.option({compression: 3}).log("Compress the object to level", 3, complex_object)
 up.denote_quoting = "\'"
@@ -79,6 +70,13 @@ up.option({compression: 2}).log("Start using double quotes and compress the obje
 up.denote_quoting = ""
 up.option({compression: 1}).log("Compress the object to level", 1, complex_object)
 
+up_html.option({compression: 5}).log("Compress the object to level", 5, complex_object)
+up_html.option({compression: 4}).log("Compress the object to level", 4, complex_object)
+up_html.option({compression: 3}).log("Compress the object to level", 3, complex_object)
+up_html.denote_quoting = "\'"
+up_html.option({compression: 2}).log("Start using double quotes and compress the object to level", 2, complex_object)
+up_html.denote_quoting = ""
+up_html.option({compression: 1}).log("Compress the object to level", 1, complex_object)
 
 var circular_obj = { First: 1, Second: 2}
 circular_obj.Third = circular_obj
@@ -99,12 +97,12 @@ up.log(circular_obj)
 up = up.spawn(Print())
 
 var example_2 = up.spawn("Example 2")
-example_2.log("Example two was created with new copy and has the exact same options as example 1 but is uniquely threaded.",
-  example_2._mutable_options)
+example_2.log("Example two was created with new a spawn and has the exact same options as example 1 but is uniquely instanced.",
+  example_2.list())
 
 var example_3 = example_2.spawn("Example 3")
 example_2.log("Example three was created with the example_2 settings constructor and passed a title as a string.",
-  "It has the exact same options as example 2 but is uniquely threaded as well.", example_2._mutable_options)
+  "It has the exact same options as example 2 but is uniquely instanced as well.", example_2.list())
 
 
 var a = function(){}

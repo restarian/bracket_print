@@ -296,6 +296,24 @@ describe("Using stop further progression methodology for dependencies in: "+path
 					expect(s.empty().s("Fub").toString()).to.equal("Fub")
 					expect(s.empty().toString()).to.equal("")
 				})
+				it("The logging commands which do not return an instance, return the correct values", function() {
+
+					s.empty()
+					expect(s.s("Bracket Print").toString()).to.equal("Bracket Print")
+					s.empty()
+					expect(s.s("Bracket Print").log().toString()).to.equal("Bracket Print")
+					expect(s.s("Bracket Print").log_true()).to.be.true
+					expect(s.s("Bracket Print").log_false()).to.be.false
+					expect(s.s("Bracket Print").log_undefined()).to.be.undefined
+					expect(s.s("Bracket Print").log_null()).to.be.null
+					expect(s.s("Bracket Print").log_empty()).to.be.a("string").that.is.empty
+					expect(s.s("Bracket Print").log_0()).to.be.a("number").that.equals(0)
+					expect(s.s("Bracket Print").log_1()).to.be.a("number").that.equals(1)
+					expect(s.s("Bracket Print").log_9()).to.be.a("number").that.equals(9)
+					expect(s.s("Bracket Print").log_N0()).to.be.a("number").that.equals(0)
+					expect(s.s("Bracket Print").log_N3()).to.be.a("number").that.equals(-3)
+					expect(s.s("Bracket Print").log_N9()).to.be.a("number").that.equals(-9)
+				})
 			})
 		})
 	})

@@ -25,8 +25,8 @@
 
 The option mechanism uses [Brace Option](https://github.com/restarian/brace_option) for functionality. See the docs therein for usage which will apply to Bracket Print instances as well.
 
-### Options mechanism:
-Options can be passed to Bracket Print using the constructor, the *spawn*, *option*, or *empty* members. The option Object passed in can be a literal Object, Bracket Print instance, arguments Object, or a String. If a string parameter is passed in it will be used as the *log_title* value. Any string passed in will take priority over any *log_title* value contained in the Object parameters. And multiple strings will cause the last one in the parameter list to take priority. Passing in multiple Objects will override the previous values of Objects passed in.
+### Options mechanism
+Options can be passed to Bracket Print in many ways. All of the members which accept options use either an Object (or string for the log_title), to set the options. Multiple arguments can be passed in as well for convenience and the last argument values take priority. The constructor itself can be used the set option data, or the *spawn*, *option*, or *empty* members. The options Object passed in can be a literal Object, Bracket Print instance, arguments Object, or a String. If a string parameter is passed in it will be used as the *log_title* value. Any string passed in will take priority over any *log_title* value contained in the Object parameters and passing multiple strings will cause the last one in the parameter list to take priority. For example, in the following command call: .spawn({compression: 5}, {compression: 1}) the compression option value of the resulting instance will be set to 1.
 
 Consider the example below where the String parameter takes priority above the *log_title* set in the Object and Objects override previous Object values passed in.
 
@@ -52,7 +52,7 @@ up.empty({log_title: "This title"})
 
 ```
 
-**Below is a list of the available configurable options. The options mechinism is supported by [Brace Option](https://npmjs.org/package/brace_option). Further reading on option usage is directed there.**
+**Below is a list of the available configurable options. The options mechinism is supported by [Brace Option](https://npmjs.org/package/brace_option). Further reading on option usage is advised thereof.**
 
 **style** - [*Boolean*], default: **true**
 
@@ -82,13 +82,16 @@ The text styling will use this theme which is described in the style map.
 
 The compression level of the Object serializations. Lower numbers create more spacious formatting. Level four removes all white space and new lines from the Object. 
 
+**log_output** - [*function*], default: **Function(str_arr) { console.log.apply(console, str_arr) }**
+This option must be a callable function and will be passed an Array as the first and only argument when a *log* command is called. This mechanism does not affect the toString or any other concatenation calls.
+
 **indentation_string** - [*String*], default: **"    "**
 
 The string to use as one indentation. A non-white-space value will be colorized by the style map indent value. The *denote_space*, *denote_tab*, and *denote_line* values in the platform style map will be applied to this before it is used.
 
 **platform** - [*string*], default: **(typeof require == "function" && require.isBrowser === false || typeof module === "object" && typeof module.exports === "object" ) && "terminal" || "browser"**,
 
-The platform will control which style to use from the map. It is auto-detected as the default value.
+The platform will control which platform styling to use from the map. It is auto-detected as the default value.
 
 **depth_limit** - [*Number*], default: **800**
 
@@ -140,4 +143,4 @@ The level of the print instance which pertains to the current *log_level*. Conti
 
 **internal_level** - [*Number*], default: **false**
 
-This is used to set the level of any messages which are logged internally in bracket print. Setting the value falsey will use the value level as the current level.
+This is used to set the level of any messages which are logged internally in Bracket Print. Setting the value false (must ne a non-number) will use the internal level as the current level.
