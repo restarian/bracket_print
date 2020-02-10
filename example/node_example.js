@@ -1,70 +1,63 @@
-<html>
-  <!--
-  Bracket Print is a printing and logging tool for javascript engines which suppies literal ECMA Object serialization.
+/* Bracket print resides under the LGPL v3
 
- Copyright (C) 2017  Robert Edward Steckroth II <RobertSteckroth@gmail.com>
+ Copyright (C) 2018 Robert Steckroth <RobertSteckroth@gmail.com>
 
- Bracket Print is free software: you can redistribute it and/or modify
- it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+ Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA serialization.
 
- Bracket DMZ is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ this file is a part of Bracket print
 
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Bracket Print is free software: you can redistribute it and/or modify it under the terms of the 
+GNU LESSER GENERAL PUBLIC LICENSE as published by the Free Software Foundation, either version 3 
+of the License, or (at your option) any later version.
 
-// Author: Robert Edward Steckroth II <RobertSteckroth@gmail.com>
--->
-<script type="text/javascript" src="libraries/node_modules/brackit_print/lib/print.js"></script>
+Bracket print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+GNU General Public License for more details.
 
-<body>
-<h2>Bracket Print Demo</h2>
-<h5>Open console to see other ooutput</h5>
-<p id="serialize"></p>
+You should have received a copy of the GNU General Public License along with this program.  
+If not, see <http://www.gnu.org/licenses/>. */
 
-<script>
+var Print
+try {
+	Print = require("../../bracket_print")
+}
+catch(e) {
+	Print = null
+}
 
-var up = Print({log_title: "Example 1", level: 2, compression: 1, theme: "theme"})
+if ( !Print ) {
+	try {
+		Print = this["bracket_print"]
+	}
+	catch(e) {
+		// This should never happen.
+		console.log("Something is wrong with the example file setup.")
+	}
+}
+
+
+var up = Print({log_title: "Example 1", level: 2, compression: 1, theme: "light"})
 
 up.s("The first instance of Print will store the default settings for the others.")
   .line("Here are the configurable settings:", up._mutable_options).log()
 
-document.getElementById("serialize").innerHTML = up.option({platform: "html"})
-  .s("The first instance of Print will store the default settings for the others.")
-  .line("Here are the configurable settings:", up._mutable_options).toColorString()
-
-//up.option({theme: "dark"}).s("The first instance of Print will store the default settings for the others.")
-//  .line("Here are the configurable settings:", up._mutable_options).log()
 var complex_object = {a: {b: 34, __proto__: {cool: "joes", make: false}, is_null: null, is_not: undefined, b1: true, b2not: false, my_cool_one: [1,2,3, Function, Number, 5, function(cool) {
 	this.var = "joes man"
 }
 ], depth: 1, nested: {depth: 2, nested: {depth: 3, nested: {depth: 4}}}}}
 
+
 up.compression = 4
 up.denote_quoting = "'"
 
-Print.prototype.log_level = ""
 
-up.option({compression: 4}).log("compress the object to level", 4, complex_object)
-up.option({compression: 3}).log("compress the object to level", 3, complex_object)
-up.denote_quoting = "\'"
-up.option({compression: 2}).log("start using double quotes and compress the object to level", 2, complex_object)
-up.denote_quoting = ""
-up.option({compression: 1}).log("compress the object to level", 1, complex_object)
+up.option({level: 1}).log("The level option is used to prioritize loging and serializations. It must be lower than the log_level of the instance. The global log_level")
+	.s("can be set with the prototype of any Print instance").log()
 
-
-document.getElementById("serialize").innerHTML += up.option({compression: 4, platform: "html"}).s("compress the object to level", 4, complex_object)
-  .option({compression: 3}).s("compress the object to level", 3, complex_object)
-  .option({denote_quoting: "\'", compression: 2}).s("start using double quotes and compress the object to level", 2, complex_object)
-  .option({denote_quoting: "", compression: 1}).s("compress the object to level", 1, complex_object).toColorString()
-/*
 var log_them = function() {
 
-	up.option({level: 1}).log("This is at level 1")//, complex_object)
+	up.option({level: 1}).log("This is at level 1", complex_object)
+	up.option({level: 2}).log("This is at level 2", complex_object)
 }
 
 Print.prototype.log_level = 1
@@ -104,17 +97,15 @@ up.log(circular_obj)
 
 // Get the default settings into this copy.
 up = up.spawn(Print())
+
 var example_2 = up.spawn("Example 2")
 example_2.log("Example two was created with new copy and has the exact same options as example 1 but is uniquely threaded.",
   example_2._mutable_options)
-
-document.getElementById("serialize").innerHTML = example_2.option({platform: "html"}).toColorString()
 
 var example_3 = example_2.spawn("Example 3")
 example_2.log("Example three was created with the example_2 settings constructor and passed a title as a string.",
   "It has the exact same options as example 2 but is uniquely threaded as well.", example_2._mutable_options)
 
-document.getElementById("serialize").innerHTML = example_3.option({platform: "html"}).toString()
 
 var a = function(){}
 a.prototype = Object.create({cool: function(){}, tmy: "good"})
@@ -139,8 +130,11 @@ void function(obj, cnt) {
 
 up.line("Bracket Print can also throttle the nesting level of object parsing using the depth_limit setting")
 .option({compression: 4, depth_limit: 3, indentation_string: "  "}).log(a)
-*/
-/*
+
+var b = typeof Buffer !== "undefined" && Buffer || new Float32Array().buffer
+up.spawn({compression: 1, truncate_function: true}).line("Check me out serializing the Object structure of the nodejs Buffer bult-in module!", b)
+.log().option({truncate_function: false, character_limit: 2000}).empty().line("Or the entire Buffer module trucncated to 2000 characters.", b).log()
+
 up.log("Calling log with multiple arguments", "will use the", "last known",
   "separator (a space is the default).")
 var cont = up.line("Adding lines is easy now").log("These use the last known", "separator (a line now)")
@@ -174,9 +168,3 @@ up.option({indentation_string: "        "}).log(complex_object)
 up.compression = 4
 up.option({indentation_string:  "-"})
 
-
-*/
-
-</script>
-</body>
-</html>

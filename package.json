@@ -6,7 +6,7 @@
   "license": "LGPL-3.0",
   "scripts": {
     "test": "mocha",
-    "build_config": "node ./node_modules/brace_umd/bin/build_umd.js --config-file uglify_option.json",
+    "build_config": "build_umd --config-file uglify_option.json",
     "build_umd": "r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js suffix=\"_umd\"",
     "build_amd": "r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js",
     "build": "npm run build_config && npm run build_umd && npm run build_amd",
@@ -18,7 +18,7 @@
   "devDependencies": {
     "amdefine": "^1.0.1",
     "brace_maybe": "^0.1.3",
-    "brace_umd": "^0.10.3",
+    "brace_umd": "^0.11.1",
     "bracket_utils": "^0.3.0",
     "chai": "^4.2.0",
     "intercept-stdout": "^0.1.2",
