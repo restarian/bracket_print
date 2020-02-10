@@ -88,7 +88,7 @@
         * √ serializes primitve Objects
         * √ serializes primitve Objects with added properties
         * √ clears stored text data with the empty() command
-      * Testing using commonjs which and the package.json entry of lib/bracket_print.js
+      * Testing using commonjs which and the package.json entry of build/bracket_print_umd.js
         * √ Escapes double quotes in strings which are encapsulated with single quotes
         * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
         * √ The denote_quoting option works with an empty value set with the ensure_escape option set to true

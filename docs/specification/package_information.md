@@ -24,7 +24,7 @@
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
 ----
 
-**Version**: 0.11.2
+**Version**: 0.11.4
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -41,7 +41,7 @@
 | Name | Action |
 | ---- | ------ |
  | test | ```mocha``` |
- | build_config | ```node ./node_modules/brace_umd/bin/build_umd.js --config-file uglify_option.json``` |
+ | build_config | ```build_umd --config-file uglify_option.json``` |
  | build_umd | ```r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js suffix="_umd"``` |
  | build_amd | ```r_js -o ./rjs_build_first.js && r_js -o ./rjs_build_second.js``` |
  | build | ```npm run build_config && npm run build_umd && npm run build_amd``` |
