@@ -54,6 +54,7 @@
         * √ serializes primitve Objects
         * √ serializes primitve Objects with added properties
         * √ clears stored text data with the empty() command
+        * √ The logging commands which do not return an instance, return the correct values
       * Testing using requirejs and the build directory with the umd version
         * √ Escapes double quotes in strings which are encapsulated with single quotes
         * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
@@ -71,6 +72,7 @@
         * √ serializes primitve Objects
         * √ serializes primitve Objects with added properties
         * √ clears stored text data with the empty() command
+        * √ The logging commands which do not return an instance, return the correct values
       * Testing using requirejs and the build directory
         * √ Escapes double quotes in strings which are encapsulated with single quotes
         * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
@@ -88,6 +90,7 @@
         * √ serializes primitve Objects
         * √ serializes primitve Objects with added properties
         * √ clears stored text data with the empty() command
+        * √ The logging commands which do not return an instance, return the correct values
       * Testing using commonjs which and the package.json entry of build/bracket_print_umd.js
         * √ Escapes double quotes in strings which are encapsulated with single quotes
         * √ Escapes double quotes in strings which are encapsulated with single quotes with the ensure_escape option set to false
@@ -105,6 +108,7 @@
         * √ serializes primitve Objects
         * √ serializes primitve Objects with added properties
         * √ clears stored text data with the empty() command
+        * √ The logging commands which do not return an instance, return the correct values
 
   * Performing benchmarks against the Yahoo serialize-json module and internal JSON.stringify.
     * with the style option set to true
@@ -181,7 +185,9 @@
       * √ create the desired prototype chain and utilize redundancy
       * √ the log_title, log_title_stamp and auto_hyphen_title options operate together as expected
       * √ store and transfers the log_title in many ways
-      * √ The log level property is parsed and assigned the proper value
+      * √ The log_level property is parsed and assigned the proper value
+      * √ The log_output property errors if a non-function is passed in
+      * √ The log_output property is accepted and used appropriately
       * √ quoting can be changed and is used properly
       * √ enumerate_all option has desire effect
       * √ max_character setting is adhered to
@@ -190,7 +196,9 @@
       * √ create the desired prototype chain and utilize redundancy
       * √ the log_title, log_title_stamp and auto_hyphen_title options operate together as expected
       * √ store and transfers the log_title in many ways
-      * √ The log level property is parsed and assigned the proper value
+      * √ The log_level property is parsed and assigned the proper value
+      * √ The log_output property errors if a non-function is passed in
+      * √ The log_output property is accepted and used appropriately
       * √ quoting can be changed and is used properly
       * √ enumerate_all option has desire effect
       * √ max_character setting is adhered to
@@ -212,7 +220,7 @@
       * √ returns an error message when incorrect style map theme values are used
       * √ returns an error message when incorrect style map theme values are used
 
-  * 141 passing
+  * 149 passing
 
 
 ### ---------- End of unit testing ----------

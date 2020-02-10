@@ -1,6 +1,6 @@
 {
   "name": "bracket_print",
-  "main": "lib/bracket_print.js",
+  "main": "build/bracket_print_umd.js",
   "version": "0.11.6",
   "description": "Comprehensive logging, printing and serialization for ECMA script.",
   "license": "LGPL-3.0",
