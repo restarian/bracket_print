@@ -7,14 +7,14 @@ setlocal fdi=#
 setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
-setlocal fen
+setlocal nofen
 silent! normal! zE
-let s:l = 25 - ((24 * winheight(0) + 21) / 43)
+let s:l = 5679 - ((5 * winheight(0) + 10) / 21)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-25
-normal! 084|
+5679
+normal! 057|
 lcd ~\Worklog\node_modules\bracket_print
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost

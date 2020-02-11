@@ -43,13 +43,13 @@
 * Can output ECMA Objects in html syntax or any other custom created platforms.
 * Supports the ES6 arrow functions.
 * Uses AMD (asynchronous module definition), syntax.
-* Has full [Brace Umd](https://npmjs.org/packages/brace_umd) integration for ideal and deterministic deployment builds.
+* Has full [Brace Umd](https://npmjs.org/packages/brace_umd) integration for ideal, deterministic, and cross-platform deployment builds.
 * Can stringify ECMA script (unlike the *JSON* builtin and other serializers)
 * Bracket Print can safely serialize massive Objects (like the browser *window* property), without hiccups.
 	* Is able to do semantically deep equality tests on ECMA script (not just JSON objects).
 	* Output can be configured to be passed into JSON.parse or eval() methods.
 * Uses a instance return chain to allow for usage as functional programming callbacks.
-* Contains a comprehensive level mechanism to control what is logged at run-time with a nearly total overhead discharge.
+* Contains a comprehensive level mechanism to control what (and how) things get logged at run-time with a nearly total overhead discharge.
 * Provides configurable syntax mapping with custom individualized styles.
 * Well commented, thoroughly unit tested and professionally engineered code.
 

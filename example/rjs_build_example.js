@@ -8,7 +8,7 @@
 		"bracket_print": "bracket_print_umd",
 	},
 	"wrap": {
-		"start": "<html><title>Bracket Print Example</title><body><div id='example'><h2><center>Open the console window for the other print-out example.</center></h2></div><script type=\"text/javascript\">",
+		"start": "<html><title>Bracket Print Example</title><body><div id='example'><h2><center>Open the console window to see more output.</center></h2></div><script type=\"text/javascript\">",
 		"end": nodeRequire("fs").readFileSync(nodeRequire("path").join(config.baseUrl, "node_example.js")).toString() + "</script></body></html>"
 	},
 	"optimize": "none",

@@ -145,6 +145,9 @@
     * Checking for dependencies..
       * √ r_js in the system as a program
     * Serializes functions
+      * √ Setting old line and tab
+      * √ testing for proper indentations and function shifting using denote_line and denote_tab
+      * √ testing for proper indentations and function shifting using denote_line and denote_tab
       * √ serializes functions correctly using compression level 5
       * √ serializes functions correctly using compression level 5 and the shift_function_body option
       * √ serializes functions correctly using compression level 4
@@ -155,6 +158,8 @@
       * √ serializes functions correctly using compression level 2 with the shift_function_body option set
       * √ serializes functions correctly using compression level 1
       * √ serializes functions correctly using compression level 1 with the shift_function_body option set
+      * √ serializes native and built-in functions correctly using compression level 1 with the shift_function_body option set
+      * √ serializes native and built-in functions correctly using compression level 1 with the shift_function_body option set and no indentation string used
       * √ serializes functions within prototypes with various compression levels and options
       * √ serializes objects Object.prototype __proto__ chains
 
@@ -220,7 +225,7 @@
       * √ returns an error message when incorrect style map theme values are used
       * √ returns an error message when incorrect style map theme values are used
 
-  * 149 passing
+  * 154 passing
 
 
 ### ---------- End of unit testing ----------

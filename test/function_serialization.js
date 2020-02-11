@@ -39,7 +39,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 
 	describe("Serializes functions", function() {
 
-		var requirejs, Print, up, ind = "+->"
+		var requirejs, Print, up, ind = "+->", old_tab, old_line 
 		beforeEach(function() {
 			cache.start()
 			requirejs = require("requirejs")
@@ -48,6 +48,11 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		})
 		afterEach(cache.dump.bind(cache))
 
+		it("Setting old line and tab", function() {
+
+			old_tab = Print().style_map[Print().platform].denote_tab
+			old_line = Print().style_map[Print().platform].denote_line
+		})
 
 		var f1, f2, f3, f4, f5, fo1, fo2, fo3, fo4, fo5
 			f1 = function(){}
@@ -75,6 +80,61 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			fo3 = {a:f3,b:null}
 			fo4 = {a:f4,b:null}
 			fo5 = {a:f5,b:null}
+
+		it("testing for proper indentations and function shifting using denote_line and denote_tab", function() {
+			
+var a = function() {var a
+
+
+				var a 
+					var a
+	
+		// test 
+}
+
+			msg = Print({title: false, compression: 1, indentation_string: ind, shift_function_body: true})
+			var line = msg.style_map[msg.platform].denote_line
+			var tab = msg.style_map[msg.platform].denote_tab
+			expect(msg.toString(a)).to.equal("function() {"+line+ind+"var a"+line+line+line+ind+tab+"var a"+line+ind+tab+tab+"var a"+line+line+ind+"\/\/ test"+line+"}")
+
+			msg = Print({title: false, compression: 2, indentation_string: ind, shift_function_body: true})
+			expect(msg.toString(a)).to.equal("function() {"+line+ind+"var a"+line+line+line+ind+tab+"var a"+line+ind+tab+tab+"var a"+line+line+ind+"\/\/ test"+line+"}")
+
+			Print({title: false, compression: 2, indentation_string: ind, shift_function_body: true}).log(a)
+
+			line = msg.style_map[msg.platform].denote_line = "\n++\n"
+			tab = msg.style_map[msg.platform].denote_tab = "\t     \t"
+			msg = Print({title: false, compression: 1, indentation_string: ind, shift_function_body: true})
+			expect(msg.toString(a)).to.equal("function() {"+line+ind+"var a"+line+line+line+ind+tab+"var a"+line+ind+tab+tab+"var a"+line+line+ind+"\/\/ test"+line+"}")
+
+		})
+
+		it("testing for proper indentations and function shifting using denote_line and denote_tab", function() {
+			
+			
+var a = function() {		var a
+
+
+				var a 
+					var a
+	
+		// test 
+}
+			msg = Print({title: false, compression: 1, indentation_string: ind, shift_function_body: false})
+			msg.style_map[msg.platform].denote_tab = old_tab
+			msg.style_map[msg.platform].denote_line = old_line
+			var line = msg.style_map[msg.platform].denote_line
+			var tab = msg.style_map[msg.platform].denote_tab
+			expect(msg.toString(a)).to.equal("function() {"+line+tab+tab+"var a"+line+line+line+tab+tab+tab+tab+"var a"+line+tab+tab+tab+tab+tab+"var a"+line+line+tab+tab+"\/\/ test"+line+"}")
+
+			line = msg.style_map[msg.platform].denote_line = "\n++\n"
+			tab = msg.style_map[msg.platform].denote_tab = "\t     \t"
+			msg = Print({title: false, compression: 1, indentation_string: ind, shift_function_body: false})
+			expect(msg.toString(a)).to.equal("function() {"+line+tab+tab+"var a"+line+line+line+tab+tab+tab+tab+"var a"+line+tab+tab+tab+tab+tab+"var a"+line+line+tab+tab+"\/\/ test"+line+"}")
+
+			msg.style_map[msg.platform].denote_tab = old_tab
+			msg.style_map[msg.platform].denote_line = old_line
+		})
 
 		it("serializes functions correctly using compression level 5", function() {
 
@@ -193,15 +253,15 @@ describe("Using stop further progression methodology for dependencies in: "+path
 
 			up = Print({title: false, compression: 2, indentation_string: ind, shift_function_body: true})
 			expect(up.toString(f1)).to.equal("function() {\n}")
-			expect(up.toString(fo1)).to.equal("{ \n"+ind+"a: function() {\n"+ind+ind+"}, b: null\n}")
+			expect(up.toString(fo1)).to.equal("{ \n"+ind+"a: function() {\n"+ind+"}, b: null\n}")
 			expect(up.toString(f2)).to.equal("function coolJoes( abc, d, e ) {\n}")
-			expect(up.toString(fo2)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d, e ) {\n"+ind+ind+"}, b: null\n}")
-			expect(up.toString(f3)).to.equal("function coolJoes( abc, d ) {\nvar d\n\n\tvar a\n}")
-			expect(up.toString(fo3)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d ) {\n"+ind+"var d\n\n"+ind+"\tvar a\n"+ind+"}, b: null\n}")
-			expect(up.toString(f4)).to.equal("function coolJoes() {\nvar a = 5;\n}")
-			expect(up.toString(fo4)).to.equal("{ \n"+ind+"a: function coolJoes() {\n"+ind+"var a = 5;\n"+ind+"}, b: null\n}")
-			expect(up.toString(f5)).to.equal("function( abc, d, e ) {\nvar a = 2;\n\n var a=2\n}")
-			expect(up.toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) {\n"+ind+"var a = 2;\n\n"+ind+" var a=2\n"+ind+"}, b: null\n}")
+			expect(up.toString(fo2)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d, e ) {\n"+ind+"}, b: null\n}")
+			expect(up.toString(f3)).to.equal("function coolJoes( abc, d ) {\n"+ind+"var d\n\n"+ind+"\tvar a\n}")
+			expect(up.toString(fo3)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d ) {\n"+ind+ind+"var d\n\n"+ind+ind+"\tvar a\n"+ind+"}, b: null\n}")
+			expect(up.toString(f4)).to.equal("function coolJoes() {\n"+ind+"var a = 5;\n}")
+			expect(up.toString(fo4)).to.equal("{ \n"+ind+"a: function coolJoes() {\n"+ind+ind+"var a = 5;\n"+ind+"}, b: null\n}")
+			expect(up.toString(f5)).to.equal("function( abc, d, e ) {\n"+ind+"var a = 2;\n\n"+ind+" var a=2\n}")
+			expect(up.toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) {\n"+ind+ind+"var a = 2;\n\n"+ind+ind+" var a=2\n"+ind+"}, b: null\n}")
 			expect(up.option({truncate_function: true}).toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) { ...\n"+ind+"}, b: null\n}")
 		})
 		it("serializes functions correctly using compression level 1", function() {
@@ -221,20 +281,44 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		})
 		it("serializes functions correctly using compression level 1 with the shift_function_body option set", function() {
 
-			up = Print({title: false, compression: 2, indentation_string: ind, shift_function_body: true})
+			up = Print({title: false, compression: 1, indentation_string: ind, shift_function_body: true})
 			expect(up.toString(f1)).to.equal("function() {\n}")
-			expect(up.toString(fo1)).to.equal("{ \n"+ind+"a: function() {\n"+ind+ind+"}, b: null\n}")
+			expect(up.toString(fo1)).to.equal("{ \n"+ind+"a: function() {\n"+ind+"}, \n"+ind+"b: null\n}")
 			expect(up.toString(f2)).to.equal("function coolJoes( abc, d, e ) {\n}")
-			expect(up.toString(fo2)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d, e ) {\n"+ind+ind+"}, b: null\n}")
-			expect(up.toString(f3)).to.equal("function coolJoes( abc, d ) {\nvar d\n\n\tvar a\n}")
-			expect(up.toString(fo3)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d ) {\n"+ind+"var d\n\n"+ind+"\tvar a\n"+ind+"}, b: null\n}")
-			expect(up.toString(f4)).to.equal("function coolJoes() {\nvar a = 5;\n}")
-			expect(up.toString(fo4)).to.equal("{ \n"+ind+"a: function coolJoes() {\n"+ind+"var a = 5;\n"+ind+"}, b: null\n}")
-			expect(up.toString(f5)).to.equal("function( abc, d, e ) {\nvar a = 2;\n\n var a=2\n}")
-			expect(up.toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) {\n"+ind+"var a = 2;\n\n"+ind+" var a=2\n"+ind+"}, b: null\n}")
-			expect(up.option({truncate_function: true}).toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) { ...\n"+ind+"}, b: null\n}")
+			expect(up.toString(fo2)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d, e ) {\n"+ind+"}, \n"+ind+"b: null\n}")
+			expect(up.toString(f3)).to.equal("function coolJoes( abc, d ) {\n"+ind+"var d\n\n"+ind+"\tvar a\n}")
+			expect(up.toString(fo3)).to.equal("{ \n"+ind+"a: function coolJoes( abc, d ) {\n"+ind+ind+"var d\n\n"+ind+ind+"\tvar a\n"+ind+"}, \n"+ind+"b: null\n}")
+			expect(up.toString(f4)).to.equal("function coolJoes() {\n"+ind+"var a = 5;\n}")
+			expect(up.toString(fo4)).to.equal("{ \n"+ind+"a: function coolJoes() {\n"+ind+ind+"var a = 5;\n"+ind+"}, \n"+ind+"b: null\n}")
+			expect(up.toString(f5)).to.equal("function( abc, d, e ) {\n"+ind+"var a = 2;\n\n"+ind+" var a=2\n}")
+			expect(up.toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) {\n"+ind+ind+"var a = 2;\n\n"+ind+ind+" var a=2\n"+ind+"}, \n"+ind+"b: null\n}")
+			expect(up.option({truncate_function: true}).toString(fo5)).to.equal("{ \n"+ind+"a: function( abc, d, e ) { ...\n"+ind+"}, \n"+ind+"b: null\n}")
 		})
 
+		it("serializes native and built-in functions correctly using compression level 1 with the shift_function_body option set", function() {
+
+			up = Print({title: false, compression: 1, indentation_string: ind, shift_function_body: true})
+			expect(up.toString(Function)).to.equal("function Function() {\n"+ind+"[native code]\n}")
+			expect(up.toString(String)).to.equal("function String() {\n"+ind+"[native code]\n}")
+			expect(up.toString(Number)).to.equal("function Number() {\n"+ind+"[native code]\n}")
+
+			expect(up.toString({"number": Number})).to.equal("{ \n"+ind+"number: function Number() {\n"+ind+ind+"[native code]\n"+ind+"}\n}")
+			expect(up.toString({"number": {number:Number}})).to.equal("{ \n"+ind+"number: { \n"+ind+ind+"number: function Number() {\n"+ind+ind+ind+"[native code]\n"+ind+ind+"}\n"+ind+"}\n}")
+		})
+
+		it("serializes native and built-in functions correctly using compression level 1 with the shift_function_body option set and no indentation string used", function() {
+
+
+			up = Print({title: false, compression: 1, indentation_string: " ", shift_function_body: true})
+			expect(up.toString(Function)).to.equal("function Function() {\n"+" [native code]\n}")
+			/*
+			expect(up.toString(String)).to.equal("function String() {\n"+ind+"[native code]\n}")
+			expect(up.toString(Number)).to.equal("function Number() {\n"+ind+"[native code]\n}")
+
+			expect(up.toString({"number": Number})).to.equal("{ \n"+ind+"number: function Number() {\n"+ind+ind+"[native code]\n"+ind+"}\n}")
+			expect(up.toString({"number": {number:Number}})).to.equal("{ \n"+ind+"number: { \n"+ind+ind+"number: function Number() {\n"+ind+ind+ind+"[native code]\n"+ind+ind+"}\n"+ind+"}\n}")
+			*/
+		})
 
 		it("serializes functions within prototypes with various compression levels and options", function() {
 

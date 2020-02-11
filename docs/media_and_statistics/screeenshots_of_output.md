@@ -25,6 +25,7 @@
 
 ### The screenshots below show usage within varoius browsers in both the console and using the html style map.
 
+![Browser pic five](https://raw.githubusercontent.com/restarian/bracket_print/master/docs/image/browser_pic_5.jpg)
 ![Browser pic one](https://raw.githubusercontent.com/restarian/bracket_print/master/docs/image/browser_pic_1.jpg)
 ![Browser pic two](https://raw.githubusercontent.com/restarian/bracket_print/master/docs/image/browser_pic_2.jpg)
 ![Browser pic three](https://raw.githubusercontent.com/restarian/bracket_print/master/docs/image/browser_pic_3.jpg)

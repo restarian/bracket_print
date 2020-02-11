@@ -24,7 +24,7 @@
     * [Accessing the style map](https://github.com/restarian/bracket_print/blob/master/docs/usage_and_examples/advanced_usage/accessing_the_style_map.md)
 ----
 
-**Version**: 0.11.6
+**Version**: 0.11.7
 
 **Description**: Comprehensive logging, printing and serialization for ECMA script.
 
@@ -48,7 +48,7 @@
  | build | ```npm run build_config && npm run build_umd && npm run build_amd && npm run build_example``` |
  | make_docs | ```brace_document --navlink --link --link-dest ../Readme.md --link-path ../docs/synopsis.md -r -i docs --force-title --title "Bracket Print help pages" --sort depth --specification --mocha``` |
 
-**Keywords**: *printing*, *console*, *logger*, *logging*, *serialize*
+**Keywords**: *printing*, *console*, *logging*, *eval*, *serialize*
 
 **Technologies used in development**:
   * [VIM](https://www.vim.org) As an IDE
