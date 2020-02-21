@@ -1,12 +1,10 @@
-/* Bracket Print resides under the LGPL v3 Copyright (c) 2020 Robert Steckroth, Bust0ut <RobertSteckroth@gmail.com>
+/* Copyright (c) 2020 Robert Steckroth, Bust0ut <RobertSteckroth@gmail.com> Bracket Print resides under the LGPL version 3
+Bracket Print is a cross-platform printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
-
- this file is a part of Bracket Print
-
- Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
 the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- Bracket Print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+
+Bracket Print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
 or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
@@ -34,11 +32,9 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			it_will.stop = false 
 			done()
 		})
-
 	})
 
 	describe("Internal storage", function() {
-
 
 		var requirejs, Print, up, ind = "+->"
 		beforeEach(function() {
@@ -53,7 +49,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 
 			expect(Print.spawn({enumerate_all: true, compression: 3, character_limit: 101000}).s(global).toString().length).to.equal(101000)
 		})
-
 		it("serializes objects with manually added __proto__ chains", function() {
 
 			var a = {aa: "str", bb: "joes", __proto__: {here: 22, there: 55}}
@@ -68,9 +63,7 @@ describe("Using stop further progression methodology for dependencies in: "+path
 			expect(up.s(c).toString()).to.equal('{"__proto__":{"here":22,"there":55}}')
 			expect(up.s(d).toString()).to.equal('{"__proto__":{"here":22,"there":55,"__proto__":{"cool":"joes","yep":6}}}')
 			expect(up.s({}).toString()).to.equal('{}')
-
 		})
-
 		it("serializes objects with manually added empty __proto__ Objects", function() {
 
 			var up = Print.spawn()

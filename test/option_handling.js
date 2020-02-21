@@ -1,12 +1,10 @@
-/* Bracket Print resides under the LGPL v3 Copyright (c) 2020 Robert Steckroth, Bust0ut <RobertSteckroth@gmail.com>
+/* Copyright (c) 2020 Robert Steckroth, Bust0ut <RobertSteckroth@gmail.com> Bracket Print resides under the LGPL version 3
+Bracket Print is a cross-platform printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
 
-Bracket print is a printing and logging tool for javascript engines which supplies literal ECMA Object serialization.
-
- this file is a part of Bracket Print
-
- Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
+Bracket Print is free software: you can redistribute it and/or modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by
 the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- Bracket Print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+
+Bracket Print is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
 or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
@@ -37,7 +35,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		})
 
 	})
-
 	describe("the options mechanism", function() {
 
 		it("works with the prototype as default options in the expected way", function() {
@@ -74,9 +71,9 @@ describe("Using stop further progression methodology for dependencies in: "+path
 		;([true, false]).forEach(function(value) {
 
 			it("setting Print prototype value to "+value, function() {
+
 				Print.prototype.style = value 
 			})
-
 			it("create the desired prototype chain and utilize redundancy", function() {
 
 				var up = Print({level: 1})
@@ -92,7 +89,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				expect(b.level).to.equal(12)
 				expect(up.level).to.equal(1)
 			})
-
 			it("the log_title, log_title_stamp and auto_hyphen_title options operate together as expected", function() {
 			
 				expect(s.option({}).title_stamp).to.be.a("function")
@@ -116,11 +112,6 @@ describe("Using stop further progression methodology for dependencies in: "+path
 				s.option({log_title: "", title_stamp: function() { return "here"}}).log()
 				unhook_intercept()
 				expect(captured_text).to.include("[here]")
-
-				captured_text = "", unhook_intercept = intercept(function(txt) { captured_text += txt })
-				s.option({title: false, log_title: "cool", title_stamp: function() { return "here"}}).log()
-				unhook_intercept()
-				expect(captured_text).to.include((s.currentTheme.open_with||"") + (s.currentTheme.close_with||""))
 
 				captured_text = "", unhook_intercept = intercept(function(txt) { captured_text += txt })
 				var a = s.option({title: true, log_title: "cool", title_stamp: function() { return ""}}).log()

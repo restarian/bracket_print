@@ -14,7 +14,7 @@
 		"brace_option": "empty:"
 	},
 	"optimize": "uglify",
-	"uglify2": nodeRequire("brace_umd").build_option,
+	"uglify3": nodeRequire("brace_umd").build_option,
 	"keepAmdefine": false,
 	"keepBuildDir": true,
 	"writeBuildTxt": false,
